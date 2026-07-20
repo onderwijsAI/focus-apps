@@ -494,7 +494,17 @@ const FT = (() => {
   /* ---- State ---- */
   const state = {
     tab: 'leren',
-    apiKey: localStorage.getItem('ft_apikey') || '',
+    apiKey: (() => {
+      // Check URL hash first (survives PWA reinstall on iPhone)
+      const hash = location.hash;
+      const m = hash.match(/[#&]key=([^&]+)/);
+      if (m) {
+        const k = decodeURIComponent(m[1]);
+        localStorage.setItem('ft_apikey', k);
+        return k;
+      }
+      return localStorage.getItem('ft_apikey') || '';
+    })(),
     playing: null,
     settings: false,
     tabs: {
@@ -943,6 +953,8 @@ const FT = (() => {
     }
     state.apiKey = key;
     localStorage.setItem('ft_apikey', key);
+    // Also store in URL hash so PWA homescreen shortcut preserves the key
+    location.hash = 'key=' + encodeURIComponent(key);
     el.apiStatus().textContent = 'Key opgeslagen!';
     el.apiStatus().className = 'api-status ok';
 
@@ -1026,7 +1038,7 @@ const FT = (() => {
       name: 'FocusTube',
       short_name: 'FocusTube',
       description: 'Gefocust YouTube kijken - muziek en educatieve content',
-      start_url: location.href.split('?')[0],
+      start_url: location.href.split('?')[0].split('#')[0] + (location.hash || ''),
       display: 'standalone',
       background_color: '#0b0b14',
       theme_color: '#0b0b14',

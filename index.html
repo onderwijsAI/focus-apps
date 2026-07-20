@@ -299,7 +299,9 @@ body {
 }
 
 .news-card {
-  display: block;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
   background: var(--surface);
   border-radius: var(--radius-sm);
   padding: 14px 16px;
@@ -313,6 +315,11 @@ body {
 .news-card:hover, .news-card:active {
   background: var(--surface-hover);
   border-color: #333;
+}
+
+.news-card-content {
+  flex: 1;
+  min-width: 0;
 }
 
 .news-card-title {
@@ -346,6 +353,66 @@ body {
   border-radius: 50%;
   background: var(--text-tertiary);
   flex-shrink: 0;
+}
+
+/* LinkedIn save button */
+.save-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  color: var(--text-tertiary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.15s, background 0.15s;
+  margin-top: 2px;
+}
+
+.save-btn:hover, .save-btn:active {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.save-btn.saved {
+  color: var(--accent);
+}
+
+.save-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Zie meer button */
+.see-more-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.see-more-btn:hover, .see-more-btn:active {
+  background: var(--surface-hover);
+  border-color: #333;
+}
+
+.see-more-btn.loading {
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 /* Skeletons */
@@ -391,6 +458,74 @@ body {
   font-size: 14px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Podcast Card */
+.podcast-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  transition: background 0.15s, border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+.podcast-card:hover, .podcast-card:active {
+  background: var(--surface-hover);
+  border-color: #333;
+}
+
+.podcast-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.podcast-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--text);
+}
+
+.podcast-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.podcast-name {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.podcast-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.podcast-icon svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
 }
 
 /* Book Card */
@@ -612,6 +747,101 @@ body {
   margin-bottom: 4px;
 }
 
+/* LinkedIn queue in settings */
+.linkedin-queue-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.linkedin-queue-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.linkedin-queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.linkedin-queue-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--bg);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.linkedin-queue-item-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.linkedin-queue-remove {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.linkedin-queue-remove:hover {
+  color: var(--red);
+  background: var(--red-dim);
+}
+
+.linkedin-queue-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.linkedin-queue-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.linkedin-queue-btn.primary {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-color: transparent;
+}
+
+.linkedin-queue-empty {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  padding: 12px 0;
+}
+
 /* Refresh indicator */
 .refresh-indicator {
   text-align: center;
@@ -742,6 +972,15 @@ body {
     <div class="news-list" id="listWetenschap"></div>
   </section>
 
+  <!-- Podcasts -->
+  <section class="news-section" id="sectionPodcasts">
+    <div class="section-header">
+      <h2 class="section-title">Podcasts</h2>
+      <span class="section-count" id="countPodcasts"></span>
+    </div>
+    <div class="news-list" id="listPodcasts"></div>
+  </section>
+
   <!-- Luistertip van de dag -->
   <section class="book-section">
     <div class="section-header">
@@ -761,12 +1000,17 @@ body {
       <button class="settings-close" id="settingsClose">&times;</button>
     </div>
     <div class="settings-body">
-      <div class="setting-group">
-        <div class="setting-label">NewsAPI Sleutel</div>
-        <div class="setting-help">Optioneel. Voeg een NewsAPI.org API-sleutel toe voor betere nieuwsresultaten.</div>
-        <input class="setting-input" type="text" id="newsApiKeyInput" placeholder="bijv. abc123def456..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <button class="settings-save" id="settingsSave">Sluiten</button>
+
+      <!-- LinkedIn Queue -->
+      <div class="linkedin-queue-section" id="linkedinQueueSection">
+        <h3>
+          <span>LinkedIn wachtrij</span>
+          <span class="section-count" id="linkedinQueueCount"></span>
+        </h3>
+        <div id="linkedinQueueContent"></div>
       </div>
-      <button class="settings-save" id="settingsSave">Opslaan</button>
+
       <div class="settings-info">
         <h3>Installeren als app</h3>
         <ol>
@@ -775,7 +1019,7 @@ body {
           <li>Scroll naar beneden en tik op "Zet op beginscherm"</li>
           <li>Tik op "Voeg toe"</li>
         </ol>
-        <p style="margin-top: 12px;">Focus Dashboard toont Bitcoin, AI-nieuws, onderwijsnieuws en wetenschap in een overzichtelijk dashboard.</p>
+        <p style="margin-top: 12px;">Focus Dashboard toont Bitcoin, AI-nieuws, onderwijsnieuws, wetenschap en podcasts in een overzichtelijk dashboard.</p>
       </div>
     </div>
   </div>
@@ -829,18 +1073,28 @@ const RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
 const FEEDS = {
   ai: [
     { name: 'The Decoder', url: 'https://the-decoder.com/feed/', color: '#6C63FF' },
-    { name: 'Google News', url: 'https://news.google.com/rss/search?q=artificial+intelligence&hl=nl&gl=NL', color: '#4285F4' }
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=OpenAI+OR+Anthropic+OR+Claude+OR+ChatGPT+OR+%22AI+beleid%22+OR+%22kunstmatige+intelligentie%22&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'Google AI Blog', url: 'https://blog.google/technology/ai/rss/', color: '#34A853' },
+    { name: 'OpenAI Blog', url: 'https://openai.com/blog/rss.xml', color: '#10A37F' }
   ],
   onderwijs: [
-    { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijs+nederland&hl=nl&gl=NL', color: '#4285F4' },
     { name: 'Kennisnet', url: 'https://www.kennisnet.nl/rss/', color: '#0A9E28' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijs+OR+school+OR+%22voortgezet+onderwijs%22+OR+%22primair+onderwijs%22+OR+onderwijsraad+OR+inspectie+onderwijs&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'SURF', url: 'https://www.surf.nl/feed', color: '#FF6B00' },
     { name: 'ScienceGuide', url: 'https://www.scienceguide.nl/feed/', color: '#E85D26' }
   ],
   wetenschap: [
-    { name: 'Google News', url: 'https://news.google.com/rss/search?q=wetenschap+onderzoek&hl=nl&gl=NL', color: '#4285F4' },
-    { name: 'New Scientist', url: 'https://www.newscientist.nl/feed/', color: '#CC0000' }
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22leerwetenschap%22+OR+%22cognitieve+wetenschap%22+OR+%22onderwijsonderzoek%22+OR+%22formatief+handelen%22+OR+%22evidence+informed%22&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'Scientias', url: 'https://www.scientias.nl/feed/', color: '#2196F3' },
+    { name: 'Google News EN', url: 'https://news.google.com/rss/search?q=%22learning+science%22+OR+%22educational+psychology%22+OR+%22cognitive+science%22+education&hl=en', color: '#4285F4' }
   ]
 };
+
+const PODCAST_FEEDS = [
+  { name: 'Hard Fork', url: 'https://feeds.simplecast.com/l2i9YnTd', color: '#FBBF24' },
+  { name: 'Google News Podcasts', url: 'https://news.google.com/rss/search?q=%22AI+Report%22+OR+%22Turing+podcast%22+OR+%22Onderwijs+AI%22+podcast+AI&hl=nl&gl=NL', color: '#FBBF24' },
+  { name: 'AI Today', url: 'https://news.google.com/rss/search?q=%22AI+Today+podcast%22+OR+%22artificial+intelligence+podcast%22&hl=en', color: '#FBBF24' }
+];
 
 /* ==============================================================
    BITCOIN API
@@ -856,6 +1110,14 @@ let btcChartCache = {};
 let btcPriceCache = null;
 let btcInterval = null;
 
+// News state: all articles per category, how many shown
+const newsState = {
+  ai: { all: [], shown: 5 },
+  onderwijs: { all: [], shown: 5 },
+  wetenschap: { all: [], shown: 5 },
+  podcasts: { all: [], shown: 3 }
+};
+
 /* ==============================================================
    DUTCH MONTHS
    ============================================================== */
@@ -864,11 +1126,12 @@ const MAANDEN_KORT = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 's
 /* ==============================================================
    INIT
    ============================================================== */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   registerSW();
   loadBTCPrice();
   loadBTCChart(currentChartDays);
   loadAllNews();
+  loadPodcasts();
   loadBook();
   setupEvents();
   btcInterval = setInterval(loadBTCPrice, 60000);
@@ -879,7 +1142,24 @@ document.addEventListener('DOMContentLoaded', () => {
    ============================================================== */
 function registerSW() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
+    // Cache-busting: append version to SW URL
+    var swVersion = 'v3';
+    navigator.serviceWorker.register('sw.js?v=' + swVersion).then(function(reg) {
+      // Force update check
+      reg.update();
+    }).catch(function() {});
+
+    // Clean up old caches
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        names.forEach(function(name) {
+          // Remove any cache that doesn't match current version
+          if (name !== 'focus-dashboard-' + swVersion) {
+            caches.delete(name);
+          }
+        });
+      });
+    }
   }
 }
 
@@ -887,11 +1167,11 @@ function registerSW() {
    BITCOIN PRICE
    ============================================================== */
 async function loadBTCPrice() {
-  const priceEl = document.getElementById('btcPrice');
-  const changeEl = document.getElementById('btcChange');
+  var priceEl = document.getElementById('btcPrice');
+  var changeEl = document.getElementById('btcChange');
 
   try {
-    const res = await fetch(BTC_PRICE_API, { signal: AbortSignal.timeout(8000) });
+    var res = await fetch(BTC_PRICE_API, { signal: AbortSignal.timeout(8000) });
     if (res.status === 429) {
       if (btcPriceCache) {
         renderBTCPrice(btcPriceCache.price, btcPriceCache.change);
@@ -900,10 +1180,10 @@ async function loadBTCPrice() {
       }
       return;
     }
-    const data = await res.json();
-    const price = data.bitcoin.usd;
-    const change = data.bitcoin.usd_24h_change;
-    btcPriceCache = { price, change };
+    var data = await res.json();
+    var price = data.bitcoin.usd;
+    var change = data.bitcoin.usd_24h_change;
+    btcPriceCache = { price: price, change: change };
     renderBTCPrice(price, change);
   } catch (e) {
     if (btcPriceCache) {
@@ -917,10 +1197,10 @@ async function loadBTCPrice() {
 }
 
 function renderBTCPrice(price, change) {
-  const priceEl = document.getElementById('btcPrice');
-  const changeEl = document.getElementById('btcChange');
+  var priceEl = document.getElementById('btcPrice');
+  var changeEl = document.getElementById('btcChange');
   priceEl.textContent = formatUSD(price);
-  const sign = change >= 0 ? '+' : '';
+  var sign = change >= 0 ? '+' : '';
   changeEl.textContent = sign + change.toFixed(2) + '%';
   changeEl.className = 'btc-change ' + (change >= 0 ? 'positive' : 'negative');
 }
@@ -933,18 +1213,17 @@ function formatUSD(n) {
    BITCOIN CHART
    ============================================================== */
 async function loadBTCChart(days) {
-  const canvas = document.getElementById('btcChart');
-  const loadingEl = document.getElementById('btcChartLoading');
-  const yMaxEl = document.getElementById('btcYMax');
-  const yMinEl = document.getElementById('btcYMin');
-  const xStartEl = document.getElementById('btcXStart');
-  const xEndEl = document.getElementById('btcXEnd');
+  var canvas = document.getElementById('btcChart');
+  var loadingEl = document.getElementById('btcChartLoading');
+  var yMaxEl = document.getElementById('btcYMax');
+  var yMinEl = document.getElementById('btcYMin');
+  var xStartEl = document.getElementById('btcXStart');
+  var xEndEl = document.getElementById('btcXEnd');
 
   loadingEl.style.display = 'flex';
 
-  // Check cache
-  const cacheKey = 'btc_' + days;
-  const cached = btcChartCache[cacheKey];
+  var cacheKey = 'btc_' + days;
+  var cached = btcChartCache[cacheKey];
   if (cached && (Date.now() - cached.ts < 120000)) {
     drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
     loadingEl.style.display = 'none';
@@ -952,7 +1231,7 @@ async function loadBTCChart(days) {
   }
 
   try {
-    const res = await fetch(BTC_CHART_API + days, { signal: AbortSignal.timeout(10000) });
+    var res = await fetch(BTC_CHART_API + days, { signal: AbortSignal.timeout(10000) });
     if (res.status === 429) {
       if (cached) {
         drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
@@ -963,7 +1242,7 @@ async function loadBTCChart(days) {
       }
       return;
     }
-    const data = await res.json();
+    var data = await res.json();
     if (!data.prices || data.prices.length === 0) {
       loadingEl.textContent = 'Geen data';
       return;
@@ -982,48 +1261,47 @@ async function loadBTCChart(days) {
 }
 
 function drawChart(canvas, priceData, yMaxEl, yMinEl, xStartEl, xEndEl) {
-  const dpr = window.devicePixelRatio || 1;
-  const rect = canvas.parentElement.getBoundingClientRect();
+  var dpr = window.devicePixelRatio || 1;
+  var rect = canvas.parentElement.getBoundingClientRect();
   canvas.width = rect.width * dpr;
   canvas.height = rect.height * dpr;
-  const ctx = canvas.getContext('2d');
+  var ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
 
-  const w = rect.width;
-  const h = rect.height;
-  const padTop = 8;
-  const padBottom = 28;
-  const padLeft = 2;
-  const padRight = 2;
-  const chartW = w - padLeft - padRight;
-  const chartH = h - padTop - padBottom;
+  var w = rect.width;
+  var h = rect.height;
+  var padTop = 8;
+  var padBottom = 28;
+  var padLeft = 2;
+  var padRight = 2;
+  var chartW = w - padLeft - padRight;
+  var chartH = h - padTop - padBottom;
 
-  const values = priceData.map(p => p[1]);
-  const timestamps = priceData.map(p => p[0]);
-  const min = Math.min(...values);
-  const max = Math.max(...values);
-  const range = max - min || 1;
+  var values = priceData.map(function(p) { return p[1]; });
+  var timestamps = priceData.map(function(p) { return p[0]; });
+  var min = Math.min.apply(null, values);
+  var max = Math.max.apply(null, values);
+  var range = max - min || 1;
 
-  const isUp = values[values.length - 1] >= values[0];
-  const lineColor = isUp ? '#34D399' : '#F87171';
+  var isUp = values[values.length - 1] >= values[0];
+  var lineColor = isUp ? '#34D399' : '#F87171';
 
-  // Clear
   ctx.clearRect(0, 0, w, h);
 
-  // Build points
-  const points = values.map((v, i) => ({
-    x: padLeft + (i / (values.length - 1)) * chartW,
-    y: padTop + (1 - (v - min) / range) * chartH
-  }));
+  var points = values.map(function(v, i) {
+    return {
+      x: padLeft + (i / (values.length - 1)) * chartW,
+      y: padTop + (1 - (v - min) / range) * chartH
+    };
+  });
 
-  // Gradient fill
-  const gradient = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
+  var gradient = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
   gradient.addColorStop(0, isUp ? 'rgba(52,211,153,0.20)' : 'rgba(248,113,113,0.20)');
   gradient.addColorStop(1, 'rgba(0,0,0,0)');
 
   ctx.beginPath();
   ctx.moveTo(points[0].x, points[0].y);
-  for (let i = 1; i < points.length; i++) {
+  for (var i = 1; i < points.length; i++) {
     ctx.lineTo(points[i].x, points[i].y);
   }
   ctx.lineTo(padLeft + chartW, padTop + chartH);
@@ -1032,10 +1310,9 @@ function drawChart(canvas, priceData, yMaxEl, yMinEl, xStartEl, xEndEl) {
   ctx.fillStyle = gradient;
   ctx.fill();
 
-  // Line
   ctx.beginPath();
   ctx.moveTo(points[0].x, points[0].y);
-  for (let i = 1; i < points.length; i++) {
+  for (var i = 1; i < points.length; i++) {
     ctx.lineTo(points[i].x, points[i].y);
   }
   ctx.strokeStyle = lineColor;
@@ -1044,13 +1321,11 @@ function drawChart(canvas, priceData, yMaxEl, yMinEl, xStartEl, xEndEl) {
   ctx.lineCap = 'round';
   ctx.stroke();
 
-  // Y-axis labels
   yMaxEl.textContent = formatUSD(max);
   yMinEl.textContent = formatUSD(min);
 
-  // X-axis labels
-  const startDate = new Date(timestamps[0]);
-  const endDate = new Date(timestamps[timestamps.length - 1]);
+  var startDate = new Date(timestamps[0]);
+  var endDate = new Date(timestamps[timestamps.length - 1]);
   xStartEl.textContent = formatDateShort(startDate);
   xEndEl.textContent = formatDateShort(endDate);
 }
@@ -1063,8 +1338,8 @@ function formatDateShort(d) {
    NEWS
    ============================================================== */
 function skeletonHTML(count) {
-  let html = '';
-  for (let i = 0; i < count; i++) {
+  var html = '';
+  for (var i = 0; i < count; i++) {
     html += '<div class="news-skeleton"><div class="skeleton-line w80"></div><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div></div>';
   }
   return html;
@@ -1077,65 +1352,109 @@ function loadAllNews() {
 }
 
 async function loadNewsSection(key, feeds, listId, countId) {
-  const listEl = document.getElementById(listId);
-  const countEl = document.getElementById(countId);
+  var listEl = document.getElementById(listId);
+  var countEl = document.getElementById(countId);
 
-  // Show skeletons
   listEl.innerHTML = skeletonHTML(3);
 
-  let articles = [];
+  var articles = [];
 
-  // Fetch all feeds in parallel
-  const results = await Promise.allSettled(feeds.map(f => fetchRSSFeed(f)));
+  var results = await Promise.allSettled(feeds.map(function(f) { return fetchRSSFeed(f); }));
 
-  results.forEach(r => {
+  results.forEach(function(r) {
     if (r.status === 'fulfilled' && r.value) {
-      articles.push(...r.value);
+      articles.push.apply(articles, r.value);
     }
   });
 
-  // Sort newest first, deduplicate, limit to 5
-  articles.sort((a, b) => b.date - a.date);
-  const seen = new Set();
-  articles = articles.filter(a => {
-    const k = a.title.toLowerCase().replace(/\s+/g, ' ').trim();
+  // Sort newest first, deduplicate
+  articles.sort(function(a, b) { return b.date - a.date; });
+  var seen = new Set();
+  articles = articles.filter(function(a) {
+    var k = a.title.toLowerCase().replace(/\s+/g, ' ').trim().substring(0, 60);
     if (seen.has(k)) return false;
     seen.add(k);
     return true;
-  }).slice(0, 5);
+  });
+
+  // Store all articles
+  newsState[key].all = articles;
+  newsState[key].shown = 5;
 
   if (articles.length === 0) {
-    listEl.innerHTML = '<div class="news-error"><p>Kon geen artikelen laden.</p><button onclick="loadNewsSection(\'' + key + '\', FEEDS.' + key + ', \'' + listId + '\', \'' + countId + '\')">Opnieuw</button></div>';
+    listEl.innerHTML = '<div class="news-error"><p>Kon geen artikelen laden.</p><button onclick="loadNewsSection(\'' + key + '\', FEEDS.' + key + ', \'' + listId + '\', \'' + countId + '\')">Opnieuw proberen</button></div>';
     countEl.textContent = '';
     return;
   }
 
   countEl.textContent = articles.length + ' artikelen';
-  renderNews(listEl, articles);
+  renderNewsWithMore(key, listId);
+}
+
+function renderNewsWithMore(key, listId) {
+  var listEl = document.getElementById(listId);
+  var state = newsState[key];
+  var toShow = state.all.slice(0, state.shown);
+
+  listEl.innerHTML = toShow.map(function(a) {
+    return renderNewsCard(a);
+  }).join('');
+
+  // Add "Zie meer" button if there are more
+  if (state.shown < state.all.length) {
+    var remaining = state.all.length - state.shown;
+    listEl.innerHTML += '<button class="see-more-btn" onclick="showMoreNews(\'' + key + '\', \'' + listId + '\')">Zie meer (' + remaining + ')</button>';
+  }
+}
+
+function showMoreNews(key, listId) {
+  newsState[key].shown += 10;
+  renderNewsWithMore(key, listId);
+}
+
+function renderNewsCard(a) {
+  var href = a.link ? ' href="' + escapeAttr(a.link) + '"' : '';
+  var savedClass = isInLinkedInQueue(a.link) ? ' saved' : '';
+  return '<div class="news-card">' +
+    '<a class="news-card-content"' + href + ' target="_blank" rel="noopener" style="text-decoration:none;color:inherit;flex:1;min-width:0">' +
+      '<div class="news-card-title">' + escapeHTML(a.title) + '</div>' +
+      '<div class="news-card-meta">' +
+        '<span class="news-source" style="color:' + a.sourceColor + '">' + escapeHTML(a.source) + '</span>' +
+        '<span class="news-dot"></span>' +
+        '<span>' + a.timeAgo + '</span>' +
+      '</div>' +
+    '</a>' +
+    '<button class="save-btn' + savedClass + '" onclick="saveToLinkedIn(\'' + escapeAttr(a.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(a.link) + '\')" title="Opslaan voor LinkedIn">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
+    '</button>' +
+  '</div>';
 }
 
 async function fetchRSSFeed(feed) {
   try {
-    const url = RSS2JSON + encodeURIComponent(feed.url);
-    const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
-    const data = await res.json();
+    var url = RSS2JSON + encodeURIComponent(feed.url);
+    var res = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    var data = await res.json();
 
     if (data.status !== 'ok' || !data.items) return [];
 
-    const result = [];
-    const items = data.items.slice(0, 8);
+    var result = [];
+    var items = data.items.slice(0, 10);
 
-    for (const item of items) {
-      const title = item.title || '';
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var title = item.title || '';
       if (!title) continue;
 
-      const link = item.link || '';
-      const pubDate = item.pubDate;
-      const date = pubDate ? new Date(pubDate) : new Date();
+      var link = item.link || '';
+      var pubDate = item.pubDate;
+      var date = pubDate ? new Date(pubDate) : new Date();
 
-      // Determine source name
-      let sourceName = feed.name;
+      var sourceName = feed.name;
       if (feed.name === 'Google News' && item.author) {
+        sourceName = item.author;
+      }
+      if (feed.name === 'Google News EN' && item.author) {
         sourceName = item.author;
       }
 
@@ -1154,33 +1473,221 @@ async function fetchRSSFeed(feed) {
   }
 }
 
-function renderNews(container, articles) {
-  container.innerHTML = articles.map(a => {
-    const href = a.link ? ' href="' + escapeAttr(a.link) + '"' : '';
-    return '<a class="news-card"' + href + ' target="_blank" rel="noopener">' +
-      '<div class="news-card-title">' + escapeHTML(a.title) + '</div>' +
-      '<div class="news-card-meta">' +
-        '<span class="news-source" style="color:' + a.sourceColor + '">' + escapeHTML(a.source) + '</span>' +
-        '<span class="news-dot"></span>' +
-        '<span>' + a.timeAgo + '</span>' +
-      '</div>' +
-    '</a>';
+/* ==============================================================
+   PODCASTS
+   ============================================================== */
+async function loadPodcasts() {
+  var listEl = document.getElementById('listPodcasts');
+  var countEl = document.getElementById('countPodcasts');
+
+  listEl.innerHTML = skeletonHTML(2);
+
+  var episodes = [];
+
+  var results = await Promise.allSettled(PODCAST_FEEDS.map(function(f) { return fetchRSSFeed(f); }));
+
+  results.forEach(function(r) {
+    if (r.status === 'fulfilled' && r.value) {
+      r.value.forEach(function(ep) {
+        ep.isPodcast = true;
+      });
+      episodes.push.apply(episodes, r.value);
+    }
+  });
+
+  // Sort newest first, deduplicate
+  episodes.sort(function(a, b) { return b.date - a.date; });
+  var seen = new Set();
+  episodes = episodes.filter(function(a) {
+    var k = a.title.toLowerCase().replace(/\s+/g, ' ').trim().substring(0, 60);
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+
+  newsState.podcasts.all = episodes;
+  newsState.podcasts.shown = 3;
+
+  if (episodes.length === 0) {
+    listEl.innerHTML = '<div class="news-error"><p>Kon geen podcasts laden.</p><button onclick="loadPodcasts()">Opnieuw proberen</button></div>';
+    countEl.textContent = '';
+    return;
+  }
+
+  countEl.textContent = episodes.length + ' afleveringen';
+  renderPodcastsWithMore();
+}
+
+function renderPodcastsWithMore() {
+  var listEl = document.getElementById('listPodcasts');
+  var state = newsState.podcasts;
+  var toShow = state.all.slice(0, state.shown);
+
+  listEl.innerHTML = toShow.map(function(ep) {
+    return renderPodcastCard(ep);
   }).join('');
+
+  if (state.shown < state.all.length) {
+    var remaining = state.all.length - state.shown;
+    listEl.innerHTML += '<button class="see-more-btn" onclick="showMorePodcasts()">Meer afleveringen (' + remaining + ')</button>';
+  }
+}
+
+function showMorePodcasts() {
+  newsState.podcasts.shown += 10;
+  renderPodcastsWithMore();
+}
+
+function renderPodcastCard(ep) {
+  var href = ep.link ? ' href="' + escapeAttr(ep.link) + '"' : '';
+  var savedClass = isInLinkedInQueue(ep.link) ? ' saved' : '';
+  return '<div class="podcast-card">' +
+    '<div class="podcast-icon">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>' +
+    '</div>' +
+    '<a class="podcast-card-content"' + href + ' target="_blank" rel="noopener" style="text-decoration:none;color:inherit;flex:1;min-width:0">' +
+      '<div class="podcast-card-title">' + escapeHTML(ep.title) + '</div>' +
+      '<div class="podcast-card-meta">' +
+        '<span class="podcast-name">' + escapeHTML(ep.source) + '</span>' +
+        '<span class="news-dot"></span>' +
+        '<span>' + ep.timeAgo + '</span>' +
+      '</div>' +
+    '</a>' +
+    '<button class="save-btn' + savedClass + '" onclick="saveToLinkedIn(\'' + escapeAttr(ep.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(ep.link) + '\')" title="Opslaan voor LinkedIn">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
+    '</button>' +
+  '</div>';
+}
+
+/* ==============================================================
+   LINKEDIN QUEUE
+   ============================================================== */
+function getLinkedInQueue() {
+  try {
+    return JSON.parse(localStorage.getItem('linkedin_queue') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveLinkedInQueue(queue) {
+  localStorage.setItem('linkedin_queue', JSON.stringify(queue));
+}
+
+function isInLinkedInQueue(link) {
+  var queue = getLinkedInQueue();
+  return queue.some(function(item) { return item.link === link; });
+}
+
+function saveToLinkedIn(title, link) {
+  var queue = getLinkedInQueue();
+  // Don't add duplicates
+  if (queue.some(function(item) { return item.link === link; })) {
+    showToast('Al opgeslagen voor LinkedIn');
+    return;
+  }
+  queue.push({ title: title, link: link, date: new Date().toISOString() });
+  saveLinkedInQueue(queue);
+  showToast('Opgeslagen voor LinkedIn');
+
+  // Update save button state
+  document.querySelectorAll('.save-btn').forEach(function(btn) {
+    var onclickStr = btn.getAttribute('onclick') || '';
+    if (onclickStr.indexOf(link) !== -1) {
+      btn.classList.add('saved');
+    }
+  });
+}
+
+function removeFromLinkedInQueue(index) {
+  var queue = getLinkedInQueue();
+  queue.splice(index, 1);
+  saveLinkedInQueue(queue);
+  renderLinkedInQueue();
+}
+
+function clearLinkedInQueue() {
+  saveLinkedInQueue([]);
+  renderLinkedInQueue();
+  showToast('Wachtrij gewist');
+}
+
+function copyLinkedInQueue() {
+  var queue = getLinkedInQueue();
+  if (queue.length === 0) {
+    showToast('Wachtrij is leeg');
+    return;
+  }
+  var text = queue.map(function(item, i) {
+    return (i + 1) + '. ' + item.title + '\n   ' + item.link;
+  }).join('\n\n');
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() {
+      showToast('Gekopieerd naar klembord');
+    }).catch(function() {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  showToast('Gekopieerd naar klembord');
+}
+
+function renderLinkedInQueue() {
+  var container = document.getElementById('linkedinQueueContent');
+  var countEl = document.getElementById('linkedinQueueCount');
+  var queue = getLinkedInQueue();
+
+  if (queue.length === 0) {
+    countEl.textContent = '';
+    container.innerHTML = '<div class="linkedin-queue-empty">Nog geen artikelen opgeslagen. Tik op het bladwijzer-icoon bij een artikel om het toe te voegen.</div>';
+    return;
+  }
+
+  countEl.textContent = queue.length + ' items';
+
+  var html = '<div class="linkedin-queue-list">';
+  queue.forEach(function(item, i) {
+    html += '<div class="linkedin-queue-item">' +
+      '<div class="linkedin-queue-item-title">' + escapeHTML(item.title) + '</div>' +
+      '<button class="linkedin-queue-remove" onclick="removeFromLinkedInQueue(' + i + ')" title="Verwijderen">&times;</button>' +
+    '</div>';
+  });
+  html += '</div>';
+
+  html += '<div class="linkedin-queue-actions">' +
+    '<button class="linkedin-queue-btn primary" onclick="copyLinkedInQueue()">Kopieer alles</button>' +
+    '<button class="linkedin-queue-btn" onclick="clearLinkedInQueue()">Wis alles</button>' +
+  '</div>';
+
+  container.innerHTML = html;
 }
 
 /* ==============================================================
    BOOK / LUISTERTIP
    ============================================================== */
 function loadBook() {
-  const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 0);
-  const diff = now - start;
-  const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const index = dayOfYear % BOOKS.length;
-  const book = BOOKS[index];
+  var now = new Date();
+  var start = new Date(now.getFullYear(), 0, 0);
+  var diff = now - start;
+  var dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+  var index = dayOfYear % BOOKS.length;
+  var book = BOOKS[index];
 
-  const card = document.getElementById('bookCard');
-  const audibleUrl = 'https://www.audible.com/search?keywords=' + encodeURIComponent(book.title + ' ' + book.author);
+  var card = document.getElementById('bookCard');
+  var audibleUrl = 'https://www.audible.com/search?keywords=' + encodeURIComponent(book.title + ' ' + book.author);
 
   card.innerHTML =
     '<div class="book-emoji">&#127911;</div>' +
@@ -1199,18 +1706,15 @@ function loadBook() {
    EVENTS
    ============================================================== */
 function setupEvents() {
-  // Settings
   document.getElementById('settingsBtn').addEventListener('click', openSettings);
   document.getElementById('settingsClose').addEventListener('click', closeSettings);
   document.getElementById('settingsOverlay').addEventListener('click', function(e) {
     if (e.target === this) closeSettings();
   });
-  document.getElementById('settingsSave').addEventListener('click', saveSettings);
+  document.getElementById('settingsSave').addEventListener('click', closeSettings);
 
-  // Refresh
   document.getElementById('refreshBtn').addEventListener('click', refreshAll);
 
-  // Chart range buttons
   document.querySelectorAll('.btc-range-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.btc-range-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -1221,8 +1725,8 @@ function setupEvents() {
   });
 
   // Pull to refresh
-  let startY = 0;
-  let pulling = false;
+  var startY = 0;
+  var pulling = false;
   document.addEventListener('touchstart', function(e) {
     if (window.scrollY === 0) {
       startY = e.touches[0].clientY;
@@ -1232,7 +1736,7 @@ function setupEvents() {
 
   document.addEventListener('touchmove', function(e) {
     if (!pulling) return;
-    const diff = e.touches[0].clientY - startY;
+    var diff = e.touches[0].clientY - startY;
     if (diff > 80) {
       document.getElementById('refreshIndicator').classList.add('visible');
     }
@@ -1241,7 +1745,7 @@ function setupEvents() {
   document.addEventListener('touchend', function() {
     if (!pulling) return;
     pulling = false;
-    const indicator = document.getElementById('refreshIndicator');
+    var indicator = document.getElementById('refreshIndicator');
     if (indicator.classList.contains('visible')) {
       refreshAll();
       setTimeout(function() { indicator.classList.remove('visible'); }, 1500);
@@ -1249,12 +1753,12 @@ function setupEvents() {
   });
 
   // Resize handler for chart
-  let resizeTimer;
+  var resizeTimer;
   window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function() {
-      const cacheKey = 'btc_' + currentChartDays;
-      const cached = btcChartCache[cacheKey];
+      var cacheKey = 'btc_' + currentChartDays;
+      var cached = btcChartCache[cacheKey];
       if (cached) {
         drawChart(
           document.getElementById('btcChart'),
@@ -1273,8 +1777,7 @@ function setupEvents() {
    SETTINGS
    ============================================================== */
 function openSettings() {
-  const key = localStorage.getItem('newsApiKey') || '';
-  document.getElementById('newsApiKeyInput').value = key;
+  renderLinkedInQueue();
   document.getElementById('settingsOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -1284,34 +1787,23 @@ function closeSettings() {
   document.body.style.overflow = '';
 }
 
-function saveSettings() {
-  const key = document.getElementById('newsApiKeyInput').value.trim();
-  if (key) {
-    localStorage.setItem('newsApiKey', key);
-  } else {
-    localStorage.removeItem('newsApiKey');
-  }
-  closeSettings();
-  showToast('Instellingen opgeslagen');
-}
-
 /* ==============================================================
    REFRESH
    ============================================================== */
 async function refreshAll() {
-  const indicator = document.getElementById('refreshIndicator');
+  var indicator = document.getElementById('refreshIndicator');
   indicator.classList.add('visible');
-  const btn = document.getElementById('refreshBtn');
+  var btn = document.getElementById('refreshBtn');
   btn.classList.add('spinning');
   btn.disabled = true;
 
-  // Clear chart cache so we get fresh data
   btcChartCache = {};
 
   await Promise.all([
     loadBTCPrice(),
     loadBTCChart(currentChartDays),
-    loadAllNewsPromise()
+    loadAllNewsPromise(),
+    loadPodcasts()
   ]);
 
   btn.classList.remove('spinning');
@@ -1331,23 +1823,24 @@ function loadAllNewsPromise() {
    TOAST
    ============================================================== */
 function showToast(msg) {
-  const el = document.getElementById('toast');
+  var el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('show');
-  setTimeout(function() { el.classList.remove('show'); }, 2500);
+  clearTimeout(el._toastTimer);
+  el._toastTimer = setTimeout(function() { el.classList.remove('show'); }, 2500);
 }
 
 /* ==============================================================
    HELPERS
    ============================================================== */
 function decodeEntities(str) {
-  const tmp = document.createElement('textarea');
+  var tmp = document.createElement('textarea');
   tmp.innerHTML = str;
   return tmp.value;
 }
 
 function escapeHTML(str) {
-  const div = document.createElement('div');
+  var div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
 }
@@ -1357,11 +1850,11 @@ function escapeAttr(str) {
 }
 
 function getTimeAgo(date) {
-  const now = new Date();
-  const diffMs = now - date;
-  const mins = Math.floor(diffMs / 60000);
-  const hours = Math.floor(diffMs / 3600000);
-  const days = Math.floor(diffMs / 86400000);
+  var now = new Date();
+  var diffMs = now - date;
+  var mins = Math.floor(diffMs / 60000);
+  var hours = Math.floor(diffMs / 3600000);
+  var days = Math.floor(diffMs / 86400000);
 
   if (mins < 1) return 'Zojuist';
   if (mins < 60) return mins + ' min geleden';
