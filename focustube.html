@@ -291,6 +291,9 @@ a{color:var(--primary);text-decoration:none}
 /* --- Print --- */
 @media print{.tabbar,.header-settings,.search-wrap,.chips,.load-more{display:none!important}}
 
+/* --- Video card as link --- */
+a.vcard{text-decoration:none;color:inherit;display:block}
+
 /* Hidden utility */
 .hidden{display:none!important}
 </style>
@@ -300,7 +303,7 @@ a{color:var(--primary);text-decoration:none}
 
   <!-- Header -->
   <header class="header">
-    <button class="header-back" id="backBtn" onclick="FT.closePlayer()">
+    <button class="header-back" id="backBtn">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
     <h1>FocusTube</h1>
@@ -358,21 +361,6 @@ a{color:var(--primary);text-decoration:none}
       <div class="state-title" style="color:var(--danger)">Fout</div>
       <div class="state-desc" id="errorDesc">Er is iets misgegaan.</div>
       <button class="state-btn" onclick="FT.toggleSettings()" id="errorBtn" style="display:none">Controleer API-key</button>
-    </div>
-
-    <!-- Player view -->
-    <div id="playerView" class="hidden">
-      <div class="player-wrap">
-        <div class="player-container"><iframe id="playerFrame" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen playsinline></iframe></div>
-        <div class="player-info">
-          <div class="player-title" id="playerTitle"></div>
-          <div class="player-channel" id="playerChannel"></div>
-          <div class="player-stats" id="playerStats"></div>
-        </div>
-      </div>
-      <div class="player-divider"></div>
-      <div class="player-more-label">Meer resultaten</div>
-      <div class="results" id="playerResults"></div>
     </div>
 
   </main>
@@ -466,7 +454,7 @@ a{color:var(--primary);text-decoration:none}
             <li>Onder <strong>Sta nooit toe</strong>, tik <strong>Website toevoegen</strong>.</li>
             <li>Voer in: <code>youtube.com</code> en voeg ook <code>m.youtube.com</code> toe.</li>
           </ol>
-          <p style="margin-top:8px"><strong>Resultaat:</strong> YouTube opent niet meer in Safari of andere browsers. FocusTube werkt nog steeds omdat het de embed-player en API gebruikt, niet de website.</p>
+          <p style="margin-top:8px"><strong>Let op:</strong> Als je youtube.com blokkeert via Schermtijd, openen video's vanuit FocusTube niet meer in Safari. FocusTube opent video's als directe links naar YouTube. Overweeg of deze blokkade gewenst is.</p>
           <p style="margin-top:4px"><strong>Tip:</strong> Stel een Schermtijd-toegangscode in die iemand anders beheert, zodat je de blokkade niet makkelijk ongedaan maakt.</p>
         </div>
       </div>
@@ -505,7 +493,6 @@ const FT = (() => {
       }
       return localStorage.getItem('ft_apikey') || '';
     })(),
-    playing: null,
     settings: false,
     tabs: {
       muziek: { query: '', results: [], token: null, loading: false },
@@ -525,8 +512,6 @@ const FT = (() => {
     loadMore: () => $('loadMoreBtn'),
     empty: () => $('emptyState'),
     error: () => $('errorState'),
-    player: () => $('playerView'),
-    playerFrame: () => $('playerFrame'),
     back: () => $('backBtn'),
     settings: () => $('settingsOverlay'),
     apiInput: () => $('apiKeyInput'),
@@ -720,7 +705,7 @@ const FT = (() => {
   }
 
   function renderCard(v, idx) {
-    return `<article class="vcard" data-idx="${idx}" onclick="FT.playByIndex(${idx})">
+    return `<a class="vcard" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}" target="_blank" rel="noopener">
       <div class="vcard-thumb">
         <img src="${esc(v._thumb)}" alt="" loading="lazy">
         <span class="vcard-dur">${esc(v._durationFmt)}</span>
@@ -735,7 +720,7 @@ const FT = (() => {
           <span>${timeAgo(v.snippet?.publishedAt)}</span>
         </div>
       </div>
-    </article>`;
+    </a>`;
   }
 
   function renderSkeletons(n) {
@@ -747,15 +732,12 @@ const FT = (() => {
   function updateView() {
     const hasKey = !!state.apiKey;
     const ts = state.tabs[state.tab];
-    const isPlaying = !!state.playing;
 
     // Welcome vs search
     el.welcome().classList.toggle('hidden', hasKey);
-    el.search().classList.toggle('hidden', !hasKey || isPlaying);
-    el.grid().classList.toggle('hidden', isPlaying);
-    el.loadMore().classList.toggle('hidden', !ts.token || isPlaying || ts.loading || ts.results.length === 0);
-    el.player().classList.toggle('hidden', !isPlaying);
-    el.back().classList.toggle('visible', isPlaying);
+    el.search().classList.toggle('hidden', !hasKey);
+    el.grid().classList.remove('hidden');
+    el.loadMore().classList.toggle('hidden', !ts.token || ts.loading || ts.results.length === 0);
     el.empty().classList.add('hidden');
     el.error().classList.add('hidden');
 
@@ -769,8 +751,8 @@ const FT = (() => {
       ? 'Zoek muziek...'
       : 'Zoek educatieve video\'s...';
 
-    // Render results if not loading and not playing
-    if (!isPlaying && !ts.loading && hasKey) {
+    // Render results if not loading
+    if (!ts.loading && hasKey) {
       if (ts.results.length === 0 && ts.query) {
         // Show empty
         el.empty().classList.remove('hidden');
@@ -782,15 +764,6 @@ const FT = (() => {
       if (ts.results.length > 0) {
         el.grid().innerHTML = ts.results.map((v,i) => renderCard(v,i)).join('');
       }
-    }
-
-    // Player extras
-    if (isPlaying) {
-      const others = ts.results.filter(v => v.id !== state.playing.id);
-      $('playerResults').innerHTML = others.slice(0,6).map((v,i) => {
-        const realIdx = ts.results.indexOf(v);
-        return renderCard(v, realIdx);
-      }).join('');
     }
   }
 
@@ -804,16 +777,13 @@ const FT = (() => {
     ts.results = [];
     ts.token = null;
     ts.loading = true;
-    state.playing = null;
 
     el.input().value = q;
     el.grid().innerHTML = renderSkeletons(6);
     el.empty().classList.add('hidden');
     el.error().classList.add('hidden');
     el.loadMore().classList.add('hidden');
-    el.player().classList.add('hidden');
     el.grid().classList.remove('hidden');
-    el.back().classList.remove('visible');
 
     const actualQuery = state.tab === 'leren' ? buildLerenQuery(q) : q;
 
@@ -856,55 +826,9 @@ const FT = (() => {
     }
   }
 
-  function playByIndex(idx) {
-    const ts = state.tabs[state.tab];
-    const video = ts.results[idx];
-    if (!video) return;
-    playVideo(video);
-  }
-
-  function playVideo(video) {
-    // Final Shorts check
-    if (isShort(video)) {
-      showToast('YouTube Shorts worden geblokkeerd.');
-      return;
-    }
-
-    state.playing = video;
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-    if (isStandalone) {
-      // iOS PWA mode: YouTube embeds often show black screen. Open directly instead.
-      window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank');
-      state.playing = null;
-      updateView();
-      return;
-    }
-    const embed = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
-    el.playerFrame().src = embed;
-    $('playerTitle').textContent = video.snippet?.title || '';
-    $('playerChannel').textContent = video.snippet?.channelTitle || '';
-    $('playerStats').innerHTML = `
-      <span>${fmtViews(video._views)} weergaven</span>
-      <span>&middot;</span>
-      <span>${video._durationFmt}</span>
-      <span>&middot;</span>
-      <span>${timeAgo(video.snippet?.publishedAt)}</span>
-    `;
-    el.main().scrollTop = 0;
-    updateView();
-  }
-
-  function closePlayer() {
-    state.playing = null;
-    el.playerFrame().src = '';
-    updateView();
-  }
-
   function switchTab(tab) {
-    if (tab === state.tab && !state.playing) return;
+    if (tab === state.tab) return;
     state.tab = tab;
-    state.playing = null;
-    el.playerFrame().src = '';
 
     const ts = state.tabs[tab];
     el.input().value = ts.query || '';
@@ -1112,27 +1036,16 @@ const FT = (() => {
       doSearch(q);
     });
 
-    // Player result clicks (delegate)
-    $('playerResults').addEventListener('click', e => {
-      const card = e.target.closest('.vcard');
-      if (!card) return;
-      const idx = parseInt(card.dataset.idx);
-      playByIndex(idx);
-      el.main().scrollTop = 0;
-    });
-
-    // Keyboard shortcut: Escape to close settings or player
+    // Keyboard shortcut: Escape to close settings
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
         if (state.settings) toggleSettings();
-        else if (state.playing) closePlayer();
       }
     });
 
     // Handle back button / popstate for Android
     window.addEventListener('popstate', () => {
       if (state.settings) { toggleSettings(); history.pushState(null, ''); }
-      else if (state.playing) { closePlayer(); history.pushState(null, ''); }
     });
     history.pushState(null, '');
   }
@@ -1159,7 +1072,7 @@ const FT = (() => {
 
   /* ---- Public API ---- */
   return {
-    doSearch, loadMore, playByIndex, playVideo, closePlayer,
+    doSearch, loadMore,
     switchTab, toggleSettings, saveApiKey, toggleCollapse,
   };
 })();
