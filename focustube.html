@@ -871,6 +871,14 @@ const FT = (() => {
     }
 
     state.playing = video;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    if (isStandalone) {
+      // iOS PWA mode: YouTube embeds often show black screen. Open directly instead.
+      window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank');
+      state.playing = null;
+      updateView();
+      return;
+    }
     const embed = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
     el.playerFrame().src = embed;
     $('playerTitle').textContent = video.snippet?.title || '';

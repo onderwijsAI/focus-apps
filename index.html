@@ -1078,15 +1078,15 @@ const FEEDS = {
     { name: 'OpenAI Blog', url: 'https://openai.com/blog/rss.xml', color: '#10A37F' }
   ],
   onderwijs: [
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijs+Nederland+OR+onderwijsraad+OR+%22inspectie+van+het+onderwijs%22+OR+%22vo-raad%22+OR+%22po-raad%22&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22voortgezet+onderwijs%22+OR+%22primair+onderwijs%22+OR+%22mbo%22+OR+leraar+OR+docent+school+beleid&hl=nl&gl=NL', color: '#34A853' },
     { name: 'Kennisnet', url: 'https://www.kennisnet.nl/rss/', color: '#0A9E28' },
-    { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijs+OR+school+OR+%22voortgezet+onderwijs%22+OR+%22primair+onderwijs%22+OR+onderwijsraad+OR+inspectie+onderwijs&hl=nl&gl=NL', color: '#4285F4' },
-    { name: 'SURF', url: 'https://www.surf.nl/feed', color: '#FF6B00' },
     { name: 'ScienceGuide', url: 'https://www.scienceguide.nl/feed/', color: '#E85D26' }
   ],
   wetenschap: [
-    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22leerwetenschap%22+OR+%22cognitieve+wetenschap%22+OR+%22onderwijsonderzoek%22+OR+%22formatief+handelen%22+OR+%22evidence+informed%22&hl=nl&gl=NL', color: '#4285F4' },
-    { name: 'Scientias', url: 'https://www.scientias.nl/feed/', color: '#2196F3' },
-    { name: 'Google News EN', url: 'https://news.google.com/rss/search?q=%22learning+science%22+OR+%22educational+psychology%22+OR+%22cognitive+science%22+education&hl=en', color: '#4285F4' }
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijsonderzoek+OR+leerwetenschap+OR+%22formatief+handelen%22+OR+%22evidence+informed%22+OR+%22professionele+cultuur%22+onderwijs&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22educational+research%22+OR+%22learning+science%22+OR+%22Visible+Learning%22+OR+%22formative+assessment%22+OR+%22teacher+professional+development%22&hl=en', color: '#34A853' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22AI+in+education%22+OR+%22machine+learning+education%22+OR+%22artificial+intelligence+school%22+research+study&hl=en', color: '#EA4335' }
   ]
 };
 
@@ -1345,10 +1345,12 @@ function skeletonHTML(count) {
   return html;
 }
 
-function loadAllNews() {
-  loadNewsSection('ai', FEEDS.ai, 'listAI', 'countAI');
-  loadNewsSection('onderwijs', FEEDS.onderwijs, 'listOnderwijs', 'countOnderwijs');
-  loadNewsSection('wetenschap', FEEDS.wetenschap, 'listWetenschap', 'countWetenschap');
+async function loadAllNews() {
+  await loadNewsSection('ai', FEEDS.ai, 'listAI', 'countAI');
+  await new Promise(function(r) { setTimeout(r, 1500); });
+  await loadNewsSection('onderwijs', FEEDS.onderwijs, 'listOnderwijs', 'countOnderwijs');
+  await new Promise(function(r) { setTimeout(r, 1500); });
+  await loadNewsSection('wetenschap', FEEDS.wetenschap, 'listWetenschap', 'countWetenschap');
 }
 
 async function loadNewsSection(key, feeds, listId, countId) {
@@ -1359,13 +1361,13 @@ async function loadNewsSection(key, feeds, listId, countId) {
 
   var articles = [];
 
-  var results = await Promise.allSettled(feeds.map(function(f) { return fetchRSSFeed(f); }));
-
-  results.forEach(function(r) {
-    if (r.status === 'fulfilled' && r.value) {
-      articles.push.apply(articles, r.value);
-    }
-  });
+  for (var fi = 0; fi < feeds.length; fi++) {
+    try {
+      var feedResult = await fetchRSSFeed(feeds[fi]);
+      if (feedResult && feedResult.length) articles.push.apply(articles, feedResult);
+    } catch(e) { /* skip failed feed */ }
+    if (fi < feeds.length - 1) await new Promise(function(r) { setTimeout(r, 800); });
+  }
 
   // Sort newest first, deduplicate
   articles.sort(function(a, b) { return b.date - a.date; });
@@ -1484,16 +1486,16 @@ async function loadPodcasts() {
 
   var episodes = [];
 
-  var results = await Promise.allSettled(PODCAST_FEEDS.map(function(f) { return fetchRSSFeed(f); }));
-
-  results.forEach(function(r) {
-    if (r.status === 'fulfilled' && r.value) {
-      r.value.forEach(function(ep) {
-        ep.isPodcast = true;
-      });
-      episodes.push.apply(episodes, r.value);
-    }
-  });
+  for (var pi = 0; pi < PODCAST_FEEDS.length; pi++) {
+    try {
+      var podResult = await fetchRSSFeed(PODCAST_FEEDS[pi]);
+      if (podResult && podResult.length) {
+        podResult.forEach(function(ep) { ep.isPodcast = true; });
+        episodes.push.apply(episodes, podResult);
+      }
+    } catch(e) { /* skip */ }
+    if (pi < PODCAST_FEEDS.length - 1) await new Promise(function(r) { setTimeout(r, 800); });
+  }
 
   // Sort newest first, deduplicate
   episodes.sort(function(a, b) { return b.date - a.date; });
