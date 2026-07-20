@@ -116,12 +116,28 @@ body {
 .btc-card {
   background: var(--surface);
   border-radius: var(--radius);
-  padding: 16px 18px;
+  padding: 16px 18px 0;
   margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+
+.btc-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid var(--border);
+}
+
+.btc-chart-wrap {
+  margin: 12px -18px 0;
+  height: 100px;
+  position: relative;
+}
+
+.btc-chart-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 var(--radius) var(--radius);
 }
 
 .btc-left {
@@ -651,14 +667,19 @@ body {
 
   <!-- Bitcoin -->
   <section class="btc-card" id="btcCard">
-    <div class="btc-left">
-      <div class="btc-icon">B</div>
-      <div>
-        <div class="btc-price" id="btcPrice"><span class="btc-loading">Laden...</span></div>
-        <div class="btc-label">Bitcoin / EUR</div>
+    <div class="btc-row">
+      <div class="btc-left">
+        <div class="btc-icon">B</div>
+        <div>
+          <div class="btc-price" id="btcPrice"><span class="btc-loading">Laden...</span></div>
+          <div class="btc-label">Bitcoin / USD</div>
+        </div>
       </div>
+      <div class="btc-change" id="btcChange"></div>
     </div>
-    <div class="btc-change" id="btcChange"></div>
+    <div class="btc-chart-wrap">
+      <canvas id="btcChart"></canvas>
+    </div>
   </section>
 
   <!-- News -->
@@ -764,14 +785,13 @@ const BOOKS = [
    ============================================================== */
 const RSS_FEEDS = [
   { name: "The Decoder", url: "https://the-decoder.com/feed/", color: "#6C63FF" },
-  { name: "TechCrunch AI", url: "https://techcrunch.com/category/artificial-intelligence/feed/", color: "#0A9E28" },
-  { name: "Ars Technica", url: "https://feeds.arstechnica.com/arstechnica/technology-lab", color: "#FF4500" },
-  { name: "Kennisnet", url: "https://www.kennisnet.nl/feed/", color: "#009BD5" },
-  { name: "VentureBeat AI", url: "https://venturebeat.com/category/ai/feed/", color: "#C12828" }
+  { name: "EdSurge", url: "https://feeds.feedburner.com/EdSurge", color: "#0A9E28" },
+  { name: "Google News AI+Edu", url: "https://news.google.com/rss/search?q=artificial+intelligence+education&hl=en", color: "#4285F4" }
 ];
 
-const CORS_PROXY = "https://api.allorigins.win/raw?url=";
-const BTC_API = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur&include_24hr_change=true";
+const RSS2JSON_API = "https://api.rss2json.com/v1/api.json?rss_url=";
+const BTC_API = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true";
+const BTC_CHART_API = "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7";
 
 /* ==============================================================
    STATE
@@ -843,10 +863,10 @@ async function loadBTC() {
   try {
     const res = await fetch(BTC_API);
     const data = await res.json();
-    const price = data.bitcoin.eur;
-    const change = data.bitcoin.eur_24h_change;
+    const price = data.bitcoin.usd;
+    const change = data.bitcoin.usd_24h_change;
 
-    priceEl.textContent = formatEUR(price);
+    priceEl.textContent = formatUSD(price);
     const sign = change >= 0 ? '+' : '';
     changeEl.textContent = `${sign}${change.toFixed(2)}%`;
     changeEl.className = `btc-change ${change >= 0 ? 'positive' : 'negative'}`;
@@ -855,12 +875,79 @@ async function loadBTC() {
     changeEl.textContent = '';
     changeEl.className = 'btc-change';
   }
+
+  // Load 7-day chart
+  loadBTCChart();
 }
 
-function formatEUR(n) {
-  return new Intl.NumberFormat('nl-NL', {
+async function loadBTCChart() {
+  try {
+    const res = await fetch(BTC_CHART_API);
+    const data = await res.json();
+    const prices = data.prices; // [[timestamp, price], ...]
+    if (!prices || prices.length === 0) return;
+
+    const canvas = document.getElementById('btcChart');
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const w = rect.width;
+    const h = rect.height;
+    const values = prices.map(p => p[1]);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+    const padding = 2;
+
+    const isUp = values[values.length - 1] >= values[0];
+    const lineColor = isUp ? '#34D399' : '#F87171';
+
+    // Build points
+    const points = values.map((v, i) => ({
+      x: (i / (values.length - 1)) * w,
+      y: padding + (1 - (v - min) / range) * (h - padding * 2)
+    }));
+
+    // Draw gradient fill
+    const gradient = ctx.createLinearGradient(0, 0, 0, h);
+    gradient.addColorStop(0, isUp ? 'rgba(52,211,153,0.25)' : 'rgba(248,113,113,0.25)');
+    gradient.addColorStop(1, 'rgba(0,0,0,0)');
+
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+      ctx.lineTo(points[i].x, points[i].y);
+    }
+    ctx.lineTo(w, h);
+    ctx.lineTo(0, h);
+    ctx.closePath();
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // Draw line
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+      ctx.lineTo(points[i].x, points[i].y);
+    }
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = 2;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  } catch (e) {
+    console.warn('Failed to load BTC chart:', e);
+  }
+}
+
+function formatUSD(n) {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'EUR',
+    currency: 'USD',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   }).format(n);
@@ -918,22 +1005,20 @@ async function loadNews() {
 
 async function fetchRSSFeed(feed) {
   try {
-    const url = CORS_PROXY + encodeURIComponent(feed.url);
+    const url = RSS2JSON_API + encodeURIComponent(feed.url);
     const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
-    const text = await res.text();
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, 'text/xml');
+    const data = await res.json();
 
-    const items = xml.querySelectorAll('item');
+    if (data.status !== 'ok' || !data.items) return [];
+
     const result = [];
+    const items = data.items.slice(0, 5); // Max 5 per source
 
-    items.forEach((item, i) => {
-      if (i >= 5) return; // Max 5 per source
-
-      const title = getXMLText(item, 'title');
-      const link = getXMLText(item, 'link');
-      const description = cleanHTML(getXMLText(item, 'description') || getXMLText(item, 'content\\:encoded') || '');
-      const pubDate = getXMLText(item, 'pubDate');
+    for (const item of items) {
+      const title = item.title || '';
+      const link = item.link || '';
+      const description = cleanHTML(item.description || item.content || '');
+      const pubDate = item.pubDate;
       const date = pubDate ? new Date(pubDate) : new Date();
 
       if (title) {
@@ -948,7 +1033,7 @@ async function fetchRSSFeed(feed) {
           timeAgo: getTimeAgo(date)
         });
       }
-    });
+    }
 
     return result;
   } catch (e) {

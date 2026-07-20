@@ -639,6 +639,10 @@ const FT = (() => {
     if (state.tab === 'leren') {
       p.set('videoDuration', 'long');
       p.set('relevanceLanguage', 'nl');
+      // Only show videos from the last month
+      const oneMonthAgo = new Date();
+      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      p.set('publishedAfter', oneMonthAgo.toISOString());
     }
     if (pageToken) p.set('pageToken', pageToken);
 
