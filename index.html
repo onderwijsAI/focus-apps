@@ -11,9 +11,6 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
-/* ============================================================
-   CSS Reset & Variables
-   ============================================================ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -22,17 +19,21 @@
   --surface-hover: #222;
   --border: #2a2a2a;
   --text: #e8e8e8;
-  --text-secondary: #888;
+  --text-secondary: #999;
   --text-tertiary: #555;
   --accent: #6C63FF;
   --accent-dim: rgba(108, 99, 255, 0.15);
   --green: #34D399;
+  --green-dim: rgba(52, 211, 153, 0.12);
   --red: #F87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
   --orange: #FBBF24;
   --radius: 14px;
   --radius-sm: 10px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
 }
 
 html {
@@ -51,18 +52,15 @@ body {
   padding-bottom: var(--safe-bottom);
 }
 
-/* ============================================================
-   Layout
-   ============================================================ */
 .app {
   max-width: 600px;
   margin: 0 auto;
   padding: 0 16px;
+  padding-left: calc(16px + var(--safe-left));
+  padding-right: calc(16px + var(--safe-right));
 }
 
-/* ============================================================
-   Header
-   ============================================================ */
+/* Header */
 .header {
   display: flex;
   align-items: center;
@@ -82,7 +80,7 @@ body {
 
 .header-actions {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   align-items: center;
 }
 
@@ -110,34 +108,29 @@ body {
   height: 20px;
 }
 
-/* ============================================================
-   Bitcoin Card
-   ============================================================ */
+.icon-btn.spinning svg {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Bitcoin Card */
 .btc-card {
   background: var(--surface);
   border-radius: var(--radius);
   padding: 16px 18px 0;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   border: 1px solid var(--border);
+  overflow: hidden;
 }
 
 .btc-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.btc-chart-wrap {
-  margin: 12px -18px 0;
-  height: 100px;
-  position: relative;
-}
-
-.btc-chart-wrap canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 0 0 var(--radius) var(--radius);
 }
 
 .btc-left {
@@ -161,7 +154,7 @@ body {
 }
 
 .btc-price {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.5px;
   font-variant-numeric: tabular-nums;
@@ -181,22 +174,106 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-.btc-change.positive { color: var(--green); background: rgba(52,211,153,0.12); }
-.btc-change.negative { color: var(--red); background: rgba(248,113,113,0.12); }
+.btc-change.positive { color: var(--green); background: var(--green-dim); }
+.btc-change.negative { color: var(--red); background: var(--red-dim); }
 
 .btc-loading {
   color: var(--text-tertiary);
   font-size: 14px;
+  font-weight: 400;
 }
 
-/* ============================================================
-   Section Headers
-   ============================================================ */
+/* Time range buttons */
+.btc-range-bar {
+  display: flex;
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.btc-range-btn {
+  flex: 1;
+  padding: 6px 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btc-range-btn:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.btc-range-btn.active {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+}
+
+/* Chart wrapper */
+.btc-chart-wrap {
+  margin: 10px -18px 0;
+  height: 150px;
+  position: relative;
+}
+
+.btc-chart-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.btc-axis-labels {
+  position: absolute;
+  top: 0;
+  left: 18px;
+  right: 18px;
+  bottom: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4px 0 24px;
+}
+
+.btc-y-label {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.btc-x-labels {
+  position: absolute;
+  bottom: 4px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.btc-chart-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+/* Section Headers */
 .section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .section-title {
@@ -205,29 +282,32 @@ body {
   letter-spacing: -0.2px;
 }
 
-.section-subtitle {
+.section-count {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
 }
 
-/* ============================================================
-   News Cards
-   ============================================================ */
-.news-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* News Cards */
+.news-section {
   margin-bottom: 28px;
 }
 
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .news-card {
+  display: block;
   background: var(--surface);
   border-radius: var(--radius-sm);
   padding: 14px 16px;
-  cursor: pointer;
   border: 1px solid var(--border);
   transition: background 0.15s, border-color 0.15s;
   -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  color: inherit;
 }
 
 .news-card:hover, .news-card:active {
@@ -238,23 +318,13 @@ body {
 .news-card-title {
   font-size: 15px;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.4;
   margin-bottom: 6px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.news-card-summary {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.4;
-  margin-bottom: 8px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  color: var(--text);
 }
 
 .news-card-meta {
@@ -275,8 +345,10 @@ body {
   height: 3px;
   border-radius: 50%;
   background: var(--text-tertiary);
+  flex-shrink: 0;
 }
 
+/* Skeletons */
 .news-skeleton {
   background: var(--surface);
   border-radius: var(--radius-sm);
@@ -301,110 +373,27 @@ body {
   100% { background-position: -200% 0; }
 }
 
-/* ============================================================
-   Article Modal
-   ============================================================ */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 1000;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-.modal-overlay.active {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.modal-content {
-  background: var(--surface);
-  width: 100%;
-  max-width: 600px;
-  max-height: 90dvh;
-  border-radius: 20px 20px 0 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  animation: slideUp 0.3s ease;
-  padding-bottom: var(--safe-bottom);
-}
-
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-
-.modal-handle {
-  width: 36px;
-  height: 5px;
-  border-radius: 3px;
-  background: var(--text-tertiary);
-  margin: 10px auto;
-}
-
-.modal-header {
-  padding: 8px 20px 16px;
-  border-bottom: 1px solid var(--border);
-}
-
-.modal-source {
-  font-size: 12px;
-  color: var(--accent);
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.modal-title {
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.3px;
-}
-
-.modal-date {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  margin-top: 6px;
-}
-
-.modal-body {
-  padding: 20px;
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--text-secondary);
-}
-
-.modal-body p { margin-bottom: 14px; }
-
-.modal-actions {
-  padding: 16px 20px;
-  border-top: 1px solid var(--border);
-}
-
-.modal-link {
-  display: block;
+/* Error state */
+.news-error {
   text-align: center;
-  padding: 12px;
-  background: var(--accent);
-  color: #fff;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
+  padding: 24px 16px;
+  color: var(--text-tertiary);
+  font-size: 14px;
 }
 
-/* ============================================================
-   Book Card
-   ============================================================ */
+.news-error button {
+  margin-top: 10px;
+  padding: 8px 20px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Book Card */
 .book-section {
   margin-bottom: 40px;
   padding-bottom: 20px;
@@ -466,9 +455,7 @@ body {
   height: 16px;
 }
 
-/* ============================================================
-   Settings Panel
-   ============================================================ */
+/* Settings Panel */
 .settings-overlay {
   display: none;
   position: fixed;
@@ -486,20 +473,41 @@ body {
   animation: fadeIn 0.2s ease;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .settings-panel {
   background: var(--surface);
   width: 100%;
   max-width: 600px;
+  max-height: 85dvh;
   border-radius: 20px 20px 0 0;
   animation: slideUp 0.3s ease;
   padding-bottom: calc(20px + var(--safe-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.settings-handle {
+  width: 36px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--text-tertiary);
+  margin: 10px auto 0;
 }
 
 .settings-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 20px 16px;
+  padding: 16px 20px 14px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -520,6 +528,7 @@ body {
   justify-content: center;
   cursor: pointer;
   font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .settings-body {
@@ -540,6 +549,7 @@ body {
   font-size: 12px;
   color: var(--text-tertiary);
   margin-bottom: 8px;
+  line-height: 1.5;
 }
 
 .setting-input {
@@ -572,7 +582,7 @@ body {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 8px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .settings-info {
@@ -581,18 +591,31 @@ body {
   border-top: 1px solid var(--border);
 }
 
-.settings-info p {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  line-height: 1.5;
+.settings-info h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
-/* ============================================================
-   Pull to Refresh Indicator
-   ============================================================ */
+.settings-info p, .settings-info ol {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+.settings-info ol {
+  padding-left: 20px;
+  margin-top: 4px;
+}
+
+.settings-info ol li {
+  margin-bottom: 4px;
+}
+
+/* Refresh indicator */
 .refresh-indicator {
   text-align: center;
-  padding: 12px 0 4px;
+  padding: 8px 0 4px;
   font-size: 13px;
   color: var(--text-tertiary);
   display: none;
@@ -603,40 +626,35 @@ body {
   animation: fadeIn 0.2s ease;
 }
 
-/* ============================================================
-   Error / Empty states
-   ============================================================ */
-.news-error {
-  text-align: center;
-  padding: 32px 16px;
-  color: var(--text-tertiary);
-  font-size: 14px;
-}
-
-.news-error button {
-  margin-top: 12px;
-  padding: 8px 20px;
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: calc(24px + var(--safe-bottom));
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
   background: var(--surface);
   color: var(--text);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 12px;
   font-size: 14px;
-  cursor: pointer;
+  z-index: 3000;
+  transition: transform 0.3s ease;
+  white-space: nowrap;
 }
 
-/* ============================================================
-   Scrollbar (desktop)
-   ============================================================ */
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-/* ============================================================
-   Responsive tweaks
-   ============================================================ */
 @media (min-width: 768px) {
   .app { padding: 0 24px; }
-  .btc-price { font-size: 26px; }
+  .btc-price { font-size: 28px; }
 }
 </style>
 </head>
@@ -677,26 +695,54 @@ body {
       </div>
       <div class="btc-change" id="btcChange"></div>
     </div>
+    <div class="btc-range-bar">
+      <button class="btc-range-btn active" data-days="7">1W</button>
+      <button class="btc-range-btn" data-days="30">1M</button>
+      <button class="btc-range-btn" data-days="180">6M</button>
+      <button class="btc-range-btn" data-days="365">1J</button>
+    </div>
     <div class="btc-chart-wrap">
       <canvas id="btcChart"></canvas>
+      <div class="btc-axis-labels">
+        <div class="btc-y-label" id="btcYMax"></div>
+        <div class="btc-y-label" id="btcYMin"></div>
+      </div>
+      <div class="btc-x-labels">
+        <span id="btcXStart"></span>
+        <span id="btcXEnd"></span>
+      </div>
+      <div class="btc-chart-loading" id="btcChartLoading">Laden...</div>
     </div>
   </section>
 
-  <!-- News -->
-  <section>
+  <!-- AI Nieuws -->
+  <section class="news-section" id="sectionAI">
     <div class="section-header">
-      <h2 class="section-title">AI &amp; Onderwijs</h2>
-      <span class="section-subtitle" id="newsCount"></span>
+      <h2 class="section-title">AI Nieuws</h2>
+      <span class="section-count" id="countAI"></span>
     </div>
-    <div class="news-list" id="newsList">
-      <!-- Skeleton loaders -->
-      <div class="news-skeleton"><div class="skeleton-line w80"></div><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div></div>
-      <div class="news-skeleton"><div class="skeleton-line w80"></div><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div></div>
-      <div class="news-skeleton"><div class="skeleton-line w80"></div><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div></div>
-    </div>
+    <div class="news-list" id="listAI"></div>
   </section>
 
-  <!-- Book Suggestion -->
+  <!-- Onderwijs -->
+  <section class="news-section" id="sectionOnderwijs">
+    <div class="section-header">
+      <h2 class="section-title">Onderwijs</h2>
+      <span class="section-count" id="countOnderwijs"></span>
+    </div>
+    <div class="news-list" id="listOnderwijs"></div>
+  </section>
+
+  <!-- Wetenschap -->
+  <section class="news-section" id="sectionWetenschap">
+    <div class="section-header">
+      <h2 class="section-title">Wetenschap</h2>
+      <span class="section-count" id="countWetenschap"></span>
+    </div>
+    <div class="news-list" id="listWetenschap"></div>
+  </section>
+
+  <!-- Luistertip van de dag -->
   <section class="book-section">
     <div class="section-header">
       <h2 class="section-title">Luistertip van de dag</h2>
@@ -706,25 +752,10 @@ body {
 
 </div>
 
-<!-- Article Modal -->
-<div class="modal-overlay" id="articleModal">
-  <div class="modal-content">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <div class="modal-source" id="modalSource"></div>
-      <h2 class="modal-title" id="modalTitle"></h2>
-      <div class="modal-date" id="modalDate"></div>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
-    <div class="modal-actions">
-      <a class="modal-link" id="modalLink" href="#" target="_blank" rel="noopener">Lees het volledige artikel</a>
-    </div>
-  </div>
-</div>
-
 <!-- Settings -->
 <div class="settings-overlay" id="settingsOverlay">
   <div class="settings-panel">
+    <div class="settings-handle"></div>
     <div class="settings-header">
       <h2>Instellingen</h2>
       <button class="settings-close" id="settingsClose">&times;</button>
@@ -732,20 +763,30 @@ body {
     <div class="settings-body">
       <div class="setting-group">
         <div class="setting-label">NewsAPI Sleutel</div>
-        <div class="setting-help">Optioneel. Voeg een NewsAPI.org API-sleutel toe voor extra nieuwsbronnen over AI en onderwijs.</div>
+        <div class="setting-help">Optioneel. Voeg een NewsAPI.org API-sleutel toe voor betere nieuwsresultaten.</div>
         <input class="setting-input" type="text" id="newsApiKeyInput" placeholder="bijv. abc123def456..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </div>
       <button class="settings-save" id="settingsSave">Opslaan</button>
       <div class="settings-info">
-        <p>Focus Dashboard vervangt afleidende websites door waardevolle content over AI en onderwijs. Bronnen: The Decoder, TechCrunch AI, Ars Technica, Kennisnet, VentureBeat AI.</p>
+        <h3>Installeren als app</h3>
+        <ol>
+          <li>Open deze pagina in Safari op je iPhone</li>
+          <li>Tik op het deel-icoon (vierkant met pijl omhoog)</li>
+          <li>Scroll naar beneden en tik op "Zet op beginscherm"</li>
+          <li>Tik op "Voeg toe"</li>
+        </ol>
+        <p style="margin-top: 12px;">Focus Dashboard toont Bitcoin, AI-nieuws, onderwijsnieuws en wetenschap in een overzichtelijk dashboard.</p>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
 /* ==============================================================
-   DATA: Books
+   BOOKS
    ============================================================== */
 const BOOKS = [
   { title: "Co-Intelligence", author: "Ethan Mollick", desc: "Hoe we kunnen leren samenwerken met AI als partner, niet als vervanging. Mollick laat zien hoe AI onderwijs en werk transformeert." },
@@ -781,68 +822,57 @@ const BOOKS = [
 ];
 
 /* ==============================================================
-   RSS Feed Sources
+   NEWS FEED CONFIGURATION
    ============================================================== */
-const RSS_FEEDS = [
-  { name: "The Decoder", url: "https://the-decoder.com/feed/", color: "#6C63FF" },
-  { name: "EdSurge", url: "https://feeds.feedburner.com/EdSurge", color: "#0A9E28" },
-  { name: "Google News AI+Edu", url: "https://news.google.com/rss/search?q=artificial+intelligence+education&hl=en", color: "#4285F4" }
-];
+const RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
 
-const RSS2JSON_API = "https://api.rss2json.com/v1/api.json?rss_url=";
-const BTC_API = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true";
-const BTC_CHART_API = "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7";
+const FEEDS = {
+  ai: [
+    { name: 'The Decoder', url: 'https://the-decoder.com/feed/', color: '#6C63FF' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=artificial+intelligence&hl=nl&gl=NL', color: '#4285F4' }
+  ],
+  onderwijs: [
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijs+nederland&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'Kennisnet', url: 'https://www.kennisnet.nl/rss/', color: '#0A9E28' },
+    { name: 'ScienceGuide', url: 'https://www.scienceguide.nl/feed/', color: '#E85D26' }
+  ],
+  wetenschap: [
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=wetenschap+onderzoek&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'New Scientist', url: 'https://www.newscientist.nl/feed/', color: '#CC0000' }
+  ]
+};
+
+/* ==============================================================
+   BITCOIN API
+   ============================================================== */
+const BTC_PRICE_API = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true';
+const BTC_CHART_API = 'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=';
 
 /* ==============================================================
    STATE
    ============================================================== */
-let articles = [];
+let currentChartDays = 7;
+let btcChartCache = {};
+let btcPriceCache = null;
 let btcInterval = null;
+
+/* ==============================================================
+   DUTCH MONTHS
+   ============================================================== */
+const MAANDEN_KORT = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
 
 /* ==============================================================
    INIT
    ============================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  generateIcons();
   registerSW();
-  loadBTC();
-  loadNews();
+  loadBTCPrice();
+  loadBTCChart(currentChartDays);
+  loadAllNews();
   loadBook();
-  setupEventListeners();
-
-  // Auto-refresh BTC every 60s
-  btcInterval = setInterval(loadBTC, 60000);
+  setupEvents();
+  btcInterval = setInterval(loadBTCPrice, 60000);
 });
-
-/* ==============================================================
-   PWA ICON GENERATION
-   ============================================================== */
-function generateIcons() {
-  [192, 512].forEach(size => {
-    const canvas = document.createElement('canvas');
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext('2d');
-
-    // Background
-    ctx.fillStyle = '#6C63FF';
-    ctx.fillRect(0, 0, size, size);
-
-    // Text
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = `bold ${size * 0.4}px -apple-system, sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('FD', size / 2, size / 2);
-
-    // Save icon via link (for apple-touch-icon, use data URI)
-    const dataUrl = canvas.toDataURL('image/png');
-    if (size === 192) {
-      const link = document.querySelector('link[rel="apple-touch-icon"]');
-      if (link) link.href = dataUrl;
-    }
-  });
-}
 
 /* ==============================================================
    SERVICE WORKER
@@ -854,128 +884,209 @@ function registerSW() {
 }
 
 /* ==============================================================
-   BITCOIN
+   BITCOIN PRICE
    ============================================================== */
-async function loadBTC() {
+async function loadBTCPrice() {
   const priceEl = document.getElementById('btcPrice');
   const changeEl = document.getElementById('btcChange');
 
   try {
-    const res = await fetch(BTC_API);
+    const res = await fetch(BTC_PRICE_API, { signal: AbortSignal.timeout(8000) });
+    if (res.status === 429) {
+      if (btcPriceCache) {
+        renderBTCPrice(btcPriceCache.price, btcPriceCache.change);
+      } else {
+        priceEl.innerHTML = '<span class="btc-loading">Even geduld...</span>';
+      }
+      return;
+    }
     const data = await res.json();
     const price = data.bitcoin.usd;
     const change = data.bitcoin.usd_24h_change;
-
-    priceEl.textContent = formatUSD(price);
-    const sign = change >= 0 ? '+' : '';
-    changeEl.textContent = `${sign}${change.toFixed(2)}%`;
-    changeEl.className = `btc-change ${change >= 0 ? 'positive' : 'negative'}`;
+    btcPriceCache = { price, change };
+    renderBTCPrice(price, change);
   } catch (e) {
-    priceEl.innerHTML = '<span class="btc-loading">Niet beschikbaar</span>';
-    changeEl.textContent = '';
-    changeEl.className = 'btc-change';
+    if (btcPriceCache) {
+      renderBTCPrice(btcPriceCache.price, btcPriceCache.change);
+    } else {
+      priceEl.innerHTML = '<span class="btc-loading">Niet beschikbaar</span>';
+      changeEl.textContent = '';
+      changeEl.className = 'btc-change';
+    }
   }
-
-  // Load 7-day chart
-  loadBTCChart();
 }
 
-async function loadBTCChart() {
-  try {
-    const res = await fetch(BTC_CHART_API);
-    const data = await res.json();
-    const prices = data.prices; // [[timestamp, price], ...]
-    if (!prices || prices.length === 0) return;
-
-    const canvas = document.getElementById('btcChart');
-    const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.parentElement.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    const ctx = canvas.getContext('2d');
-    ctx.scale(dpr, dpr);
-
-    const w = rect.width;
-    const h = rect.height;
-    const values = prices.map(p => p[1]);
-    const min = Math.min(...values);
-    const max = Math.max(...values);
-    const range = max - min || 1;
-    const padding = 2;
-
-    const isUp = values[values.length - 1] >= values[0];
-    const lineColor = isUp ? '#34D399' : '#F87171';
-
-    // Build points
-    const points = values.map((v, i) => ({
-      x: (i / (values.length - 1)) * w,
-      y: padding + (1 - (v - min) / range) * (h - padding * 2)
-    }));
-
-    // Draw gradient fill
-    const gradient = ctx.createLinearGradient(0, 0, 0, h);
-    gradient.addColorStop(0, isUp ? 'rgba(52,211,153,0.25)' : 'rgba(248,113,113,0.25)');
-    gradient.addColorStop(1, 'rgba(0,0,0,0)');
-
-    ctx.beginPath();
-    ctx.moveTo(points[0].x, points[0].y);
-    for (let i = 1; i < points.length; i++) {
-      ctx.lineTo(points[i].x, points[i].y);
-    }
-    ctx.lineTo(w, h);
-    ctx.lineTo(0, h);
-    ctx.closePath();
-    ctx.fillStyle = gradient;
-    ctx.fill();
-
-    // Draw line
-    ctx.beginPath();
-    ctx.moveTo(points[0].x, points[0].y);
-    for (let i = 1; i < points.length; i++) {
-      ctx.lineTo(points[i].x, points[i].y);
-    }
-    ctx.strokeStyle = lineColor;
-    ctx.lineWidth = 2;
-    ctx.lineJoin = 'round';
-    ctx.lineCap = 'round';
-    ctx.stroke();
-  } catch (e) {
-    console.warn('Failed to load BTC chart:', e);
-  }
+function renderBTCPrice(price, change) {
+  const priceEl = document.getElementById('btcPrice');
+  const changeEl = document.getElementById('btcChange');
+  priceEl.textContent = formatUSD(price);
+  const sign = change >= 0 ? '+' : '';
+  changeEl.textContent = sign + change.toFixed(2) + '%';
+  changeEl.className = 'btc-change ' + (change >= 0 ? 'positive' : 'negative');
 }
 
 function formatUSD(n) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }).format(n);
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+/* ==============================================================
+   BITCOIN CHART
+   ============================================================== */
+async function loadBTCChart(days) {
+  const canvas = document.getElementById('btcChart');
+  const loadingEl = document.getElementById('btcChartLoading');
+  const yMaxEl = document.getElementById('btcYMax');
+  const yMinEl = document.getElementById('btcYMin');
+  const xStartEl = document.getElementById('btcXStart');
+  const xEndEl = document.getElementById('btcXEnd');
+
+  loadingEl.style.display = 'flex';
+
+  // Check cache
+  const cacheKey = 'btc_' + days;
+  const cached = btcChartCache[cacheKey];
+  if (cached && (Date.now() - cached.ts < 120000)) {
+    drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+    loadingEl.style.display = 'none';
+    return;
+  }
+
+  try {
+    const res = await fetch(BTC_CHART_API + days, { signal: AbortSignal.timeout(10000) });
+    if (res.status === 429) {
+      if (cached) {
+        drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+        loadingEl.style.display = 'none';
+        showToast('Even geduld - data uit cache');
+      } else {
+        loadingEl.textContent = 'Even geduld...';
+      }
+      return;
+    }
+    const data = await res.json();
+    if (!data.prices || data.prices.length === 0) {
+      loadingEl.textContent = 'Geen data';
+      return;
+    }
+    btcChartCache[cacheKey] = { prices: data.prices, ts: Date.now() };
+    drawChart(canvas, data.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+    loadingEl.style.display = 'none';
+  } catch (e) {
+    if (cached) {
+      drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+      loadingEl.style.display = 'none';
+    } else {
+      loadingEl.textContent = 'Laden mislukt';
+    }
+  }
+}
+
+function drawChart(canvas, priceData, yMaxEl, yMinEl, xStartEl, xEndEl) {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const w = rect.width;
+  const h = rect.height;
+  const padTop = 8;
+  const padBottom = 28;
+  const padLeft = 2;
+  const padRight = 2;
+  const chartW = w - padLeft - padRight;
+  const chartH = h - padTop - padBottom;
+
+  const values = priceData.map(p => p[1]);
+  const timestamps = priceData.map(p => p[0]);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = max - min || 1;
+
+  const isUp = values[values.length - 1] >= values[0];
+  const lineColor = isUp ? '#34D399' : '#F87171';
+
+  // Clear
+  ctx.clearRect(0, 0, w, h);
+
+  // Build points
+  const points = values.map((v, i) => ({
+    x: padLeft + (i / (values.length - 1)) * chartW,
+    y: padTop + (1 - (v - min) / range) * chartH
+  }));
+
+  // Gradient fill
+  const gradient = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
+  gradient.addColorStop(0, isUp ? 'rgba(52,211,153,0.20)' : 'rgba(248,113,113,0.20)');
+  gradient.addColorStop(1, 'rgba(0,0,0,0)');
+
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  for (let i = 1; i < points.length; i++) {
+    ctx.lineTo(points[i].x, points[i].y);
+  }
+  ctx.lineTo(padLeft + chartW, padTop + chartH);
+  ctx.lineTo(padLeft, padTop + chartH);
+  ctx.closePath();
+  ctx.fillStyle = gradient;
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  for (let i = 1; i < points.length; i++) {
+    ctx.lineTo(points[i].x, points[i].y);
+  }
+  ctx.strokeStyle = lineColor;
+  ctx.lineWidth = 2;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // Y-axis labels
+  yMaxEl.textContent = formatUSD(max);
+  yMinEl.textContent = formatUSD(min);
+
+  // X-axis labels
+  const startDate = new Date(timestamps[0]);
+  const endDate = new Date(timestamps[timestamps.length - 1]);
+  xStartEl.textContent = formatDateShort(startDate);
+  xEndEl.textContent = formatDateShort(endDate);
+}
+
+function formatDateShort(d) {
+  return d.getDate() + ' ' + MAANDEN_KORT[d.getMonth()];
 }
 
 /* ==============================================================
    NEWS
    ============================================================== */
-async function loadNews() {
-  const listEl = document.getElementById('newsList');
-  const countEl = document.getElementById('newsCount');
-  articles = [];
+function skeletonHTML(count) {
+  let html = '';
+  for (let i = 0; i < count; i++) {
+    html += '<div class="news-skeleton"><div class="skeleton-line w80"></div><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div></div>';
+  }
+  return html;
+}
+
+function loadAllNews() {
+  loadNewsSection('ai', FEEDS.ai, 'listAI', 'countAI');
+  loadNewsSection('onderwijs', FEEDS.onderwijs, 'listOnderwijs', 'countOnderwijs');
+  loadNewsSection('wetenschap', FEEDS.wetenschap, 'listWetenschap', 'countWetenschap');
+}
+
+async function loadNewsSection(key, feeds, listId, countId) {
+  const listEl = document.getElementById(listId);
+  const countEl = document.getElementById(countId);
 
   // Show skeletons
-  listEl.innerHTML = Array(4).fill(0).map(() =>
-    '<div class="news-skeleton"><div class="skeleton-line w80"></div><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div></div>'
-  ).join('');
+  listEl.innerHTML = skeletonHTML(3);
 
-  // Fetch RSS feeds in parallel
-  const feedPromises = RSS_FEEDS.map(feed => fetchRSSFeed(feed));
+  let articles = [];
 
-  // Also fetch NewsAPI if key is set
-  const newsApiKey = localStorage.getItem('newsApiKey');
-  if (newsApiKey) {
-    feedPromises.push(fetchNewsAPI(newsApiKey));
-  }
-
-  const results = await Promise.allSettled(feedPromises);
+  // Fetch all feeds in parallel
+  const results = await Promise.allSettled(feeds.map(f => fetchRSSFeed(f)));
 
   results.forEach(r => {
     if (r.status === 'fulfilled' && r.value) {
@@ -983,143 +1094,84 @@ async function loadNews() {
     }
   });
 
-  // Sort by date (newest first), deduplicate by title, limit to 15
+  // Sort newest first, deduplicate, limit to 5
   articles.sort((a, b) => b.date - a.date);
   const seen = new Set();
   articles = articles.filter(a => {
-    const key = a.title.toLowerCase().trim();
-    if (seen.has(key)) return false;
-    seen.add(key);
+    const k = a.title.toLowerCase().replace(/\s+/g, ' ').trim();
+    if (seen.has(k)) return false;
+    seen.add(k);
     return true;
-  }).slice(0, 15);
+  }).slice(0, 5);
 
   if (articles.length === 0) {
-    listEl.innerHTML = '<div class="news-error"><p>Kon geen nieuws laden. Controleer je internetverbinding.</p><button onclick="loadNews()">Opnieuw proberen</button></div>';
+    listEl.innerHTML = '<div class="news-error"><p>Kon geen artikelen laden.</p><button onclick="loadNewsSection(\'' + key + '\', FEEDS.' + key + ', \'' + listId + '\', \'' + countId + '\')">Opnieuw</button></div>';
     countEl.textContent = '';
     return;
   }
 
-  countEl.textContent = `${articles.length} artikelen`;
-  renderArticles(listEl);
+  countEl.textContent = articles.length + ' artikelen';
+  renderNews(listEl, articles);
 }
 
 async function fetchRSSFeed(feed) {
   try {
-    const url = RSS2JSON_API + encodeURIComponent(feed.url);
+    const url = RSS2JSON + encodeURIComponent(feed.url);
     const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
     const data = await res.json();
 
     if (data.status !== 'ok' || !data.items) return [];
 
     const result = [];
-    const items = data.items.slice(0, 5); // Max 5 per source
+    const items = data.items.slice(0, 8);
 
     for (const item of items) {
       const title = item.title || '';
+      if (!title) continue;
+
       const link = item.link || '';
-      const description = cleanHTML(item.description || item.content || '');
       const pubDate = item.pubDate;
       const date = pubDate ? new Date(pubDate) : new Date();
 
-      if (title) {
-        result.push({
-          title: decodeEntities(title),
-          summary: truncate(description, 150),
-          fullContent: description,
-          source: feed.name,
-          sourceColor: feed.color,
-          link,
-          date,
-          timeAgo: getTimeAgo(date)
-        });
+      // Determine source name
+      let sourceName = feed.name;
+      if (feed.name === 'Google News' && item.author) {
+        sourceName = item.author;
       }
-    }
 
+      result.push({
+        title: decodeEntities(title),
+        source: sourceName,
+        sourceColor: feed.color,
+        link: link,
+        date: date,
+        timeAgo: getTimeAgo(date)
+      });
+    }
     return result;
   } catch (e) {
-    console.warn(`Failed to fetch ${feed.name}:`, e);
     return [];
   }
 }
 
-async function fetchNewsAPI(apiKey) {
-  try {
-    const url = `https://newsapi.org/v2/everything?q=(artificial+intelligence+OR+AI+education)&language=en&sortBy=publishedAt&pageSize=5&apiKey=${apiKey}`;
-    const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
-    const data = await res.json();
-
-    if (data.status !== 'ok' || !data.articles) return [];
-
-    return data.articles.map(a => ({
-      title: a.title || '',
-      summary: truncate(a.description || '', 150),
-      fullContent: a.content || a.description || '',
-      source: a.source?.name || 'NewsAPI',
-      sourceColor: '#FBBF24',
-      link: a.url,
-      date: new Date(a.publishedAt),
-      timeAgo: getTimeAgo(new Date(a.publishedAt))
-    }));
-  } catch (e) {
-    console.warn('Failed to fetch NewsAPI:', e);
-    return [];
-  }
-}
-
-function renderArticles(container) {
-  container.innerHTML = articles.map((a, i) => `
-    <div class="news-card" onclick="openArticle(${i})">
-      <div class="news-card-title">${escapeHTML(a.title)}</div>
-      ${a.summary ? `<div class="news-card-summary">${escapeHTML(a.summary)}</div>` : ''}
-      <div class="news-card-meta">
-        <span class="news-source" style="color:${a.sourceColor}">${escapeHTML(a.source)}</span>
-        <span class="news-dot"></span>
-        <span>${a.timeAgo}</span>
-      </div>
-    </div>
-  `).join('');
+function renderNews(container, articles) {
+  container.innerHTML = articles.map(a => {
+    const href = a.link ? ' href="' + escapeAttr(a.link) + '"' : '';
+    return '<a class="news-card"' + href + ' target="_blank" rel="noopener">' +
+      '<div class="news-card-title">' + escapeHTML(a.title) + '</div>' +
+      '<div class="news-card-meta">' +
+        '<span class="news-source" style="color:' + a.sourceColor + '">' + escapeHTML(a.source) + '</span>' +
+        '<span class="news-dot"></span>' +
+        '<span>' + a.timeAgo + '</span>' +
+      '</div>' +
+    '</a>';
+  }).join('');
 }
 
 /* ==============================================================
-   ARTICLE MODAL
-   ============================================================== */
-function openArticle(index) {
-  const a = articles[index];
-  if (!a) return;
-
-  document.getElementById('modalSource').textContent = a.source;
-  document.getElementById('modalSource').style.color = a.sourceColor;
-  document.getElementById('modalTitle').textContent = a.title;
-  document.getElementById('modalDate').textContent = formatDate(a.date);
-
-  const bodyEl = document.getElementById('modalBody');
-  const content = a.fullContent || a.summary || '';
-  // Split into paragraphs
-  const paragraphs = content.split(/\n+/).filter(p => p.trim());
-  bodyEl.innerHTML = paragraphs.length > 0
-    ? paragraphs.map(p => `<p>${escapeHTML(p)}</p>`).join('')
-    : `<p>${escapeHTML(content || 'Geen inhoud beschikbaar.')}</p>`;
-
-  const linkEl = document.getElementById('modalLink');
-  linkEl.href = a.link || '#';
-  linkEl.style.display = a.link ? 'block' : 'none';
-
-  const modal = document.getElementById('articleModal');
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeArticleModal() {
-  const modal = document.getElementById('articleModal');
-  modal.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-/* ==============================================================
-   BOOK SUGGESTION
+   BOOK / LUISTERTIP
    ============================================================== */
 function loadBook() {
-  // Pick book based on day of year
   const now = new Date();
   const start = new Date(now.getFullYear(), 0, 0);
   const diff = now - start;
@@ -1128,72 +1180,98 @@ function loadBook() {
   const book = BOOKS[index];
 
   const card = document.getElementById('bookCard');
-  const audibleUrl = `https://www.audible.com/search?keywords=${encodeURIComponent(book.title + ' ' + book.author)}`;
+  const audibleUrl = 'https://www.audible.com/search?keywords=' + encodeURIComponent(book.title + ' ' + book.author);
 
-  card.innerHTML = `
-    <div class="book-emoji">&#127911;</div>
-    <div class="book-title">${escapeHTML(book.title)}</div>
-    <div class="book-author">${escapeHTML(book.author)}</div>
-    <div class="book-desc">${escapeHTML(book.desc)}</div>
-    <a class="book-btn" href="${audibleUrl}" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
-      </svg>
-      Beluister op Audible
-    </a>
-  `;
+  card.innerHTML =
+    '<div class="book-emoji">&#127911;</div>' +
+    '<div class="book-title">' + escapeHTML(book.title) + '</div>' +
+    '<div class="book-author">' + escapeHTML(book.author) + '</div>' +
+    '<div class="book-desc">' + escapeHTML(book.desc) + '</div>' +
+    '<a class="book-btn" href="' + escapeAttr(audibleUrl) + '" target="_blank" rel="noopener">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>' +
+      '</svg>' +
+      'Beluister op Audible' +
+    '</a>';
 }
 
 /* ==============================================================
-   SETTINGS
+   EVENTS
    ============================================================== */
-function setupEventListeners() {
+function setupEvents() {
   // Settings
   document.getElementById('settingsBtn').addEventListener('click', openSettings);
   document.getElementById('settingsClose').addEventListener('click', closeSettings);
-  document.getElementById('settingsOverlay').addEventListener('click', e => {
-    if (e.target === e.currentTarget) closeSettings();
+  document.getElementById('settingsOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeSettings();
   });
   document.getElementById('settingsSave').addEventListener('click', saveSettings);
-
-  // Article modal
-  document.getElementById('articleModal').addEventListener('click', e => {
-    if (e.target === e.currentTarget) closeArticleModal();
-  });
 
   // Refresh
   document.getElementById('refreshBtn').addEventListener('click', refreshAll);
 
-  // Pull-to-refresh
+  // Chart range buttons
+  document.querySelectorAll('.btc-range-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.btc-range-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentChartDays = parseInt(btn.dataset.days);
+      loadBTCChart(currentChartDays);
+    });
+  });
+
+  // Pull to refresh
   let startY = 0;
   let pulling = false;
-  document.addEventListener('touchstart', e => {
+  document.addEventListener('touchstart', function(e) {
     if (window.scrollY === 0) {
       startY = e.touches[0].clientY;
       pulling = true;
     }
   }, { passive: true });
 
-  document.addEventListener('touchmove', e => {
+  document.addEventListener('touchmove', function(e) {
     if (!pulling) return;
     const diff = e.touches[0].clientY - startY;
     if (diff > 80) {
-      const indicator = document.getElementById('refreshIndicator');
-      indicator.classList.add('visible');
+      document.getElementById('refreshIndicator').classList.add('visible');
     }
   }, { passive: true });
 
-  document.addEventListener('touchend', () => {
+  document.addEventListener('touchend', function() {
     if (!pulling) return;
     pulling = false;
     const indicator = document.getElementById('refreshIndicator');
     if (indicator.classList.contains('visible')) {
       refreshAll();
-      setTimeout(() => indicator.classList.remove('visible'), 1500);
+      setTimeout(function() { indicator.classList.remove('visible'); }, 1500);
     }
+  });
+
+  // Resize handler for chart
+  let resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      const cacheKey = 'btc_' + currentChartDays;
+      const cached = btcChartCache[cacheKey];
+      if (cached) {
+        drawChart(
+          document.getElementById('btcChart'),
+          cached.prices,
+          document.getElementById('btcYMax'),
+          document.getElementById('btcYMin'),
+          document.getElementById('btcXStart'),
+          document.getElementById('btcXEnd')
+        );
+      }
+    }, 200);
   });
 }
 
+/* ==============================================================
+   SETTINGS
+   ============================================================== */
 function openSettings() {
   const key = localStorage.getItem('newsApiKey') || '';
   document.getElementById('newsApiKeyInput').value = key;
@@ -1214,56 +1292,68 @@ function saveSettings() {
     localStorage.removeItem('newsApiKey');
   }
   closeSettings();
-  loadNews(); // Reload with potential new API key
+  showToast('Instellingen opgeslagen');
 }
 
+/* ==============================================================
+   REFRESH
+   ============================================================== */
 async function refreshAll() {
   const indicator = document.getElementById('refreshIndicator');
   indicator.classList.add('visible');
   const btn = document.getElementById('refreshBtn');
-  btn.style.opacity = '0.5';
+  btn.classList.add('spinning');
   btn.disabled = true;
 
-  await Promise.all([loadBTC(), loadNews()]);
+  // Clear chart cache so we get fresh data
+  btcChartCache = {};
 
-  btn.style.opacity = '1';
+  await Promise.all([
+    loadBTCPrice(),
+    loadBTCChart(currentChartDays),
+    loadAllNewsPromise()
+  ]);
+
+  btn.classList.remove('spinning');
   btn.disabled = false;
-  setTimeout(() => indicator.classList.remove('visible'), 800);
+  setTimeout(function() { indicator.classList.remove('visible'); }, 600);
+}
+
+function loadAllNewsPromise() {
+  return Promise.all([
+    loadNewsSection('ai', FEEDS.ai, 'listAI', 'countAI'),
+    loadNewsSection('onderwijs', FEEDS.onderwijs, 'listOnderwijs', 'countOnderwijs'),
+    loadNewsSection('wetenschap', FEEDS.wetenschap, 'listWetenschap', 'countWetenschap')
+  ]);
+}
+
+/* ==============================================================
+   TOAST
+   ============================================================== */
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); }, 2500);
 }
 
 /* ==============================================================
    HELPERS
    ============================================================== */
-function getXMLText(parent, tag) {
-  const el = parent.querySelector(tag);
-  return el ? el.textContent : '';
-}
-
-function cleanHTML(html) {
-  const tmp = document.createElement('div');
-  tmp.innerHTML = html;
-  // Remove images, scripts, iframes
-  tmp.querySelectorAll('img, script, iframe, style, figure, figcaption').forEach(el => el.remove());
-  return tmp.textContent || tmp.innerText || '';
-}
-
 function decodeEntities(str) {
   const tmp = document.createElement('textarea');
   tmp.innerHTML = str;
   return tmp.value;
 }
 
-function truncate(str, max) {
-  if (!str) return '';
-  str = str.trim();
-  if (str.length <= max) return str;
-  return str.substring(0, max).replace(/\s+\S*$/, '') + '...';
-}
-
 function escapeHTML(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+function escapeAttr(str) {
+  return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function getTimeAgo(date) {
@@ -1274,22 +1364,12 @@ function getTimeAgo(date) {
   const days = Math.floor(diffMs / 86400000);
 
   if (mins < 1) return 'Zojuist';
-  if (mins < 60) return `${mins} min`;
-  if (hours < 24) return `${hours} uur`;
+  if (mins < 60) return mins + ' min geleden';
+  if (hours === 1) return '1 uur geleden';
+  if (hours < 24) return hours + ' uur geleden';
   if (days === 1) return 'Gisteren';
-  if (days < 7) return `${days} dagen`;
-  return date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' });
-}
-
-function formatDate(date) {
-  return date.toLocaleDateString('nl-NL', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+  if (days < 7) return days + ' dagen geleden';
+  return date.getDate() + ' ' + MAANDEN_KORT[date.getMonth()];
 }
 </script>
 
