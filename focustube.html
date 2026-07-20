@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no,maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FocusTube">
+<meta name="theme-color" content="#0b0b14">
+<meta name="description" content="Gefocust YouTube kijken — alleen muziek en educatieve content over AI en onderwijs.">
+<title>FocusTube</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230b0b14'/><circle cx='50' cy='50' r='30' fill='%23818cf8'/><polygon points='42,35 68,50 42,65' fill='white'/></svg>">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0b14;--surface:#151525;--surface2:#1e1e32;--surface3:#282845;
+  --primary:#818cf8;--primary-dim:#6366f1;--primary-glow:rgba(129,140,248,.15);
+  --text:#eef0f6;--text2:#8b8fa8;--text3:#5a5e78;
+  --border:#23233a;--border2:#2e2e4a;
+  --danger:#f87171;--success:#34d399;
+  --radius:12px;--radius-sm:8px;--radius-lg:16px;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-left:env(safe-area-inset-left,0px);
+  --safe-right:env(safe-area-inset-right,0px);
+  --header-h:56px;--tabbar-h:60px;
+}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--text);-webkit-tap-highlight-color:transparent;
+  -webkit-text-size-adjust:100%;overscroll-behavior:none;
+}
+input,button,textarea{font:inherit;color:inherit;border:none;outline:none;background:none}
+button{cursor:pointer;-webkit-appearance:none}
+a{color:var(--primary);text-decoration:none}
+
+/* === APP SHELL === */
+#app{display:flex;flex-direction:column;height:100vh;height:100dvh;position:relative;overflow:hidden}
+
+/* --- Header --- */
+.header{
+  display:flex;align-items:center;gap:12px;
+  height:var(--header-h);min-height:var(--header-h);
+  padding:0 16px;padding-top:var(--safe-top);
+  background:var(--bg);border-bottom:1px solid var(--border);
+  position:relative;z-index:20;
+}
+.header-back{
+  width:36px;height:36px;border-radius:50%;display:none;
+  align-items:center;justify-content:center;font-size:20px;
+  background:var(--surface2);color:var(--text);transition:background .15s;
+}
+.header-back:active{background:var(--surface3)}
+.header-back.visible{display:flex}
+.header h1{
+  flex:1;font-size:20px;font-weight:700;letter-spacing:-.3px;
+  background:linear-gradient(135deg,var(--primary),#a78bfa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.header-settings{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface2);color:var(--text2);transition:all .15s;font-size:18px;
+}
+.header-settings:active{background:var(--surface3);color:var(--text)}
+
+/* --- Main Content --- */
+.main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--tabbar-h) + var(--safe-bottom))}
+
+/* --- Tab Bar --- */
+.tabbar{
+  position:fixed;bottom:0;left:0;right:0;z-index:20;
+  display:flex;height:calc(var(--tabbar-h) + var(--safe-bottom));
+  padding-bottom:var(--safe-bottom);
+  background:var(--surface);border-top:1px solid var(--border);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+.tab{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:3px;color:var(--text3);transition:color .2s;
+  padding:6px 0;position:relative;
+}
+.tab svg{width:24px;height:24px;fill:currentColor}
+.tab span{font-size:10px;font-weight:600;letter-spacing:.3px}
+.tab.active{color:var(--primary)}
+.tab.active::before{
+  content:'';position:absolute;top:0;left:25%;right:25%;
+  height:2px;background:var(--primary);border-radius:0 0 2px 2px;
+}
+
+/* --- Search Bar --- */
+.search-wrap{padding:12px 16px 0}
+.search-bar{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:0 4px 0 14px;height:46px;
+  transition:border-color .2s;
+}
+.search-bar:focus-within{border-color:var(--primary)}
+.search-bar input{flex:1;background:none;font-size:15px;color:var(--text);height:100%}
+.search-bar input::placeholder{color:var(--text3)}
+.search-btn{
+  width:38px;height:38px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--primary);color:#fff;transition:background .15s;flex-shrink:0;
+}
+.search-btn:active{background:var(--primary-dim)}
+.search-btn svg{width:18px;height:18px}
+
+/* --- Chips --- */
+.chips{
+  display:flex;gap:8px;padding:10px 16px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:500;
+  background:var(--surface);border:1px solid var(--border);color:var(--text2);
+  transition:all .15s;white-space:nowrap;
+}
+.chip:active,.chip.active{background:var(--primary-glow);border-color:var(--primary);color:var(--primary)}
+
+/* --- Results Grid --- */
+.results{padding:8px 16px 20px;display:flex;flex-direction:column;gap:14px}
+
+/* --- Video Card --- */
+.vcard{
+  background:var(--surface);border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--border);transition:transform .15s,border-color .15s;
+}
+.vcard:active{transform:scale(.98);border-color:var(--border2)}
+.vcard-thumb{position:relative;width:100%;aspect-ratio:16/9;background:var(--surface2);overflow:hidden}
+.vcard-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.vcard-dur{
+  position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.85);
+  color:#fff;font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px;
+  letter-spacing:.3px;
+}
+.vcard-info{padding:10px 12px 12px}
+.vcard-title{
+  font-size:14px;font-weight:600;line-height:1.35;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  margin-bottom:6px;
+}
+.vcard-meta{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.vcard-meta span{white-space:nowrap}
+.vcard-dot{width:3px;height:3px;border-radius:50%;background:var(--text3);flex-shrink:0}
+
+/* --- Skeleton --- */
+.skeleton{border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);overflow:hidden}
+.skeleton .sk-thumb{aspect-ratio:16/9;background:linear-gradient(90deg,var(--surface2) 25%,var(--surface3) 50%,var(--surface2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.skeleton .sk-line{height:12px;border-radius:6px;margin:10px 12px 0;background:linear-gradient(90deg,var(--surface2) 25%,var(--surface3) 50%,var(--surface2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.skeleton .sk-line:last-child{width:60%;margin-bottom:12px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* --- Player --- */
+.player-wrap{padding:0}
+.player-container{width:100%;aspect-ratio:16/9;background:#000;position:relative}
+.player-container iframe{width:100%;height:100%;border:none}
+.player-info{padding:16px}
+.player-title{font-size:16px;font-weight:700;line-height:1.35;margin-bottom:8px}
+.player-channel{font-size:13px;color:var(--text2);margin-bottom:4px}
+.player-stats{font-size:12px;color:var(--text3);display:flex;gap:8px}
+.player-divider{height:1px;background:var(--border);margin:12px 16px}
+.player-more-label{padding:0 16px;font-size:13px;font-weight:600;color:var(--text2);margin-bottom:8px}
+
+/* --- Welcome / Empty / Error --- */
+.state-screen{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 32px;text-align:center;min-height:50vh;
+}
+.state-icon{font-size:48px;margin-bottom:16px;opacity:.7}
+.state-title{font-size:18px;font-weight:700;margin-bottom:8px}
+.state-desc{font-size:14px;color:var(--text2);line-height:1.5;max-width:320px}
+.state-btn{
+  margin-top:20px;padding:12px 28px;border-radius:var(--radius);
+  background:var(--primary);color:#fff;font-weight:600;font-size:14px;
+  transition:background .15s;
+}
+.state-btn:active{background:var(--primary-dim)}
+
+/* --- Load More --- */
+.load-more{
+  display:block;width:calc(100% - 32px);margin:4px 16px 20px;
+  padding:14px;border-radius:var(--radius);
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--text2);font-size:14px;font-weight:600;text-align:center;
+  transition:all .15s;
+}
+.load-more:active{background:var(--surface2);border-color:var(--border2);color:var(--text)}
+.load-more.loading{pointer-events:none;opacity:.6}
+
+/* --- Settings Overlay --- */
+.settings-overlay{
+  position:fixed;inset:0;z-index:100;background:var(--bg);
+  transform:translateY(100%);transition:transform .35s cubic-bezier(.32,.72,0,1);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.settings-overlay.open{transform:translateY(0)}
+.settings-header{
+  display:flex;align-items:center;gap:12px;
+  height:var(--header-h);min-height:var(--header-h);
+  padding:0 16px;padding-top:var(--safe-top);
+  border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.settings-header h2{flex:1;font-size:18px;font-weight:700}
+.settings-close{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface2);color:var(--text2);font-size:18px;transition:all .15s;
+}
+.settings-close:active{background:var(--surface3);color:var(--text)}
+.settings-body{
+  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:20px 16px calc(40px + var(--safe-bottom));
+}
+.settings-section{margin-bottom:28px}
+.settings-section h3{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--text)}
+.settings-section p,.settings-section li{font-size:13px;color:var(--text2);line-height:1.6}
+.settings-section ul,.settings-section ol{padding-left:20px;margin:6px 0}
+.settings-section li{margin-bottom:4px}
+.settings-section code{
+  background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px;
+  color:var(--primary);font-family:'SF Mono',Menlo,monospace;
+}
+.api-input-row{display:flex;gap:8px;margin-top:8px}
+.api-input{
+  flex:1;height:46px;padding:0 14px;font-size:14px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);color:var(--text);transition:border-color .2s;
+}
+.api-input:focus{border-color:var(--primary)}
+.api-save{
+  height:46px;padding:0 20px;border-radius:var(--radius);
+  background:var(--primary);color:#fff;font-weight:600;font-size:14px;
+  transition:background .15s;flex-shrink:0;
+}
+.api-save:active{background:var(--primary-dim)}
+.api-status{font-size:12px;margin-top:6px;min-height:18px}
+.api-status.ok{color:var(--success)}
+.api-status.err{color:var(--danger)}
+.collapse-btn{
+  display:flex;align-items:center;gap:8px;width:100%;
+  padding:12px 14px;margin-bottom:2px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  font-size:14px;font-weight:600;color:var(--text);transition:all .15s;
+}
+.collapse-btn:active{background:var(--surface2)}
+.collapse-btn .arrow{font-size:10px;color:var(--text3);transition:transform .2s;margin-left:auto}
+.collapse-btn.open .arrow{transform:rotate(90deg)}
+.collapse-content{
+  max-height:0;overflow:hidden;transition:max-height .35s ease;
+  padding:0 14px;background:var(--surface);
+  border:1px solid var(--border);border-top:none;
+  border-radius:0 0 var(--radius) var(--radius);margin-top:-2px;
+}
+.collapse-content.open{max-height:1200px;padding:12px 14px 16px}
+
+/* --- Toast --- */
+.toast{
+  position:fixed;top:calc(var(--safe-top) + 60px);left:50%;transform:translateX(-50%) translateY(-20px);
+  z-index:200;padding:10px 20px;border-radius:var(--radius);
+  background:var(--surface3);color:var(--text);font-size:13px;font-weight:500;
+  opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;
+  border:1px solid var(--border2);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* --- Scrollbar --- */
+.main::-webkit-scrollbar{width:0;display:none}
+
+/* --- Responsive tweaks --- */
+@media(min-width:600px){
+  .results{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+}
+@media(min-width:900px){
+  .results{grid-template-columns:repeat(3,1fr)}
+  .settings-body{max-width:600px;margin:0 auto}
+}
+@media(min-width:1200px){
+  .results{grid-template-columns:repeat(4,1fr)}
+}
+
+/* --- Short landscape phones --- */
+@media(max-height:500px) and (orientation:landscape){
+  .player-container{aspect-ratio:auto;height:50vh}
+}
+
+/* --- Print --- */
+@media print{.tabbar,.header-settings,.search-wrap,.chips,.load-more{display:none!important}}
+
+/* Hidden utility */
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- Header -->
+  <header class="header">
+    <button class="header-back" id="backBtn" onclick="FT.closePlayer()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <h1>FocusTube</h1>
+    <button class="header-settings" onclick="FT.toggleSettings()" aria-label="Instellingen">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </header>
+
+  <!-- Main scrollable content -->
+  <main class="main" id="mainContent">
+
+    <!-- Welcome (no API key) -->
+    <div class="state-screen" id="welcomeScreen">
+      <div class="state-icon">
+        <svg width="64" height="64" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--primary)" stroke-width="3" opacity=".5"/><polygon points="42,32 72,50 42,68" fill="var(--primary)"/></svg>
+      </div>
+      <div class="state-title">Welkom bij FocusTube</div>
+      <div class="state-desc">Bekijk YouTube zonder afleiding. Alleen muziek en educatieve video's over AI en onderwijs. Voeg je YouTube API-key toe om te beginnen.</div>
+      <button class="state-btn" onclick="FT.toggleSettings()">API-key instellen</button>
+    </div>
+
+    <!-- Search area -->
+    <div id="searchArea" class="hidden">
+      <div class="search-wrap">
+        <div class="search-bar">
+          <input type="search" id="searchInput" autocomplete="off" enterkeyhint="search">
+          <button class="search-btn" onclick="FT.doSearch()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="chips" id="chipsRow"></div>
+    </div>
+
+    <!-- Results -->
+    <div class="results" id="resultsGrid"></div>
+
+    <!-- Load More -->
+    <button class="load-more hidden" id="loadMoreBtn" onclick="FT.loadMore()">Meer laden</button>
+
+    <!-- Empty state -->
+    <div class="state-screen hidden" id="emptyState">
+      <div class="state-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <div class="state-title" id="emptyTitle">Geen resultaten</div>
+      <div class="state-desc" id="emptyDesc">Probeer andere zoektermen.</div>
+    </div>
+
+    <!-- Error state -->
+    <div class="state-screen hidden" id="errorState">
+      <div class="state-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="state-title" style="color:var(--danger)">Fout</div>
+      <div class="state-desc" id="errorDesc">Er is iets misgegaan.</div>
+      <button class="state-btn" onclick="FT.toggleSettings()" id="errorBtn" style="display:none">Controleer API-key</button>
+    </div>
+
+    <!-- Player view -->
+    <div id="playerView" class="hidden">
+      <div class="player-wrap">
+        <div class="player-container"><iframe id="playerFrame" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen playsinline></iframe></div>
+        <div class="player-info">
+          <div class="player-title" id="playerTitle"></div>
+          <div class="player-channel" id="playerChannel"></div>
+          <div class="player-stats" id="playerStats"></div>
+        </div>
+      </div>
+      <div class="player-divider"></div>
+      <div class="player-more-label">Meer resultaten</div>
+      <div class="results" id="playerResults"></div>
+    </div>
+
+  </main>
+
+  <!-- Tab Bar -->
+  <nav class="tabbar">
+    <button class="tab active" data-tab="muziek" onclick="FT.switchTab('muziek')">
+      <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      <span>Muziek</span>
+    </button>
+    <button class="tab" data-tab="leren" onclick="FT.switchTab('leren')">
+      <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+      <span>Leren</span>
+    </button>
+  </nav>
+
+  <!-- Settings Overlay -->
+  <div class="settings-overlay" id="settingsOverlay">
+    <div class="settings-header">
+      <h2>Instellingen</h2>
+      <button class="settings-close" onclick="FT.toggleSettings()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="settings-body">
+
+      <!-- API Key -->
+      <div class="settings-section">
+        <h3>YouTube API-key</h3>
+        <p>Voer je persoonlijke YouTube Data API v3-key in om video's te kunnen zoeken.</p>
+        <div class="api-input-row">
+          <input class="api-input" id="apiKeyInput" type="password" placeholder="AIza..." autocomplete="off" spellcheck="false">
+          <button class="api-save" onclick="FT.saveApiKey()">Opslaan</button>
+        </div>
+        <div class="api-status" id="apiStatus"></div>
+      </div>
+
+      <!-- How to get API key -->
+      <div class="settings-section">
+        <button class="collapse-btn" onclick="FT.toggleCollapse(this)">
+          <span>API-key aanmaken</span>
+          <span class="arrow">&#9654;</span>
+        </button>
+        <div class="collapse-content">
+          <ol>
+            <li>Ga naar <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> en log in met je Google-account.</li>
+            <li>Klik bovenin op het project-dropdown menu en kies <strong>New Project</strong>. Geef het een naam (bijv. "FocusTube") en klik <strong>Create</strong>.</li>
+            <li>Ga in het menu naar <strong>APIs &amp; Services</strong> &gt; <strong>Library</strong>.</li>
+            <li>Zoek naar <code>YouTube Data API v3</code> en klik erop.</li>
+            <li>Klik op <strong>Enable</strong>.</li>
+            <li>Ga naar <strong>APIs &amp; Services</strong> &gt; <strong>Credentials</strong>.</li>
+            <li>Klik op <strong>+ CREATE CREDENTIALS</strong> &gt; <strong>API key</strong>.</li>
+            <li>Kopieer de key en plak hem hierboven.</li>
+          </ol>
+          <p style="margin-top:8px"><strong>Tip:</strong> Beperk de key tot alleen de YouTube Data API v3 via <em>Edit API key</em> &gt; <em>Restrict key</em> &gt; <em>API restrictions</em>. Het gratis quotum is 10.000 eenheden per dag (ongeveer 100 zoekopdrachten).</p>
+        </div>
+      </div>
+
+      <!-- Install as PWA on iPhone -->
+      <div class="settings-section">
+        <button class="collapse-btn" onclick="FT.toggleCollapse(this)">
+          <span>Installeren op iPhone</span>
+          <span class="arrow">&#9654;</span>
+        </button>
+        <div class="collapse-content">
+          <ol>
+            <li>Open dit bestand in <strong>Safari</strong> op je iPhone.</li>
+            <li>Tik op het <strong>Deel-icoon</strong> (vierkantje met pijl omhoog) onderaan het scherm.</li>
+            <li>Scroll omlaag en tik op <strong>Zet op beginscherm</strong>.</li>
+            <li>Kies een naam (of laat "FocusTube" staan) en tik op <strong>Voeg toe</strong>.</li>
+            <li>De app opent nu als een standalone app zonder Safari-balk.</li>
+          </ol>
+          <p style="margin-top:8px"><strong>Let op:</strong> gebruik Safari, niet Chrome of een andere browser. Alleen Safari ondersteunt "Zet op beginscherm" op iOS.</p>
+        </div>
+      </div>
+
+      <!-- Block youtube.com via Screen Time -->
+      <div class="settings-section">
+        <button class="collapse-btn" onclick="FT.toggleCollapse(this)">
+          <span>YouTube blokkeren via Schermtijd</span>
+          <span class="arrow">&#9654;</span>
+        </button>
+        <div class="collapse-content">
+          <p>Blokkeer youtube.com in Safari zodat je alleen via FocusTube kunt kijken:</p>
+          <ol>
+            <li>Open <strong>Instellingen</strong> &gt; <strong>Schermtijd</strong>.</li>
+            <li>Tik op <strong>Beperkingen voor materiaal en privacy</strong> en zet het aan.</li>
+            <li>Tik op <strong>Inhoudsbeperkingen</strong> (of <em>Store, web, Siri en Game Center</em>).</li>
+            <li>Tik op <strong>Webinhoud</strong>.</li>
+            <li>Kies <strong>Beperk niet-geschikt materiaal</strong>.</li>
+            <li>Onder <strong>Sta nooit toe</strong>, tik <strong>Website toevoegen</strong>.</li>
+            <li>Voer in: <code>youtube.com</code> en voeg ook <code>m.youtube.com</code> toe.</li>
+          </ol>
+          <p style="margin-top:8px"><strong>Resultaat:</strong> YouTube opent niet meer in Safari of andere browsers. FocusTube werkt nog steeds omdat het de embed-player en API gebruikt, niet de website.</p>
+          <p style="margin-top:4px"><strong>Tip:</strong> Stel een Schermtijd-toegangscode in die iemand anders beheert, zodat je de blokkade niet makkelijk ongedaan maakt.</p>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="settings-section" style="text-align:center;padding-top:16px">
+        <p style="font-size:12px;color:var(--text3)">FocusTube v1.0 &mdash; Gefocust YouTube kijken.<br>Geen tracking. Geen reclame. Geen afleiding.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+</div>
+
+<script>
+/* ============================================================
+   FocusTube — Single-file Progressive Web App
+   ============================================================ */
+const FT = (() => {
+  'use strict';
+
+  /* ---- State ---- */
+  const state = {
+    tab: 'muziek',
+    apiKey: localStorage.getItem('ft_apikey') || '',
+    playing: null,
+    settings: false,
+    tabs: {
+      muziek: { query: '', results: [], token: null, loading: false },
+      leren:  { query: '', results: [], token: null, loading: false },
+    }
+  };
+
+  /* ---- DOM refs ---- */
+  const $ = id => document.getElementById(id);
+  const el = {
+    main: () => $('mainContent'),
+    welcome: () => $('welcomeScreen'),
+    search: () => $('searchArea'),
+    input: () => $('searchInput'),
+    chips: () => $('chipsRow'),
+    grid: () => $('resultsGrid'),
+    loadMore: () => $('loadMoreBtn'),
+    empty: () => $('emptyState'),
+    error: () => $('errorState'),
+    player: () => $('playerView'),
+    playerFrame: () => $('playerFrame'),
+    back: () => $('backBtn'),
+    settings: () => $('settingsOverlay'),
+    apiInput: () => $('apiKeyInput'),
+    apiStatus: () => $('apiStatus'),
+    toast: () => $('toast'),
+  };
+
+  /* ---- Chips config ---- */
+  const CHIPS = {
+    muziek: [
+      { label: 'Lo-fi beats', q: 'lo-fi beats study' },
+      { label: 'Klassiek', q: 'classical music piano' },
+      { label: 'Jazz', q: 'jazz music relaxing' },
+      { label: 'Ambient', q: 'ambient music focus' },
+      { label: 'Study', q: 'study music concentration' },
+      { label: 'Chill', q: 'chill music playlist' },
+      { label: 'Piano', q: 'piano music calm' },
+      { label: 'Nature sounds', q: 'nature sounds relaxing' },
+    ],
+    leren: [
+      { label: 'AI in onderwijs', q: 'AI onderwijs education' },
+      { label: 'ChatGPT les', q: 'ChatGPT onderwijs lessen' },
+      { label: 'Machine Learning', q: 'machine learning uitleg education' },
+      { label: 'Didactiek', q: 'didactiek onderwijs teaching' },
+      { label: 'EdTech', q: 'EdTech education technology' },
+      { label: 'Formatief', q: 'formatief handelen toetsen onderwijs' },
+      { label: 'Differentiatie', q: 'differentiatie onderwijs school' },
+      { label: 'Pedagogiek', q: 'pedagogiek education school' },
+      { label: 'Prompt engineering', q: 'prompt engineering AI education' },
+      { label: 'Future of education', q: 'future of education AI' },
+    ],
+  };
+
+  /* ---- Educational scope keywords ---- */
+  const EDU_KEYWORDS = [
+    'ai','artificial intelligence','machine learning','deep learning','neural',
+    'onderwijs','education','school','leren','learning','teaching','teach',
+    'didactiek','pedagogiek','edtech','tutorial','course','lecture','cursus',
+    'les','workshop','webinar','conference','keynote','training','instructie',
+    'classroom','docent','leraar','leerkracht','student','computational thinking',
+    'formatief','differentiatie','toets','prompt engineering','chatgpt','copilot',
+    'gemini','claude','openai','generative ai','generatieve ai',
+  ];
+
+  /* ---- Helpers ---- */
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+  }
+
+  function parseDuration(iso) {
+    if (!iso) return 0;
+    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    if (!m) return 0;
+    return (parseInt(m[1]||0))*3600 + (parseInt(m[2]||0))*60 + parseInt(m[3]||0);
+  }
+
+  function fmtDuration(sec) {
+    const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
+    if (h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    return `${m}:${String(s).padStart(2,'0')}`;
+  }
+
+  function fmtViews(n) {
+    n = parseInt(n)||0;
+    if (n >= 1e6) return (n/1e6).toFixed(1).replace('.0','') + 'M';
+    if (n >= 1e3) return (n/1e3).toFixed(1).replace('.0','') + 'K';
+    return String(n);
+  }
+
+  function timeAgo(d) {
+    const s = Math.floor((Date.now() - new Date(d).getTime()) / 1000);
+    const i = [
+      [31536000,'jaar','jaar'],[2592000,'maand','maanden'],[604800,'week','weken'],
+      [86400,'dag','dagen'],[3600,'uur','uur'],[60,'minuut','minuten'],
+    ];
+    for (const [sec,sg,pl] of i) { const c = Math.floor(s/sec); if (c >= 1) return `${c} ${c===1?sg:pl} geleden`; }
+    return 'zojuist';
+  }
+
+  function isShort(video) {
+    const dur = video._duration || 0;
+    if (dur > 0 && dur < 60) return true;
+    const title = (video.snippet?.title || '').toLowerCase();
+    if (title.includes('#shorts') || title.includes('#short')) return true;
+    return false;
+  }
+
+  function buildLerenQuery(q) {
+    if (!q.trim()) return 'AI onderwijs education EdTech';
+    const lower = q.toLowerCase();
+    const hasKw = EDU_KEYWORDS.some(kw => lower.includes(kw));
+    if (hasKw) return q;
+    return q + ' onderwijs education AI';
+  }
+
+  function showToast(msg) {
+    const t = el.toast();
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  /* ---- YouTube API ---- */
+  const API_BASE = 'https://www.googleapis.com/youtube/v3';
+
+  async function ytSearch(query, pageToken) {
+    const p = new URLSearchParams({
+      part: 'snippet',
+      q: query,
+      type: 'video',
+      maxResults: '15',
+      key: state.apiKey,
+      videoEmbeddable: 'true',
+      safeSearch: 'none',
+    });
+
+    if (state.tab === 'leren') {
+      p.set('videoDuration', 'long');
+      p.set('relevanceLanguage', 'nl');
+    }
+    if (pageToken) p.set('pageToken', pageToken);
+
+    const res = await fetch(`${API_BASE}/search?${p}`);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      const msg = err?.error?.message || `HTTP ${res.status}`;
+      const code = err?.error?.errors?.[0]?.reason || '';
+      throw { message: msg, reason: code, status: res.status };
+    }
+    const data = await res.json();
+
+    const ids = (data.items || []).map(i => i.id?.videoId).filter(Boolean);
+    if (ids.length === 0) return { items: [], nextPageToken: data.nextPageToken };
+
+    const details = await ytVideoDetails(ids);
+    const detailMap = {};
+    for (const v of details) detailMap[v.id] = v;
+
+    const merged = [];
+    for (const item of data.items) {
+      const vid = item.id?.videoId;
+      if (!vid || !detailMap[vid]) continue;
+      const d = detailMap[vid];
+      const dur = parseDuration(d.contentDetails?.duration);
+      const video = {
+        id: vid,
+        snippet: d.snippet || item.snippet,
+        _duration: dur,
+        _durationFmt: fmtDuration(dur),
+        _views: d.statistics?.viewCount || '0',
+        _thumb: d.snippet?.thumbnails?.medium?.url || item.snippet?.thumbnails?.medium?.url || '',
+      };
+
+      // Block Shorts (< 60s)
+      if (isShort(video)) continue;
+
+      // For Leren tab: extra safety check > 20 min (API should handle this, but verify)
+      if (state.tab === 'leren' && dur < 1200) continue;
+
+      merged.push(video);
+    }
+
+    return { items: merged, nextPageToken: data.nextPageToken };
+  }
+
+  async function ytVideoDetails(ids) {
+    const p = new URLSearchParams({
+      part: 'snippet,contentDetails,statistics',
+      id: ids.join(','),
+      key: state.apiKey,
+    });
+    const res = await fetch(`${API_BASE}/videos?${p}`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.items || [];
+  }
+
+  /* ---- UI Rendering ---- */
+  function renderChips() {
+    const chips = CHIPS[state.tab] || [];
+    el.chips().innerHTML = chips.map(c =>
+      `<button class="chip" data-q="${esc(c.q)}">${esc(c.label)}</button>`
+    ).join('');
+  }
+
+  function renderCard(v, idx) {
+    return `<article class="vcard" data-idx="${idx}" onclick="FT.playByIndex(${idx})">
+      <div class="vcard-thumb">
+        <img src="${esc(v._thumb)}" alt="" loading="lazy">
+        <span class="vcard-dur">${esc(v._durationFmt)}</span>
+      </div>
+      <div class="vcard-info">
+        <div class="vcard-title">${esc(v.snippet?.title)}</div>
+        <div class="vcard-meta">
+          <span>${esc(v.snippet?.channelTitle)}</span>
+          <span class="vcard-dot"></span>
+          <span>${fmtViews(v._views)} weergaven</span>
+          <span class="vcard-dot"></span>
+          <span>${timeAgo(v.snippet?.publishedAt)}</span>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  function renderSkeletons(n) {
+    return Array(n).fill(0).map(() =>
+      `<div class="skeleton"><div class="sk-thumb"></div><div class="sk-line"></div><div class="sk-line"></div></div>`
+    ).join('');
+  }
+
+  function updateView() {
+    const hasKey = !!state.apiKey;
+    const ts = state.tabs[state.tab];
+    const isPlaying = !!state.playing;
+
+    // Welcome vs search
+    el.welcome().classList.toggle('hidden', hasKey);
+    el.search().classList.toggle('hidden', !hasKey || isPlaying);
+    el.grid().classList.toggle('hidden', isPlaying);
+    el.loadMore().classList.toggle('hidden', !ts.token || isPlaying || ts.loading || ts.results.length === 0);
+    el.player().classList.toggle('hidden', !isPlaying);
+    el.back().classList.toggle('visible', isPlaying);
+    el.empty().classList.add('hidden');
+    el.error().classList.add('hidden');
+
+    // Tab highlight
+    document.querySelectorAll('.tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.tab === state.tab);
+    });
+
+    // Placeholder text
+    el.input().placeholder = state.tab === 'muziek'
+      ? 'Zoek muziek...'
+      : 'Zoek educatieve video\'s...';
+
+    // Render results if not loading and not playing
+    if (!isPlaying && !ts.loading && hasKey) {
+      if (ts.results.length === 0 && ts.query) {
+        // Show empty
+        el.empty().classList.remove('hidden');
+        $('emptyTitle').textContent = 'Geen resultaten';
+        $('emptyDesc').textContent = state.tab === 'leren'
+          ? 'Geen video\'s langer dan 20 minuten gevonden. Probeer andere zoektermen.'
+          : 'Probeer andere zoektermen.';
+      }
+      if (ts.results.length > 0) {
+        el.grid().innerHTML = ts.results.map((v,i) => renderCard(v,i)).join('');
+      }
+    }
+
+    // Player extras
+    if (isPlaying) {
+      const others = ts.results.filter(v => v.id !== state.playing.id);
+      $('playerResults').innerHTML = others.slice(0,6).map((v,i) => {
+        const realIdx = ts.results.indexOf(v);
+        return renderCard(v, realIdx);
+      }).join('');
+    }
+  }
+
+  /* ---- Actions ---- */
+  async function doSearch(query) {
+    const ts = state.tabs[state.tab];
+    const q = (query !== undefined ? query : el.input().value).trim();
+    if (!q && state.tab === 'muziek') return;
+
+    ts.query = q;
+    ts.results = [];
+    ts.token = null;
+    ts.loading = true;
+    state.playing = null;
+
+    el.input().value = q;
+    el.grid().innerHTML = renderSkeletons(6);
+    el.empty().classList.add('hidden');
+    el.error().classList.add('hidden');
+    el.loadMore().classList.add('hidden');
+    el.player().classList.add('hidden');
+    el.grid().classList.remove('hidden');
+    el.back().classList.remove('visible');
+
+    const actualQuery = state.tab === 'leren' ? buildLerenQuery(q) : q;
+
+    try {
+      const result = await ytSearch(actualQuery);
+      ts.results = result.items;
+      ts.token = result.nextPageToken || null;
+      ts.loading = false;
+      updateView();
+    } catch (err) {
+      ts.loading = false;
+      el.grid().innerHTML = '';
+      showError(err);
+    }
+  }
+
+  async function loadMore() {
+    const ts = state.tabs[state.tab];
+    if (!ts.token || ts.loading) return;
+
+    ts.loading = true;
+    el.loadMore().classList.add('loading');
+    el.loadMore().textContent = 'Laden...';
+
+    const actualQuery = state.tab === 'leren' ? buildLerenQuery(ts.query) : ts.query;
+
+    try {
+      const result = await ytSearch(actualQuery, ts.token);
+      ts.results = ts.results.concat(result.items);
+      ts.token = result.nextPageToken || null;
+      ts.loading = false;
+      el.loadMore().classList.remove('loading');
+      el.loadMore().textContent = 'Meer laden';
+      updateView();
+    } catch (err) {
+      ts.loading = false;
+      el.loadMore().classList.remove('loading');
+      el.loadMore().textContent = 'Meer laden';
+      showToast('Fout bij laden: ' + (err.message || 'onbekend'));
+    }
+  }
+
+  function playByIndex(idx) {
+    const ts = state.tabs[state.tab];
+    const video = ts.results[idx];
+    if (!video) return;
+    playVideo(video);
+  }
+
+  function playVideo(video) {
+    // Final Shorts check
+    if (isShort(video)) {
+      showToast('YouTube Shorts worden geblokkeerd.');
+      return;
+    }
+
+    state.playing = video;
+    const embed = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+    el.playerFrame().src = embed;
+    $('playerTitle').textContent = video.snippet?.title || '';
+    $('playerChannel').textContent = video.snippet?.channelTitle || '';
+    $('playerStats').innerHTML = `
+      <span>${fmtViews(video._views)} weergaven</span>
+      <span>&middot;</span>
+      <span>${video._durationFmt}</span>
+      <span>&middot;</span>
+      <span>${timeAgo(video.snippet?.publishedAt)}</span>
+    `;
+    el.main().scrollTop = 0;
+    updateView();
+  }
+
+  function closePlayer() {
+    state.playing = null;
+    el.playerFrame().src = '';
+    updateView();
+  }
+
+  function switchTab(tab) {
+    if (tab === state.tab && !state.playing) return;
+    state.tab = tab;
+    state.playing = null;
+    el.playerFrame().src = '';
+
+    const ts = state.tabs[tab];
+    el.input().value = ts.query || '';
+    renderChips();
+    el.main().scrollTop = 0;
+
+    // Clear grid if no results yet
+    if (ts.results.length === 0 && !ts.query) {
+      el.grid().innerHTML = '';
+    }
+
+    updateView();
+  }
+
+  function showError(err) {
+    el.grid().classList.add('hidden');
+    el.error().classList.remove('hidden');
+    const btn = $('errorBtn');
+
+    if (err.status === 403 || err.reason === 'dailyLimitExceeded' || err.reason === 'quotaExceeded') {
+      $('errorDesc').textContent = 'API-quotum bereikt of ongeldige key. Controleer je YouTube API-key.';
+      btn.style.display = 'inline-block';
+    } else if (err.status === 400) {
+      $('errorDesc').textContent = 'Ongeldige API-key. Controleer je instellingen.';
+      btn.style.display = 'inline-block';
+    } else {
+      $('errorDesc').textContent = err.message || 'Er is een netwerkfout opgetreden.';
+      btn.style.display = 'none';
+    }
+  }
+
+  /* ---- Settings ---- */
+  function toggleSettings() {
+    state.settings = !state.settings;
+    el.settings().classList.toggle('open', state.settings);
+    if (state.settings) {
+      el.apiInput().value = state.apiKey || '';
+      el.apiStatus().textContent = '';
+      el.apiStatus().className = 'api-status';
+    }
+  }
+
+  function saveApiKey() {
+    const key = el.apiInput().value.trim();
+    if (!key) {
+      el.apiStatus().textContent = 'Voer een API-key in.';
+      el.apiStatus().className = 'api-status err';
+      return;
+    }
+    if (!key.startsWith('AIza')) {
+      el.apiStatus().textContent = 'Key begint meestal met "AIza...". Controleer of je de juiste key hebt gekopieerd.';
+      el.apiStatus().className = 'api-status err';
+      return;
+    }
+    state.apiKey = key;
+    localStorage.setItem('ft_apikey', key);
+    el.apiStatus().textContent = 'Key opgeslagen!';
+    el.apiStatus().className = 'api-status ok';
+
+    // Verify the key with a test search
+    verifyKey(key);
+  }
+
+  async function verifyKey(key) {
+    try {
+      const p = new URLSearchParams({ part:'snippet', q:'test', type:'video', maxResults:'1', key });
+      const res = await fetch(`${API_BASE}/search?${p}`);
+      if (res.ok) {
+        el.apiStatus().textContent = 'Key opgeslagen en geverifieerd!';
+        el.apiStatus().className = 'api-status ok';
+        setTimeout(() => {
+          toggleSettings();
+          updateView();
+        }, 800);
+      } else {
+        const err = await res.json().catch(() => ({}));
+        el.apiStatus().textContent = 'Key opgeslagen maar verificatie mislukt: ' + (err?.error?.message || 'onbekend');
+        el.apiStatus().className = 'api-status err';
+      }
+    } catch (e) {
+      el.apiStatus().textContent = 'Key opgeslagen. Verificatie niet mogelijk (netwerkfout).';
+      el.apiStatus().className = 'api-status err';
+    }
+  }
+
+  function toggleCollapse(btn) {
+    btn.classList.toggle('open');
+    const content = btn.nextElementSibling;
+    content.classList.toggle('open');
+  }
+
+  /* ---- PWA Setup ---- */
+  function setupPWA() {
+    // Generate icon
+    function genIcon(size) {
+      const c = document.createElement('canvas');
+      c.width = size; c.height = size;
+      const ctx = c.getContext('2d');
+      // Background
+      const r = size * 0.18;
+      ctx.beginPath();
+      ctx.roundRect(0, 0, size, size, r);
+      ctx.fillStyle = '#0b0b14';
+      ctx.fill();
+      // Circle
+      const cx = size/2, cy = size/2, cr = size*0.32;
+      const grad = ctx.createLinearGradient(cx-cr, cy-cr, cx+cr, cy+cr);
+      grad.addColorStop(0, '#818cf8');
+      grad.addColorStop(1, '#6366f1');
+      ctx.beginPath();
+      ctx.arc(cx, cy, cr, 0, Math.PI*2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      // Play triangle
+      ctx.fillStyle = '#ffffff';
+      const ts = size * 0.2;
+      ctx.beginPath();
+      ctx.moveTo(cx - ts*0.35, cy - ts*0.55);
+      ctx.lineTo(cx + ts*0.55, cy);
+      ctx.lineTo(cx - ts*0.35, cy + ts*0.55);
+      ctx.closePath();
+      ctx.fill();
+      return c.toDataURL('image/png');
+    }
+
+    const icon192 = genIcon(192);
+    const icon512 = genIcon(512);
+
+    // Set apple-touch-icon
+    const link = document.createElement('link');
+    link.rel = 'apple-touch-icon';
+    link.href = icon192;
+    document.head.appendChild(link);
+
+    // Set manifest
+    const manifest = {
+      name: 'FocusTube',
+      short_name: 'FocusTube',
+      description: 'Gefocust YouTube kijken - muziek en educatieve content',
+      start_url: location.href.split('?')[0],
+      display: 'standalone',
+      background_color: '#0b0b14',
+      theme_color: '#0b0b14',
+      orientation: 'portrait-primary',
+      categories: ['education','entertainment'],
+      icons: [
+        { src: icon192, sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
+        { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+      ],
+    };
+    const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+    const mLink = document.createElement('link');
+    mLink.rel = 'manifest';
+    mLink.href = URL.createObjectURL(blob);
+    document.head.appendChild(mLink);
+
+    // Register service worker (best effort)
+    if ('serviceWorker' in navigator) {
+      const swCode = `
+        const CACHE = 'focustube-v1';
+        self.addEventListener('install', e => { self.skipWaiting(); });
+        self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
+        self.addEventListener('fetch', e => {
+          if (e.request.method !== 'GET') return;
+          if (e.request.url.includes('googleapis.com') || e.request.url.includes('youtube.com')) return;
+          e.respondWith(
+            caches.open(CACHE).then(cache =>
+              cache.match(e.request).then(cached => {
+                const fetched = fetch(e.request).then(res => {
+                  if (res.ok) cache.put(e.request, res.clone());
+                  return res;
+                }).catch(() => cached);
+                return cached || fetched;
+              })
+            )
+          );
+        });
+      `;
+      const swBlob = new Blob([swCode], { type: 'application/javascript' });
+      const swUrl = URL.createObjectURL(swBlob);
+      navigator.serviceWorker.register(swUrl, { scope: '/' }).catch(() => {
+        // Service worker registration may fail with blob URLs; that's OK
+      });
+    }
+  }
+
+  /* ---- Event Listeners ---- */
+  function setupEvents() {
+    // Search on Enter
+    el.input().addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        doSearch();
+      }
+    });
+
+    // Chip clicks (delegate)
+    el.chips().addEventListener('click', e => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      const q = chip.dataset.q;
+      el.input().value = chip.textContent;
+      doSearch(q);
+    });
+
+    // Player result clicks (delegate)
+    $('playerResults').addEventListener('click', e => {
+      const card = e.target.closest('.vcard');
+      if (!card) return;
+      const idx = parseInt(card.dataset.idx);
+      playByIndex(idx);
+      el.main().scrollTop = 0;
+    });
+
+    // Keyboard shortcut: Escape to close settings or player
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        if (state.settings) toggleSettings();
+        else if (state.playing) closePlayer();
+      }
+    });
+
+    // Handle back button / popstate for Android
+    window.addEventListener('popstate', () => {
+      if (state.settings) { toggleSettings(); history.pushState(null, ''); }
+      else if (state.playing) { closePlayer(); history.pushState(null, ''); }
+    });
+    history.pushState(null, '');
+  }
+
+  /* ---- Init ---- */
+  function init() {
+    setupPWA();
+    renderChips();
+    setupEvents();
+    updateView();
+
+    // If we have an API key, show the search
+    if (state.apiKey) {
+      el.apiInput().value = state.apiKey;
+    }
+  }
+
+  // Boot
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  /* ---- Public API ---- */
+  return {
+    doSearch, loadMore, playByIndex, playVideo, closePlayer,
+    switchTab, toggleSettings, saveApiKey, toggleCollapse,
+  };
+})();
+</script>
+</body>
+</html>
