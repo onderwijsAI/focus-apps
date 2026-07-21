@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Focus">
+<meta name="theme-color" content="#0f0f0f">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Focus Dashboard</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0f0f0f;
+  --surface: #1a1a1a;
+  --surface-hover: #222;
+  --border: #2a2a2a;
+  --text: #e8e8e8;
+  --text-secondary: #999;
+  --text-tertiary: #555;
+  --accent: #6C63FF;
+  --accent-dim: rgba(108, 99, 255, 0.15);
+  --green: #34D399;
+  --green-dim: rgba(52, 211, 153, 0.12);
+  --red: #F87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
+  --orange: #FBBF24;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: contain;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--bg);
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+.app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 16px;
+  padding-left: calc(16px + var(--safe-left));
+  padding-right: calc(16px + var(--safe-right));
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0 12px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 100;
+}
+
+.header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.icon-btn:hover, .icon-btn:active {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.icon-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-btn.spinning svg {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Bitcoin Card */
+.btc-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px 18px 0;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.btc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btc-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btc-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F7931A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.btc-price {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.btc-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}
+
+.btc-change {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.btc-change.positive { color: var(--green); background: var(--green-dim); }
+.btc-change.negative { color: var(--red); background: var(--red-dim); }
+
+.btc-loading {
+  color: var(--text-tertiary);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Time range buttons */
+.btc-range-bar {
+  display: flex;
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.btc-range-btn {
+  flex: 1;
+  padding: 6px 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btc-range-btn:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.btc-range-btn.active {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+}
+
+/* Chart wrapper */
+.btc-chart-wrap {
+  margin: 10px -18px 0;
+  height: 150px;
+  position: relative;
+}
+
+.btc-chart-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.btc-axis-labels {
+  position: absolute;
+  top: 0;
+  left: 18px;
+  right: 18px;
+  bottom: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4px 0 24px;
+}
+
+.btc-y-label {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.btc-x-labels {
+  position: absolute;
+  bottom: 4px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.btc-chart-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+/* Section Headers */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.section-count {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* News Cards */
+.news-section {
+  margin-bottom: 28px;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.news-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  transition: background 0.15s, border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+.news-card:hover, .news-card:active {
+  background: var(--surface-hover);
+  border-color: #333;
+}
+
+.news-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.news-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--text);
+}
+
+.news-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.news-source {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.news-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+/* LinkedIn save button */
+.save-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  color: var(--text-tertiary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.15s, background 0.15s;
+  margin-top: 2px;
+}
+
+.save-btn:hover, .save-btn:active {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.save-btn.saved {
+  color: var(--accent);
+}
+
+.save-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Zie meer button */
+.see-more-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.see-more-btn:hover, .see-more-btn:active {
+  background: var(--surface-hover);
+  border-color: #333;
+}
+
+.see-more-btn.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Skeletons */
+.news-skeleton {
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+}
+
+.skeleton-line {
+  height: 14px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--border) 25%, #333 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-line.w80 { width: 80%; margin-bottom: 8px; }
+.skeleton-line.w60 { width: 60%; margin-bottom: 8px; }
+.skeleton-line.w40 { width: 40%; }
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Error state */
+.news-error {
+  text-align: center;
+  padding: 24px 16px;
+  color: var(--text-tertiary);
+  font-size: 14px;
+}
+
+.news-error button {
+  margin-top: 10px;
+  padding: 8px 20px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Podcast Card */
+.podcast-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  transition: background 0.15s, border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+.podcast-card:hover, .podcast-card:active {
+  background: var(--surface-hover);
+  border-color: #333;
+}
+
+.podcast-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.podcast-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--text);
+}
+
+.podcast-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.podcast-name {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.podcast-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.podcast-icon svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+}
+
+/* Book Card */
+.book-section {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+}
+
+.book-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+
+.book-emoji {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.book-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  margin-bottom: 3px;
+}
+
+.book-author {
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.book-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.book-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s;
+}
+
+.book-btn:hover { background: rgba(108, 99, 255, 0.25); }
+
+.book-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Settings Panel */
+.settings-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 2000;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.settings-overlay.active {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.settings-panel {
+  background: var(--surface);
+  width: 100%;
+  max-width: 600px;
+  max-height: 85dvh;
+  border-radius: 20px 20px 0 0;
+  animation: slideUp 0.3s ease;
+  padding-bottom: calc(20px + var(--safe-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.settings-handle {
+  width: 36px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--text-tertiary);
+  margin: 10px auto 0;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.settings-close {
+  background: var(--border);
+  border: none;
+  color: var(--text);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.settings-body {
+  padding: 20px;
+}
+
+.setting-group {
+  margin-bottom: 20px;
+}
+
+.setting-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.setting-help {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.setting-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.setting-input:focus {
+  border-color: var(--accent);
+}
+
+.setting-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.settings-save {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.settings-info {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.settings-info h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.settings-info p, .settings-info ol {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+.settings-info ol {
+  padding-left: 20px;
+  margin-top: 4px;
+}
+
+.settings-info ol li {
+  margin-bottom: 4px;
+}
+
+/* LinkedIn queue in settings */
+.linkedin-queue-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.linkedin-queue-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.linkedin-queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.linkedin-queue-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--bg);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.linkedin-queue-item-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.linkedin-queue-remove {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.linkedin-queue-remove:hover {
+  color: var(--red);
+  background: var(--red-dim);
+}
+
+.linkedin-queue-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.linkedin-queue-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.linkedin-queue-btn.primary {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-color: transparent;
+}
+
+.linkedin-queue-empty {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  padding: 12px 0;
+}
+
+/* Refresh indicator */
+.refresh-indicator {
+  text-align: center;
+  padding: 8px 0 4px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  display: none;
+}
+
+.refresh-indicator.visible {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: calc(24px + var(--safe-bottom));
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  z-index: 3000;
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+@media (min-width: 768px) {
+  .app { padding: 0 24px; }
+  .btc-price { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Header -->
+  <header class="header">
+    <h1>Focus Dashboard</h1>
+    <div class="header-actions">
+      <button class="icon-btn" id="refreshBtn" title="Vernieuwen" aria-label="Vernieuwen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="settingsBtn" title="Instellingen" aria-label="Instellingen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Refresh indicator -->
+  <div class="refresh-indicator" id="refreshIndicator">Vernieuwen...</div>
+
+  <!-- Bitcoin -->
+  <section class="btc-card" id="btcCard">
+    <div class="btc-row">
+      <div class="btc-left">
+        <div class="btc-icon">B</div>
+        <div>
+          <div class="btc-price" id="btcPrice"><span class="btc-loading">Laden...</span></div>
+          <div class="btc-label">Bitcoin / USD</div>
+        </div>
+      </div>
+      <div class="btc-change" id="btcChange"></div>
+    </div>
+    <div class="btc-range-bar">
+      <button class="btc-range-btn active" data-days="7">1W</button>
+      <button class="btc-range-btn" data-days="30">1M</button>
+      <button class="btc-range-btn" data-days="180">6M</button>
+      <button class="btc-range-btn" data-days="365">1J</button>
+    </div>
+    <div class="btc-chart-wrap">
+      <canvas id="btcChart"></canvas>
+      <div class="btc-axis-labels">
+        <div class="btc-y-label" id="btcYMax"></div>
+        <div class="btc-y-label" id="btcYMin"></div>
+      </div>
+      <div class="btc-x-labels">
+        <span id="btcXStart"></span>
+        <span id="btcXEnd"></span>
+      </div>
+      <div class="btc-chart-loading" id="btcChartLoading">Laden...</div>
+    </div>
+  </section>
+
+  <!-- AI Nieuws -->
+  <section class="news-section" id="sectionAI">
+    <div class="section-header">
+      <h2 class="section-title">AI Nieuws</h2>
+      <span class="section-count" id="countAI"></span>
+    </div>
+    <div class="news-list" id="listAI"></div>
+  </section>
+
+  <!-- Onderwijs -->
+  <section class="news-section" id="sectionOnderwijs">
+    <div class="section-header">
+      <h2 class="section-title">Onderwijs</h2>
+      <span class="section-count" id="countOnderwijs"></span>
+    </div>
+    <div class="news-list" id="listOnderwijs"></div>
+  </section>
+
+  <!-- Wetenschap -->
+  <section class="news-section" id="sectionWetenschap">
+    <div class="section-header">
+      <h2 class="section-title">Wetenschap</h2>
+      <span class="section-count" id="countWetenschap"></span>
+    </div>
+    <div class="news-list" id="listWetenschap"></div>
+  </section>
+
+  <!-- Podcasts -->
+  <section class="news-section" id="sectionPodcasts">
+    <div class="section-header">
+      <h2 class="section-title">Podcasts</h2>
+      <span class="section-count" id="countPodcasts"></span>
+    </div>
+    <div class="news-list" id="listPodcasts"></div>
+  </section>
+
+  <!-- Luistertip van de dag -->
+  <section class="book-section">
+    <div class="section-header">
+      <h2 class="section-title">Luistertip van de dag</h2>
+    </div>
+    <div class="book-card" id="bookCard"></div>
+  </section>
+
+</div>
+
+<!-- Settings -->
+<div class="settings-overlay" id="settingsOverlay">
+  <div class="settings-panel">
+    <div class="settings-handle"></div>
+    <div class="settings-header">
+      <h2>Instellingen</h2>
+      <button class="settings-close" id="settingsClose">&times;</button>
+    </div>
+    <div class="settings-body">
+      <button class="settings-save" id="settingsSave">Sluiten</button>
+
+      <!-- LinkedIn Queue -->
+      <div class="linkedin-queue-section" id="linkedinQueueSection">
+        <h3>
+          <span>LinkedIn wachtrij</span>
+          <span class="section-count" id="linkedinQueueCount"></span>
+        </h3>
+        <div id="linkedinQueueContent"></div>
+      </div>
+
+      <div class="settings-info">
+        <h3>Installeren als app</h3>
+        <ol>
+          <li>Open deze pagina in Safari op je iPhone</li>
+          <li>Tik op het deel-icoon (vierkant met pijl omhoog)</li>
+          <li>Scroll naar beneden en tik op "Zet op beginscherm"</li>
+          <li>Tik op "Voeg toe"</li>
+        </ol>
+        <p style="margin-top: 12px;">Focus Dashboard toont Bitcoin, AI-nieuws, onderwijsnieuws, wetenschap en podcasts in een overzichtelijk dashboard.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==============================================================
+   BOOKS
+   ============================================================== */
+const BOOKS = [
+  { title: "Co-Intelligence", author: "Ethan Mollick", desc: "Hoe we kunnen leren samenwerken met AI als partner, niet als vervanging. Mollick laat zien hoe AI onderwijs en werk transformeert." },
+  { title: "The Alignment Problem", author: "Brian Christian", desc: "Over de uitdaging om AI-systemen te bouwen die doen wat we werkelijk bedoelen. Een must-read over ethiek en technologie." },
+  { title: "Visible Learning", author: "John Hattie", desc: "Wat werkt echt in het onderwijs? Hattie's baanbrekende meta-analyse van duizenden studies laat zien welke strategieen het meeste effect hebben." },
+  { title: "Atomic Habits", author: "James Clear", desc: "Kleine gewoontes, groot verschil. Clear biedt een praktisch systeem om goede gewoontes op te bouwen en slechte te doorbreken." },
+  { title: "Range", author: "David Epstein", desc: "Waarom generalisten succesvol zijn in een gespecialiseerde wereld. Een pleidooi voor brede ervaring en late specialisatie." },
+  { title: "Thinking, Fast and Slow", author: "Daniel Kahneman", desc: "Het standaardwerk over hoe ons brein beslissingen neemt. Kahneman onthult de twee systemen die ons denken sturen." },
+  { title: "Deep Work", author: "Cal Newport", desc: "Regels voor geconcentreerd werken in een wereld vol afleiding. Newport laat zien hoe diepe focus je meest waardevolle vaardigheid is." },
+  { title: "The Anxious Generation", author: "Jonathan Haidt", desc: "Hoe smartphones en social media een generatie kinderen hebben veranderd, en wat we eraan kunnen doen." },
+  { title: "AI 2041", author: "Kai-Fu Lee", desc: "Tien visioenen op de toekomst van AI, verteld als verhalen die laten zien hoe technologie ons leven in 2041 zal vormen." },
+  { title: "Human Compatible", author: "Stuart Russell", desc: "Een nieuw framework voor AI-veiligheid van een van de grondleggers van het vakgebied. Russell herdefinieert hoe we over AI moeten nadenken." },
+  { title: "Mindset", author: "Carol Dweck", desc: "De kracht van een groeimindset. Dweck laat zien hoe onze overtuigingen over leren en talent alles beinvloeden." },
+  { title: "Drive", author: "Daniel Pink", desc: "Wat motiveert ons echt? Pink onthult dat autonomie, meesterschap en zingeving krachtiger zijn dan beloning en straf." },
+  { title: "The Culture Code", author: "Daniel Coyle", desc: "De geheimen van succesvolle teams. Coyle ontleedt wat de beste organisaties gemeen hebben en hoe je die cultuur bouwt." },
+  { title: "Educated", author: "Tara Westover", desc: "Een krachtig persoonlijk verhaal over de transformerende kracht van onderwijs, tegen alle verwachtingen in." },
+  { title: "Peak", author: "Anders Ericsson", desc: "De wetenschap van expertise. Ericsson laat zien hoe deliberate practice de sleutel is tot uitzonderlijke prestaties." },
+  { title: "Make It Stick", author: "Peter Brown", desc: "De wetenschap van succesvol leren. Waarom populaire studiemethoden niet werken en wat wel effectief is." },
+  { title: "Why We Sleep", author: "Matthew Walker", desc: "Waarom slaap het krachtigste instrument is voor leren, geheugen en gezondheid. Walker verandert hoe je over rust denkt." },
+  { title: "Nudge", author: "Richard Thaler", desc: "Hoe subtiele aanpassingen in keuzearchitectuur betere beslissingen stimuleren. Essentieel voor iedereen die gedrag wil beinvloeden." },
+  { title: "Sapiens", author: "Yuval Noah Harari", desc: "Een meeslepend verhaal over de menselijke geschiedenis en de verhalen die ons als soort hebben gevormd." },
+  { title: "The Master and His Emissary", author: "Iain McGilchrist", desc: "Over de twee hersenhelften en hoe hun balans onze cultuur, wetenschap en maatschappij bepaalt." },
+  { title: "Brave New Words", author: "Sal Khan", desc: "De oprichter van Khan Academy over hoe AI het onderwijs kan democratiseren en personaliseren." },
+  { title: "Life 3.0", author: "Max Tegmark", desc: "Wat betekent het om mens te zijn in het tijdperk van AI? Tegmark verkent de toekomst van intelligentie." },
+  { title: "Weapons of Math Destruction", author: "Cathy O'Neil", desc: "Hoe algoritmen ongelijkheid versterken en levens beinvloeden. Een waarschuwing over de schaduwkant van big data." },
+  { title: "The Age of AI", author: "Henry Kissinger", desc: "Hoe kunstmatige intelligentie onze samenleving, politiek en identiteit fundamenteel zal veranderen." },
+  { title: "Improviseren Kun Je Leren", author: "Viola Spolin", desc: "Het standaardwerk over improvisatie in het onderwijs. Spolin laat zien hoe spel en spontaniteit leren verdiepen." },
+  { title: "Het Pedagogisch Tekort", author: "Gert Biesta", desc: "Biesta pleit voor een terugkeer naar de kern van onderwijs: de pedagogische relatie en het risico van opvoeding." },
+  { title: "Flip the System", author: "Jelmer Evers", desc: "Een manifest voor leraarontwikkeling van onderaf. Evers pleit voor professionele autonomie en vertrouwen in docenten." },
+  { title: "Ten Steps to Complex Learning", author: "Jeroen van Merrienboer", desc: "Een wetenschappelijk onderbouwd model voor het ontwerpen van effectieve leerprogramma's voor complexe vaardigheden." },
+  { title: "Leraar, Wie Ben Je?", author: "Hartger Wassink", desc: "Een reflectief boek over professionele identiteit. Wassink helpt leraren ontdekken wie ze zijn en willen zijn." },
+  { title: "De Lerende Mens", author: "Pedro De Bruyckere", desc: "Wat zegt de wetenschap echt over leren? De Bruyckere scheidt feiten van mythes in het onderwijs." }
+];
+
+/* ==============================================================
+   NEWS FEED CONFIGURATION
+   ============================================================== */
+const RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
+const FEEDS = {
+  ai: [
+    { name: 'The Decoder', url: 'https://the-decoder.com/feed/', color: '#6C63FF' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=OpenAI+OR+Anthropic+OR+Claude+OR+ChatGPT+OR+%22AI+beleid%22+OR+%22kunstmatige+intelligentie%22&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'Google AI Blog', url: 'https://blog.google/technology/ai/rss/', color: '#34A853' },
+    { name: 'OpenAI Blog', url: 'https://openai.com/blog/rss.xml', color: '#10A37F' }
+  ],
+  onderwijs: [
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijs+Nederland+OR+onderwijsraad+OR+%22inspectie+van+het+onderwijs%22+OR+%22vo-raad%22+OR+%22po-raad%22&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22voortgezet+onderwijs%22+OR+%22primair+onderwijs%22+OR+%22mbo%22+OR+leraar+OR+docent+school+beleid&hl=nl&gl=NL', color: '#34A853' },
+    { name: 'Kennisnet', url: 'https://www.kennisnet.nl/rss/', color: '#0A9E28' },
+    { name: 'ScienceGuide', url: 'https://www.scienceguide.nl/feed/', color: '#E85D26' }
+  ],
+  wetenschap: [
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijsonderzoek+OR+leerwetenschap+OR+%22formatief+handelen%22+OR+%22evidence+informed%22+OR+%22professionele+cultuur%22+onderwijs&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22educational+research%22+OR+%22learning+science%22+OR+%22Visible+Learning%22+OR+%22formative+assessment%22+OR+%22teacher+professional+development%22&hl=en', color: '#34A853' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22AI+in+education%22+OR+%22machine+learning+education%22+OR+%22artificial+intelligence+school%22+research+study&hl=en', color: '#EA4335' }
+  ]
+};
+
+const PODCAST_FEEDS = [
+  { name: 'Hard Fork', url: 'https://feeds.simplecast.com/l2i9YnTd', color: '#FBBF24' },
+  { name: 'Google News Podcasts', url: 'https://news.google.com/rss/search?q=%22AI+Report%22+OR+%22Turing+podcast%22+OR+%22Onderwijs+AI%22+podcast+AI&hl=nl&gl=NL', color: '#FBBF24' },
+  { name: 'AI Today', url: 'https://news.google.com/rss/search?q=%22AI+Today+podcast%22+OR+%22artificial+intelligence+podcast%22&hl=en', color: '#FBBF24' }
+];
+
+/* ==============================================================
+   BITCOIN API
+   ============================================================== */
+const BTC_PRICE_API = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true';
+const BTC_CHART_API = 'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=';
+
+/* ==============================================================
+   STATE
+   ============================================================== */
+let currentChartDays = 7;
+let btcChartCache = {};
+let btcPriceCache = null;
+let btcInterval = null;
+
+// News state: all articles per category, how many shown
+const newsState = {
+  ai: { all: [], shown: 5 },
+  onderwijs: { all: [], shown: 5 },
+  wetenschap: { all: [], shown: 5 },
+  podcasts: { all: [], shown: 3 }
+};
+
+/* ==============================================================
+   DUTCH MONTHS
+   ============================================================== */
+const MAANDEN_KORT = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+
+/* ==============================================================
+   INIT
+   ============================================================== */
+document.addEventListener('DOMContentLoaded', function() {
+  registerSW();
+  loadBTCPrice();
+  loadBTCChart(currentChartDays);
+  loadAllNews();
+  loadPodcasts();
+  loadBook();
+  setupEvents();
+  btcInterval = setInterval(loadBTCPrice, 60000);
+});
+
+/* ==============================================================
+   SERVICE WORKER
+   ============================================================== */
+function registerSW() {
+  if ('serviceWorker' in navigator) {
+    // Cache-busting: version with timestamp to force updates
+    var swVersion = 'v4-20260720';
+    navigator.serviceWorker.register('sw.js?v=' + swVersion, { updateViaCache: 'none' }).then(function(reg) {
+      // Force update check on every load
+      reg.update();
+      // Listen for new SW and auto-activate
+      reg.addEventListener('updatefound', function() {
+        var newWorker = reg.installing;
+        if (newWorker) {
+          newWorker.addEventListener('statechange', function() {
+            if (newWorker.state === 'activated') {
+              // New version active, no need to reload — content is fresh
+            }
+          });
+        }
+      });
+    }).catch(function() {});
+
+    // Clean up ALL old caches aggressively
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        names.forEach(function(name) {
+          if (name !== 'focus-dashboard-' + swVersion) {
+            caches.delete(name);
+          }
+        });
+      });
+    }
+  }
+}
+
+/* ==============================================================
+   BITCOIN PRICE
+   ============================================================== */
+async function loadBTCPrice() {
+  var priceEl = document.getElementById('btcPrice');
+  var changeEl = document.getElementById('btcChange');
+
+  try {
+    var res = await fetch(BTC_PRICE_API, { signal: AbortSignal.timeout(8000) });
+    if (res.status === 429) {
+      if (btcPriceCache) {
+        renderBTCPrice(btcPriceCache.price, btcPriceCache.change);
+      } else {
+        priceEl.innerHTML = '<span class="btc-loading">Even geduld...</span>';
+      }
+      return;
+    }
+    var data = await res.json();
+    var price = data.bitcoin.usd;
+    var change = data.bitcoin.usd_24h_change;
+    btcPriceCache = { price: price, change: change };
+    renderBTCPrice(price, change);
+  } catch (e) {
+    if (btcPriceCache) {
+      renderBTCPrice(btcPriceCache.price, btcPriceCache.change);
+    } else {
+      priceEl.innerHTML = '<span class="btc-loading">Niet beschikbaar</span>';
+      changeEl.textContent = '';
+      changeEl.className = 'btc-change';
+    }
+  }
+}
+
+function renderBTCPrice(price, change) {
+  var priceEl = document.getElementById('btcPrice');
+  var changeEl = document.getElementById('btcChange');
+  priceEl.textContent = formatUSD(price);
+  var sign = change >= 0 ? '+' : '';
+  changeEl.textContent = sign + change.toFixed(2) + '%';
+  changeEl.className = 'btc-change ' + (change >= 0 ? 'positive' : 'negative');
+}
+
+function formatUSD(n) {
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+/* ==============================================================
+   BITCOIN CHART
+   ============================================================== */
+async function loadBTCChart(days) {
+  var canvas = document.getElementById('btcChart');
+  var loadingEl = document.getElementById('btcChartLoading');
+  var yMaxEl = document.getElementById('btcYMax');
+  var yMinEl = document.getElementById('btcYMin');
+  var xStartEl = document.getElementById('btcXStart');
+  var xEndEl = document.getElementById('btcXEnd');
+
+  loadingEl.style.display = 'flex';
+
+  var cacheKey = 'btc_' + days;
+  var cached = btcChartCache[cacheKey];
+  if (cached && (Date.now() - cached.ts < 120000)) {
+    drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+    loadingEl.style.display = 'none';
+    return;
+  }
+
+  try {
+    var res = await fetch(BTC_CHART_API + days, { signal: AbortSignal.timeout(10000) });
+    if (res.status === 429) {
+      if (cached) {
+        drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+        loadingEl.style.display = 'none';
+        showToast('Even geduld - data uit cache');
+      } else {
+        loadingEl.textContent = 'Even geduld...';
+      }
+      return;
+    }
+    var data = await res.json();
+    if (!data.prices || data.prices.length === 0) {
+      loadingEl.textContent = 'Geen data';
+      return;
+    }
+    btcChartCache[cacheKey] = { prices: data.prices, ts: Date.now() };
+    drawChart(canvas, data.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+    loadingEl.style.display = 'none';
+  } catch (e) {
+    if (cached) {
+      drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+      loadingEl.style.display = 'none';
+    } else {
+      loadingEl.textContent = 'Laden mislukt';
+    }
+  }
+}
+
+function drawChart(canvas, priceData, yMaxEl, yMinEl, xStartEl, xEndEl) {
+  var dpr = window.devicePixelRatio || 1;
+  var rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  var ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  var w = rect.width;
+  var h = rect.height;
+  var padTop = 8;
+  var padBottom = 28;
+  var padLeft = 2;
+  var padRight = 2;
+  var chartW = w - padLeft - padRight;
+  var chartH = h - padTop - padBottom;
+
+  var values = priceData.map(function(p) { return p[1]; });
+  var timestamps = priceData.map(function(p) { return p[0]; });
+  var min = Math.min.apply(null, values);
+  var max = Math.max.apply(null, values);
+  var range = max - min || 1;
+
+  var isUp = values[values.length - 1] >= values[0];
+  var lineColor = isUp ? '#34D399' : '#F87171';
+
+  ctx.clearRect(0, 0, w, h);
+
+  var points = values.map(function(v, i) {
+    return {
+      x: padLeft + (i / (values.length - 1)) * chartW,
+      y: padTop + (1 - (v - min) / range) * chartH
+    };
+  });
+
+  var gradient = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
+  gradient.addColorStop(0, isUp ? 'rgba(52,211,153,0.20)' : 'rgba(248,113,113,0.20)');
+  gradient.addColorStop(1, 'rgba(0,0,0,0)');
+
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  for (var i = 1; i < points.length; i++) {
+    ctx.lineTo(points[i].x, points[i].y);
+  }
+  ctx.lineTo(padLeft + chartW, padTop + chartH);
+  ctx.lineTo(padLeft, padTop + chartH);
+  ctx.closePath();
+  ctx.fillStyle = gradient;
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  for (var i = 1; i < points.length; i++) {
+    ctx.lineTo(points[i].x, points[i].y);
+  }
+  ctx.strokeStyle = lineColor;
+  ctx.lineWidth = 2;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  yMaxEl.textContent = formatUSD(max);
+  yMinEl.textContent = formatUSD(min);
+
+  var startDate = new Date(timestamps[0]);
+  var endDate = new Date(timestamps[timestamps.length - 1]);
+  xStartEl.textContent = formatDateShort(startDate);
+  xEndEl.textContent = formatDateShort(endDate);
+}
+
+function formatDateShort(d) {
+  return d.getDate() + ' ' + MAANDEN_KORT[d.getMonth()];
+}
+
+/* ==============================================================
+   NEWS
+   ============================================================== */
+function skeletonHTML(count) {
+  var html = '';
+  for (var i = 0; i < count; i++) {
+    html += '<div class="news-skeleton"><div class="skeleton-line w80"></div><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div></div>';
+  }
+  return html;
+}
+
+async function loadAllNews() {
+  await loadNewsSection('ai', FEEDS.ai, 'listAI', 'countAI');
+  await new Promise(function(r) { setTimeout(r, 1500); });
+  await loadNewsSection('onderwijs', FEEDS.onderwijs, 'listOnderwijs', 'countOnderwijs');
+  await new Promise(function(r) { setTimeout(r, 1500); });
+  await loadNewsSection('wetenschap', FEEDS.wetenschap, 'listWetenschap', 'countWetenschap');
+}
+
+async function loadNewsSection(key, feeds, listId, countId) {
+  var listEl = document.getElementById(listId);
+  var countEl = document.getElementById(countId);
+
+  listEl.innerHTML = skeletonHTML(3);
+
+  var articles = [];
+
+  for (var fi = 0; fi < feeds.length; fi++) {
+    try {
+      var feedResult = await fetchRSSFeed(feeds[fi]);
+      if (feedResult && feedResult.length) articles.push.apply(articles, feedResult);
+    } catch(e) { /* skip failed feed */ }
+    if (fi < feeds.length - 1) await new Promise(function(r) { setTimeout(r, 800); });
+  }
+
+  // Sort newest first, deduplicate
+  articles.sort(function(a, b) { return b.date - a.date; });
+  var seen = new Set();
+  articles = articles.filter(function(a) {
+    var k = a.title.toLowerCase().replace(/\s+/g, ' ').trim().substring(0, 60);
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+
+  // Store all articles
+  newsState[key].all = articles;
+  newsState[key].shown = 5;
+
+  if (articles.length === 0) {
+    listEl.innerHTML = '<div class="news-error"><p>Kon geen artikelen laden.</p><button onclick="loadNewsSection(\'' + key + '\', FEEDS.' + key + ', \'' + listId + '\', \'' + countId + '\')">Opnieuw proberen</button></div>';
+    countEl.textContent = '';
+    return;
+  }
+
+  countEl.textContent = articles.length + ' artikelen';
+  renderNewsWithMore(key, listId);
+}
+
+function renderNewsWithMore(key, listId) {
+  var listEl = document.getElementById(listId);
+  var state = newsState[key];
+  var toShow = state.all.slice(0, state.shown);
+
+  listEl.innerHTML = toShow.map(function(a) {
+    return renderNewsCard(a);
+  }).join('');
+
+  // Add "Zie meer" button if there are more
+  if (state.shown < state.all.length) {
+    var remaining = state.all.length - state.shown;
+    listEl.innerHTML += '<button class="see-more-btn" onclick="showMoreNews(\'' + key + '\', \'' + listId + '\')">Zie meer (' + remaining + ')</button>';
+  }
+}
+
+function showMoreNews(key, listId) {
+  newsState[key].shown += 10;
+  renderNewsWithMore(key, listId);
+}
+
+function renderNewsCard(a) {
+  var href = a.link ? ' href="' + escapeAttr(a.link) + '"' : '';
+  var savedClass = isInLinkedInQueue(a.link) ? ' saved' : '';
+  return '<div class="news-card">' +
+    '<a class="news-card-content"' + href + ' target="_blank" rel="noopener" style="text-decoration:none;color:inherit;flex:1;min-width:0">' +
+      '<div class="news-card-title">' + escapeHTML(a.title) + '</div>' +
+      '<div class="news-card-meta">' +
+        '<span class="news-source" style="color:' + a.sourceColor + '">' + escapeHTML(a.source) + '</span>' +
+        '<span class="news-dot"></span>' +
+        '<span>' + a.timeAgo + '</span>' +
+      '</div>' +
+    '</a>' +
+    '<button class="save-btn' + savedClass + '" onclick="saveToLinkedIn(\'' + escapeAttr(a.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(a.link) + '\')" title="Opslaan voor LinkedIn">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
+    '</button>' +
+  '</div>';
+}
+
+async function fetchRSSFeed(feed) {
+  // Try rss2json first, then fallback to allorigins.win
+  try {
+    var result = await fetchViaRss2Json(feed);
+    if (result && result.length > 0) return result;
+  } catch (e) {
+    // rss2json failed (likely 429 rate limit), try fallback
+  }
+
+  // Fallback: allorigins.win CORS proxy + manual XML parsing
+  try {
+    var result = await fetchViaAllOrigins(feed);
+    if (result && result.length > 0) return result;
+  } catch (e) {
+    // Both failed
+  }
+
+  return [];
+}
+
+async function fetchViaRss2Json(feed) {
+  var url = RSS2JSON + encodeURIComponent(feed.url);
+  var res = await fetch(url, { signal: AbortSignal.timeout(10000) });
+
+  if (res.status === 429) throw new Error('Rate limited');
+  var data = await res.json();
+
+  if (data.status !== 'ok' || !data.items) return [];
+
+  return parseRSSItems(data.items, feed);
+}
+
+async function fetchViaAllOrigins(feed) {
+  var url = 'https://api.allorigins.win/get?url=' + encodeURIComponent(feed.url);
+  var res = await fetch(url, { signal: AbortSignal.timeout(12000) });
+
+  if (!res.ok) throw new Error('allorigins failed');
+  var data = await res.json();
+
+  if (!data.contents) return [];
+
+  // Parse XML manually
+  var parser = new DOMParser();
+  var doc = parser.parseFromString(data.contents, 'text/xml');
+  var items = doc.querySelectorAll('item');
+
+  if (!items || items.length === 0) return [];
+
+  var result = [];
+  var maxItems = Math.min(items.length, 10);
+
+  for (var i = 0; i < maxItems; i++) {
+    var item = items[i];
+    var title = getXMLText(item, 'title');
+    if (!title) continue;
+
+    var link = getXMLText(item, 'link');
+    var pubDate = getXMLText(item, 'pubDate');
+    var date = pubDate ? new Date(pubDate) : new Date();
+    var author = getXMLText(item, 'dc:creator') || getXMLText(item, 'author') || '';
+
+    var sourceName = feed.name;
+    if ((feed.name === 'Google News' || feed.name === 'Google News EN') && author) {
+      sourceName = author;
+    }
+
+    result.push({
+      title: decodeEntities(title),
+      source: sourceName,
+      sourceColor: feed.color,
+      link: link || '',
+      date: date,
+      timeAgo: getTimeAgo(date)
+    });
+  }
+  return result;
+}
+
+function getXMLText(parent, tagName) {
+  var el = parent.getElementsByTagName(tagName)[0];
+  if (!el) return '';
+  return el.textContent || el.innerHTML || '';
+}
+
+function parseRSSItems(items, feed) {
+  var result = [];
+  var maxItems = Math.min(items.length, 10);
+
+  for (var i = 0; i < maxItems; i++) {
+    var item = items[i];
+    var title = item.title || '';
+    if (!title) continue;
+
+    var link = item.link || '';
+    var pubDate = item.pubDate;
+    var date = pubDate ? new Date(pubDate) : new Date();
+
+    var sourceName = feed.name;
+    if (feed.name === 'Google News' && item.author) {
+      sourceName = item.author;
+    }
+    if (feed.name === 'Google News EN' && item.author) {
+      sourceName = item.author;
+    }
+
+    result.push({
+      title: decodeEntities(title),
+      source: sourceName,
+      sourceColor: feed.color,
+      link: link,
+      date: date,
+      timeAgo: getTimeAgo(date)
+    });
+  }
+  return result;
+}
+
+/* ==============================================================
+   PODCASTS
+   ============================================================== */
+async function loadPodcasts() {
+  var listEl = document.getElementById('listPodcasts');
+  var countEl = document.getElementById('countPodcasts');
+
+  listEl.innerHTML = skeletonHTML(2);
+
+  var episodes = [];
+
+  for (var pi = 0; pi < PODCAST_FEEDS.length; pi++) {
+    try {
+      var podResult = await fetchRSSFeed(PODCAST_FEEDS[pi]);
+      if (podResult && podResult.length) {
+        podResult.forEach(function(ep) { ep.isPodcast = true; });
+        episodes.push.apply(episodes, podResult);
+      }
+    } catch(e) { /* skip */ }
+    if (pi < PODCAST_FEEDS.length - 1) await new Promise(function(r) { setTimeout(r, 800); });
+  }
+
+  // Sort newest first, deduplicate
+  episodes.sort(function(a, b) { return b.date - a.date; });
+  var seen = new Set();
+  episodes = episodes.filter(function(a) {
+    var k = a.title.toLowerCase().replace(/\s+/g, ' ').trim().substring(0, 60);
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+
+  newsState.podcasts.all = episodes;
+  newsState.podcasts.shown = 3;
+
+  if (episodes.length === 0) {
+    listEl.innerHTML = '<div class="news-error"><p>Kon geen podcasts laden.</p><button onclick="loadPodcasts()">Opnieuw proberen</button></div>';
+    countEl.textContent = '';
+    return;
+  }
+
+  countEl.textContent = episodes.length + ' afleveringen';
+  renderPodcastsWithMore();
+}
+
+function renderPodcastsWithMore() {
+  var listEl = document.getElementById('listPodcasts');
+  var state = newsState.podcasts;
+  var toShow = state.all.slice(0, state.shown);
+
+  listEl.innerHTML = toShow.map(function(ep) {
+    return renderPodcastCard(ep);
+  }).join('');
+
+  if (state.shown < state.all.length) {
+    var remaining = state.all.length - state.shown;
+    listEl.innerHTML += '<button class="see-more-btn" onclick="showMorePodcasts()">Meer afleveringen (' + remaining + ')</button>';
+  }
+}
+
+function showMorePodcasts() {
+  newsState.podcasts.shown += 10;
+  renderPodcastsWithMore();
+}
+
+function renderPodcastCard(ep) {
+  var href = ep.link ? ' href="' + escapeAttr(ep.link) + '"' : '';
+  var savedClass = isInLinkedInQueue(ep.link) ? ' saved' : '';
+  return '<div class="podcast-card">' +
+    '<div class="podcast-icon">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>' +
+    '</div>' +
+    '<a class="podcast-card-content"' + href + ' target="_blank" rel="noopener" style="text-decoration:none;color:inherit;flex:1;min-width:0">' +
+      '<div class="podcast-card-title">' + escapeHTML(ep.title) + '</div>' +
+      '<div class="podcast-card-meta">' +
+        '<span class="podcast-name">' + escapeHTML(ep.source) + '</span>' +
+        '<span class="news-dot"></span>' +
+        '<span>' + ep.timeAgo + '</span>' +
+      '</div>' +
+    '</a>' +
+    '<button class="save-btn' + savedClass + '" onclick="saveToLinkedIn(\'' + escapeAttr(ep.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(ep.link) + '\')" title="Opslaan voor LinkedIn">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
+    '</button>' +
+  '</div>';
+}
+
+/* ==============================================================
+   LINKEDIN QUEUE
+   ============================================================== */
+function getLinkedInQueue() {
+  try {
+    return JSON.parse(localStorage.getItem('linkedin_queue') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveLinkedInQueue(queue) {
+  localStorage.setItem('linkedin_queue', JSON.stringify(queue));
+}
+
+function isInLinkedInQueue(link) {
+  var queue = getLinkedInQueue();
+  return queue.some(function(item) { return item.link === link; });
+}
+
+function saveToLinkedIn(title, link) {
+  var queue = getLinkedInQueue();
+  // Don't add duplicates
+  if (queue.some(function(item) { return item.link === link; })) {
+    showToast('Al opgeslagen voor LinkedIn');
+    return;
+  }
+  queue.push({ title: title, link: link, date: new Date().toISOString() });
+  saveLinkedInQueue(queue);
+  showToast('Opgeslagen voor LinkedIn');
+
+  // Update save button state
+  document.querySelectorAll('.save-btn').forEach(function(btn) {
+    var onclickStr = btn.getAttribute('onclick') || '';
+    if (onclickStr.indexOf(link) !== -1) {
+      btn.classList.add('saved');
+    }
+  });
+}
+
+function removeFromLinkedInQueue(index) {
+  var queue = getLinkedInQueue();
+  queue.splice(index, 1);
+  saveLinkedInQueue(queue);
+  renderLinkedInQueue();
+}
+
+function clearLinkedInQueue() {
+  saveLinkedInQueue([]);
+  renderLinkedInQueue();
+  showToast('Wachtrij gewist');
+}
+
+function copyLinkedInQueue() {
+  var queue = getLinkedInQueue();
+  if (queue.length === 0) {
+    showToast('Wachtrij is leeg');
+    return;
+  }
+  var text = queue.map(function(item, i) {
+    return (i + 1) + '. ' + item.title + '\n   ' + item.link;
+  }).join('\n\n');
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() {
+      showToast('Gekopieerd naar klembord');
+    }).catch(function() {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  showToast('Gekopieerd naar klembord');
+}
+
+function renderLinkedInQueue() {
+  var container = document.getElementById('linkedinQueueContent');
+  var countEl = document.getElementById('linkedinQueueCount');
+  var queue = getLinkedInQueue();
+
+  if (queue.length === 0) {
+    countEl.textContent = '';
+    container.innerHTML = '<div class="linkedin-queue-empty">Nog geen artikelen opgeslagen. Tik op het bladwijzer-icoon bij een artikel om het toe te voegen.</div>';
+    return;
+  }
+
+  countEl.textContent = queue.length + ' items';
+
+  var html = '<div class="linkedin-queue-list">';
+  queue.forEach(function(item, i) {
+    html += '<div class="linkedin-queue-item">' +
+      '<div class="linkedin-queue-item-title">' + escapeHTML(item.title) + '</div>' +
+      '<button class="linkedin-queue-remove" onclick="removeFromLinkedInQueue(' + i + ')" title="Verwijderen">&times;</button>' +
+    '</div>';
+  });
+  html += '</div>';
+
+  html += '<div class="linkedin-queue-actions">' +
+    '<button class="linkedin-queue-btn primary" onclick="copyLinkedInQueue()">Kopieer alles</button>' +
+    '<button class="linkedin-queue-btn" onclick="clearLinkedInQueue()">Wis alles</button>' +
+  '</div>';
+
+  container.innerHTML = html;
+}
+
+/* ==============================================================
+   BOOK / LUISTERTIP
+   ============================================================== */
+function loadBook() {
+  var now = new Date();
+  var start = new Date(now.getFullYear(), 0, 0);
+  var diff = now - start;
+  var dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+  var index = dayOfYear % BOOKS.length;
+  var book = BOOKS[index];
+
+  var card = document.getElementById('bookCard');
+  var audibleUrl = 'https://www.audible.com/search?keywords=' + encodeURIComponent(book.title + ' ' + book.author);
+
+  card.innerHTML =
+    '<div class="book-emoji">&#127911;</div>' +
+    '<div class="book-title">' + escapeHTML(book.title) + '</div>' +
+    '<div class="book-author">' + escapeHTML(book.author) + '</div>' +
+    '<div class="book-desc">' + escapeHTML(book.desc) + '</div>' +
+    '<a class="book-btn" href="' + escapeAttr(audibleUrl) + '" target="_blank" rel="noopener">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>' +
+      '</svg>' +
+      'Beluister op Audible' +
+    '</a>';
+}
+
+/* ==============================================================
+   EVENTS
+   ============================================================== */
+function setupEvents() {
+  document.getElementById('settingsBtn').addEventListener('click', openSettings);
+  document.getElementById('settingsClose').addEventListener('click', closeSettings);
+  document.getElementById('settingsOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeSettings();
+  });
+  document.getElementById('settingsSave').addEventListener('click', closeSettings);
+
+  document.getElementById('refreshBtn').addEventListener('click', refreshAll);
+
+  document.querySelectorAll('.btc-range-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.btc-range-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentChartDays = parseInt(btn.dataset.days);
+      loadBTCChart(currentChartDays);
+    });
+  });
+
+  // Pull to refresh
+  var startY = 0;
+  var pulling = false;
+  document.addEventListener('touchstart', function(e) {
+    if (window.scrollY === 0) {
+      startY = e.touches[0].clientY;
+      pulling = true;
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchmove', function(e) {
+    if (!pulling) return;
+    var diff = e.touches[0].clientY - startY;
+    if (diff > 80) {
+      document.getElementById('refreshIndicator').classList.add('visible');
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', function() {
+    if (!pulling) return;
+    pulling = false;
+    var indicator = document.getElementById('refreshIndicator');
+    if (indicator.classList.contains('visible')) {
+      refreshAll();
+      setTimeout(function() { indicator.classList.remove('visible'); }, 1500);
+    }
+  });
+
+  // Resize handler for chart
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      var cacheKey = 'btc_' + currentChartDays;
+      var cached = btcChartCache[cacheKey];
+      if (cached) {
+        drawChart(
+          document.getElementById('btcChart'),
+          cached.prices,
+          document.getElementById('btcYMax'),
+          document.getElementById('btcYMin'),
+          document.getElementById('btcXStart'),
+          document.getElementById('btcXEnd')
+        );
+      }
+    }, 200);
+  });
+}
+
+/* ==============================================================
+   SETTINGS
+   ============================================================== */
+function openSettings() {
+  renderLinkedInQueue();
+  document.getElementById('settingsOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSettings() {
+  document.getElementById('settingsOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+/* ==============================================================
+   REFRESH
+   ============================================================== */
+async function refreshAll() {
+  var indicator = document.getElementById('refreshIndicator');
+  indicator.classList.add('visible');
+  var btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  btn.disabled = true;
+
+  btcChartCache = {};
+
+  // Load BTC in parallel, but stagger news and podcasts to avoid rate limiting
+  await Promise.all([
+    loadBTCPrice(),
+    loadBTCChart(currentChartDays),
+    (async function() {
+      await loadAllNewsPromise();
+      await new Promise(function(r) { setTimeout(r, 1500); });
+      await loadPodcasts();
+    })()
+  ]);
+
+  btn.classList.remove('spinning');
+  btn.disabled = false;
+  setTimeout(function() { indicator.classList.remove('visible'); }, 600);
+}
+
+async function loadAllNewsPromise() {
+  // Stagger news sections to avoid rate limiting on rss2json
+  await loadNewsSection('ai', FEEDS.ai, 'listAI', 'countAI');
+  await new Promise(function(r) { setTimeout(r, 1500); });
+  await loadNewsSection('onderwijs', FEEDS.onderwijs, 'listOnderwijs', 'countOnderwijs');
+  await new Promise(function(r) { setTimeout(r, 1500); });
+  await loadNewsSection('wetenschap', FEEDS.wetenschap, 'listWetenschap', 'countWetenschap');
+}
+
+/* ==============================================================
+   TOAST
+   ============================================================== */
+function showToast(msg) {
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._toastTimer);
+  el._toastTimer = setTimeout(function() { el.classList.remove('show'); }, 2500);
+}
+
+/* ==============================================================
+   HELPERS
+   ============================================================== */
+function decodeEntities(str) {
+  var tmp = document.createElement('textarea');
+  tmp.innerHTML = str;
+  return tmp.value;
+}
+
+function escapeHTML(str) {
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function escapeAttr(str) {
+  return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function getTimeAgo(date) {
+  var now = new Date();
+  var diffMs = now - date;
+  var mins = Math.floor(diffMs / 60000);
+  var hours = Math.floor(diffMs / 3600000);
+  var days = Math.floor(diffMs / 86400000);
+
+  if (mins < 1) return 'Zojuist';
+  if (mins < 60) return mins + ' min geleden';
+  if (hours === 1) return '1 uur geleden';
+  if (hours < 24) return hours + ' uur geleden';
+  if (days === 1) return 'Gisteren';
+  if (days < 7) return days + ' dagen geleden';
+  return date.getDate() + ' ' + MAANDEN_KORT[date.getMonth()];
+}
+</script>
+
+</body>
+</html>
