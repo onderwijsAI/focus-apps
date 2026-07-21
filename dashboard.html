@@ -1005,15 +1005,6 @@ body {
     <div class="settings-body">
       <button class="settings-save" id="settingsSave">Sluiten</button>
 
-      <!-- LinkedIn Queue -->
-      <div class="linkedin-queue-section" id="linkedinQueueSection">
-        <h3>
-          <span>LinkedIn wachtrij</span>
-          <span class="section-count" id="linkedinQueueCount"></span>
-        </h3>
-        <div id="linkedinQueueContent"></div>
-      </div>
-
       <div class="settings-info">
         <h3>Installeren als app</h3>
         <ol>
@@ -1429,7 +1420,6 @@ function showMoreNews(key, listId) {
 
 function renderNewsCard(a) {
   var href = a.link ? ' href="' + escapeAttr(a.link) + '"' : '';
-  var savedClass = isInLinkedInQueue(a.link) ? ' saved' : '';
   return '<div class="news-card">' +
     '<a class="news-card-content"' + href + ' target="_blank" rel="noopener" style="text-decoration:none;color:inherit;flex:1;min-width:0">' +
       '<div class="news-card-title">' + escapeHTML(a.title) + '</div>' +
@@ -1439,8 +1429,8 @@ function renderNewsCard(a) {
         '<span>' + a.timeAgo + '</span>' +
       '</div>' +
     '</a>' +
-    '<button class="save-btn' + savedClass + '" onclick="saveToLinkedIn(\'' + escapeAttr(a.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(a.link) + '\')" title="Opslaan voor LinkedIn">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
+    '<button class="save-btn" onclick="event.stopPropagation();copyArticle(\'' + escapeAttr(a.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(a.link) + '\')" title="Kopieer naar klembord">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
     '</button>' +
   '</div>';
 }
@@ -1629,7 +1619,6 @@ function showMorePodcasts() {
 
 function renderPodcastCard(ep) {
   var href = ep.link ? ' href="' + escapeAttr(ep.link) + '"' : '';
-  var savedClass = isInLinkedInQueue(ep.link) ? ' saved' : '';
   return '<div class="podcast-card">' +
     '<div class="podcast-icon">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>' +
@@ -1642,75 +1631,17 @@ function renderPodcastCard(ep) {
         '<span>' + ep.timeAgo + '</span>' +
       '</div>' +
     '</a>' +
-    '<button class="save-btn' + savedClass + '" onclick="saveToLinkedIn(\'' + escapeAttr(ep.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(ep.link) + '\')" title="Opslaan voor LinkedIn">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
+    '<button class="save-btn" onclick="event.stopPropagation();copyArticle(\'' + escapeAttr(ep.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(ep.link) + '\')" title="Kopieer naar klembord">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
     '</button>' +
   '</div>';
 }
 
 /* ==============================================================
-   LINKEDIN QUEUE
+   COPY TO CLIPBOARD
    ============================================================== */
-function getLinkedInQueue() {
-  try {
-    return JSON.parse(localStorage.getItem('linkedin_queue') || '[]');
-  } catch (e) {
-    return [];
-  }
-}
-
-function saveLinkedInQueue(queue) {
-  localStorage.setItem('linkedin_queue', JSON.stringify(queue));
-}
-
-function isInLinkedInQueue(link) {
-  var queue = getLinkedInQueue();
-  return queue.some(function(item) { return item.link === link; });
-}
-
-function saveToLinkedIn(title, link) {
-  var queue = getLinkedInQueue();
-  // Don't add duplicates
-  if (queue.some(function(item) { return item.link === link; })) {
-    showToast('Al opgeslagen voor LinkedIn');
-    return;
-  }
-  queue.push({ title: title, link: link, date: new Date().toISOString() });
-  saveLinkedInQueue(queue);
-  showToast('Opgeslagen voor LinkedIn');
-
-  // Update save button state
-  document.querySelectorAll('.save-btn').forEach(function(btn) {
-    var onclickStr = btn.getAttribute('onclick') || '';
-    if (onclickStr.indexOf(link) !== -1) {
-      btn.classList.add('saved');
-    }
-  });
-}
-
-function removeFromLinkedInQueue(index) {
-  var queue = getLinkedInQueue();
-  queue.splice(index, 1);
-  saveLinkedInQueue(queue);
-  renderLinkedInQueue();
-}
-
-function clearLinkedInQueue() {
-  saveLinkedInQueue([]);
-  renderLinkedInQueue();
-  showToast('Wachtrij gewist');
-}
-
-function copyLinkedInQueue() {
-  var queue = getLinkedInQueue();
-  if (queue.length === 0) {
-    showToast('Wachtrij is leeg');
-    return;
-  }
-  var text = queue.map(function(item, i) {
-    return (i + 1) + '. ' + item.title + '\n   ' + item.link;
-  }).join('\n\n');
-
+function copyArticle(title, link) {
+  var text = title + '\n' + link;
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(function() {
       showToast('Gekopieerd naar klembord');
@@ -1732,36 +1663,6 @@ function fallbackCopy(text) {
   document.execCommand('copy');
   document.body.removeChild(ta);
   showToast('Gekopieerd naar klembord');
-}
-
-function renderLinkedInQueue() {
-  var container = document.getElementById('linkedinQueueContent');
-  var countEl = document.getElementById('linkedinQueueCount');
-  var queue = getLinkedInQueue();
-
-  if (queue.length === 0) {
-    countEl.textContent = '';
-    container.innerHTML = '<div class="linkedin-queue-empty">Nog geen artikelen opgeslagen. Tik op het bladwijzer-icoon bij een artikel om het toe te voegen.</div>';
-    return;
-  }
-
-  countEl.textContent = queue.length + ' items';
-
-  var html = '<div class="linkedin-queue-list">';
-  queue.forEach(function(item, i) {
-    html += '<div class="linkedin-queue-item">' +
-      '<div class="linkedin-queue-item-title">' + escapeHTML(item.title) + '</div>' +
-      '<button class="linkedin-queue-remove" onclick="removeFromLinkedInQueue(' + i + ')" title="Verwijderen">&times;</button>' +
-    '</div>';
-  });
-  html += '</div>';
-
-  html += '<div class="linkedin-queue-actions">' +
-    '<button class="linkedin-queue-btn primary" onclick="copyLinkedInQueue()">Kopieer alles</button>' +
-    '<button class="linkedin-queue-btn" onclick="clearLinkedInQueue()">Wis alles</button>' +
-  '</div>';
-
-  container.innerHTML = html;
 }
 
 /* ==============================================================
@@ -1866,7 +1767,7 @@ function setupEvents() {
    SETTINGS
    ============================================================== */
 function openSettings() {
-  renderLinkedInQueue();
+  // clipboard copy ready
   document.getElementById('settingsOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
