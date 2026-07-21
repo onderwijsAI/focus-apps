@@ -929,7 +929,8 @@ body {
       <div class="btc-change" id="btcChange"></div>
     </div>
     <div class="btc-range-bar">
-      <button class="btc-range-btn active" data-days="7">1W</button>
+      <button class="btc-range-btn active" data-days="1">1D</button>
+      <button class="btc-range-btn" data-days="7">1W</button>
       <button class="btc-range-btn" data-days="30">1M</button>
       <button class="btc-range-btn" data-days="180">6M</button>
       <button class="btc-range-btn" data-days="365">1J</button>
@@ -1079,8 +1080,8 @@ const FEEDS = {
   ],
   wetenschap: [
     { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijsonderzoek+OR+leerwetenschap+OR+%22formatief+handelen%22+OR+%22evidence+informed%22+OR+%22professionele+cultuur%22+onderwijs&hl=nl&gl=NL', color: '#4285F4' },
-    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22educational+research%22+OR+%22learning+science%22+OR+%22Visible+Learning%22+OR+%22formative+assessment%22+OR+%22teacher+professional+development%22&hl=en', color: '#34A853' },
-    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22AI+in+education%22+OR+%22machine+learning+education%22+OR+%22artificial+intelligence+school%22+research+study&hl=en', color: '#EA4335' }
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22onderwijswetenschap%22+OR+%22cognitieve+psychologie%22+OR+%22leerprocessen%22+OR+%22gedragswetenschap%22+OR+%22AI+onderzoek%22+onderwijs&hl=nl&gl=NL', color: '#34A853' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22wetenschappelijk+onderzoek%22+onderwijs+OR+%22leermotivatie%22+OR+%22schoolleiderschap%22+OR+%22docentontwikkeling%22&hl=nl&gl=NL', color: '#EA4335' }
   ]
 };
 
@@ -1099,7 +1100,7 @@ const BTC_CHART_API = 'https://api.coingecko.com/api/v3/coins/bitcoin/market_cha
 /* ==============================================================
    STATE
    ============================================================== */
-let currentChartDays = 7;
+let currentChartDays = 1;
 let btcChartCache = {};
 let btcPriceCache = null;
 let btcInterval = null;
