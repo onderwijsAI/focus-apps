@@ -1209,6 +1209,14 @@ function renderBTCPrice(price, change) {
   changeEl.className = 'btc-change ' + (change >= 0 ? 'positive' : 'negative');
 }
 
+function updatePeriodChange(priceData) {
+  if (!priceData || priceData.length < 2) return;
+  var startPrice = priceData[0][1];
+  var endPrice = priceData[priceData.length - 1][1];
+  var change = ((endPrice - startPrice) / startPrice) * 100;
+  renderBTCPrice(endPrice, change);
+}
+
 function formatUSD(n) {
   return '$' + Math.round(n).toLocaleString('en-US');
 }
@@ -1230,6 +1238,7 @@ async function loadBTCChart(days) {
   var cached = btcChartCache[cacheKey];
   if (cached && (Date.now() - cached.ts < 120000)) {
     drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+    updatePeriodChange(cached.prices);
     loadingEl.style.display = 'none';
     return;
   }
@@ -1253,10 +1262,12 @@ async function loadBTCChart(days) {
     }
     btcChartCache[cacheKey] = { prices: data.prices, ts: Date.now() };
     drawChart(canvas, data.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+    updatePeriodChange(data.prices);
     loadingEl.style.display = 'none';
   } catch (e) {
     if (cached) {
       drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+      updatePeriodChange(cached.prices);
       loadingEl.style.display = 'none';
     } else {
       loadingEl.textContent = 'Laden mislukt';
