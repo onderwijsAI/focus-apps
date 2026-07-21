@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no,maximum-scale=1">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- NOT standalone PWA: YouTube embeds need Safari chrome to work on iOS -->
+<!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
+<!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
 <meta name="apple-mobile-web-app-title" content="FocusTube">
 <meta name="theme-color" content="#0b0b14">
 <meta name="description" content="Gefocust YouTube kijken — alleen muziek en educatieve content over AI en onderwijs.">
@@ -291,8 +292,8 @@ a{color:var(--primary);text-decoration:none}
 /* --- Print --- */
 @media print{.tabbar,.header-settings,.search-wrap,.chips,.load-more{display:none!important}}
 
-/* --- Video card as link --- */
-a.vcard{text-decoration:none;color:inherit;display:block}
+/* --- Video card clickable --- */
+.vcard{cursor:pointer}
 
 /* Hidden utility */
 .hidden{display:none!important}
@@ -303,7 +304,7 @@ a.vcard{text-decoration:none;color:inherit;display:block}
 
   <!-- Header -->
   <header class="header">
-    <button class="header-back" id="backBtn">
+    <button class="header-back" id="backBtn" onclick="FT.closePlayer()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
     <h1>FocusTube</h1>
@@ -361,6 +362,21 @@ a.vcard{text-decoration:none;color:inherit;display:block}
       <div class="state-title" style="color:var(--danger)">Fout</div>
       <div class="state-desc" id="errorDesc">Er is iets misgegaan.</div>
       <button class="state-btn" onclick="FT.toggleSettings()" id="errorBtn" style="display:none">Controleer API-key</button>
+    </div>
+
+    <!-- Player View -->
+    <div id="playerView" class="hidden">
+      <div class="player-wrap">
+        <div class="player-container"><iframe id="playerFrame" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen playsinline></iframe></div>
+        <div class="player-info">
+          <div class="player-title" id="playerTitle"></div>
+          <div class="player-channel" id="playerChannel"></div>
+          <div class="player-stats" id="playerStats"></div>
+        </div>
+      </div>
+      <div class="player-divider"></div>
+      <div class="player-more-label">Meer resultaten</div>
+      <div class="results" id="playerResults"></div>
     </div>
 
   </main>
@@ -454,7 +470,7 @@ a.vcard{text-decoration:none;color:inherit;display:block}
             <li>Onder <strong>Sta nooit toe</strong>, tik <strong>Website toevoegen</strong>.</li>
             <li>Voer in: <code>youtube.com</code> en voeg ook <code>m.youtube.com</code> toe.</li>
           </ol>
-          <p style="margin-top:8px"><strong>Let op:</strong> Als je youtube.com blokkeert via Schermtijd, openen video's vanuit FocusTube niet meer in Safari. FocusTube opent video's als directe links naar YouTube. Overweeg of deze blokkade gewenst is.</p>
+          <p style="margin-top:8px"><strong>Let op:</strong> FocusTube speelt video's af via YouTube's embed-speler, die ook werkt als youtube.com is geblokkeerd via Schermtijd.</p>
           <p style="margin-top:4px"><strong>Tip:</strong> Stel een Schermtijd-toegangscode in die iemand anders beheert, zodat je de blokkade niet makkelijk ongedaan maakt.</p>
         </div>
       </div>
@@ -494,6 +510,7 @@ const FT = (() => {
       return localStorage.getItem('ft_apikey') || '';
     })(),
     settings: false,
+    playing: null,
     tabs: {
       muziek: { query: '', results: [], token: null, loading: false },
       leren:  { query: '', results: [], token: null, loading: false },
@@ -513,6 +530,9 @@ const FT = (() => {
     empty: () => $('emptyState'),
     error: () => $('errorState'),
     back: () => $('backBtn'),
+    player: () => $('playerView'),
+    playerFrame: () => $('playerFrame'),
+    playerResults: () => $('playerResults'),
     settings: () => $('settingsOverlay'),
     apiInput: () => $('apiKeyInput'),
     apiStatus: () => $('apiStatus'),
@@ -705,7 +725,7 @@ const FT = (() => {
   }
 
   function renderCard(v, idx) {
-    return `<a class="vcard" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}" target="_blank" rel="noopener">
+    return `<article class="vcard" data-idx="${idx}" onclick="FT.playByIndex(${idx})">
       <div class="vcard-thumb">
         <img src="${esc(v._thumb)}" alt="" loading="lazy">
         <span class="vcard-dur">${esc(v._durationFmt)}</span>
@@ -720,7 +740,7 @@ const FT = (() => {
           <span>${timeAgo(v.snippet?.publishedAt)}</span>
         </div>
       </div>
-    </a>`;
+    </article>`;
   }
 
   function renderSkeletons(n) {
@@ -732,12 +752,17 @@ const FT = (() => {
   function updateView() {
     const hasKey = !!state.apiKey;
     const ts = state.tabs[state.tab];
+    const isPlaying = !!state.playing;
+
+    // Player view vs normal view
+    el.player().classList.toggle('hidden', !isPlaying);
+    el.back().classList.toggle('visible', isPlaying);
 
     // Welcome vs search
     el.welcome().classList.toggle('hidden', hasKey);
-    el.search().classList.toggle('hidden', !hasKey);
-    el.grid().classList.remove('hidden');
-    el.loadMore().classList.toggle('hidden', !ts.token || ts.loading || ts.results.length === 0);
+    el.search().classList.toggle('hidden', !hasKey || isPlaying);
+    el.grid().classList.toggle('hidden', isPlaying);
+    el.loadMore().classList.toggle('hidden', isPlaying || !ts.token || ts.loading || ts.results.length === 0);
     el.empty().classList.add('hidden');
     el.error().classList.add('hidden');
 
@@ -753,7 +778,7 @@ const FT = (() => {
 
     // Render results if not loading
     if (!ts.loading && hasKey) {
-      if (ts.results.length === 0 && ts.query) {
+      if (ts.results.length === 0 && ts.query && !isPlaying) {
         // Show empty
         el.empty().classList.remove('hidden');
         $('emptyTitle').textContent = 'Geen resultaten';
@@ -761,8 +786,16 @@ const FT = (() => {
           ? 'Geen video\'s langer dan 20 minuten gevonden. Probeer andere zoektermen.'
           : 'Probeer andere zoektermen.';
       }
-      if (ts.results.length > 0) {
+      if (ts.results.length > 0 && !isPlaying) {
         el.grid().innerHTML = ts.results.map((v,i) => renderCard(v,i)).join('');
+      }
+      // Render related results in player view
+      if (isPlaying && ts.results.length > 0) {
+        const others = ts.results.filter(v => v.id !== state.playing.id);
+        el.playerResults().innerHTML = others.map((v,i) => {
+          const realIdx = ts.results.indexOf(v);
+          return renderCard(v, realIdx);
+        }).join('');
       }
     }
   }
@@ -826,8 +859,43 @@ const FT = (() => {
     }
   }
 
+  function playByIndex(idx) {
+    const ts = state.tabs[state.tab];
+    const video = ts.results[idx];
+    if (!video) return;
+    playVideo(video);
+  }
+
+  function playVideo(video) {
+    if (isShort(video)) {
+      showToast('YouTube Shorts worden geblokkeerd.');
+      return;
+    }
+    state.playing = video;
+    const embed = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+    el.playerFrame().src = embed;
+    $('playerTitle').textContent = video.snippet?.title || '';
+    $('playerChannel').textContent = video.snippet?.channelTitle || '';
+    $('playerStats').innerHTML = `
+      <span>${fmtViews(video._views)} weergaven</span>
+      <span>&middot;</span>
+      <span>${video._durationFmt}</span>
+      <span>&middot;</span>
+      <span>${timeAgo(video.snippet?.publishedAt)}</span>
+    `;
+    el.main().scrollTop = 0;
+    updateView();
+  }
+
+  function closePlayer() {
+    state.playing = null;
+    el.playerFrame().src = '';
+    updateView();
+  }
+
   function switchTab(tab) {
     if (tab === state.tab) return;
+    closePlayer();
     state.tab = tab;
 
     const ts = state.tabs[tab];
@@ -987,32 +1055,17 @@ const FT = (() => {
     mLink.href = URL.createObjectURL(blob);
     document.head.appendChild(mLink);
 
-    // Register service worker (best effort)
+    // No service worker for FocusTube — it conflicts with the Focus Dashboard SW
+    // and causes redirect issues. The app is lightweight enough to load fresh each time.
+    // Also unregister any previously registered FocusTube SW
     if ('serviceWorker' in navigator) {
-      const swCode = `
-        const CACHE = 'focustube-v1';
-        self.addEventListener('install', e => { self.skipWaiting(); });
-        self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
-        self.addEventListener('fetch', e => {
-          if (e.request.method !== 'GET') return;
-          if (e.request.url.includes('googleapis.com') || e.request.url.includes('youtube.com')) return;
-          e.respondWith(
-            caches.open(CACHE).then(cache =>
-              cache.match(e.request).then(cached => {
-                const fetched = fetch(e.request).then(res => {
-                  if (res.ok) cache.put(e.request, res.clone());
-                  return res;
-                }).catch(() => cached);
-                return cached || fetched;
-              })
-            )
-          );
+      navigator.serviceWorker.getRegistrations().then(regs => {
+        regs.forEach(reg => {
+          // Only unregister blob-URL service workers (FocusTube's old SW)
+          if (reg.active && reg.active.scriptURL.startsWith('blob:')) {
+            reg.unregister();
+          }
         });
-      `;
-      const swBlob = new Blob([swCode], { type: 'application/javascript' });
-      const swUrl = URL.createObjectURL(swBlob);
-      navigator.serviceWorker.register(swUrl, { scope: '/' }).catch(() => {
-        // Service worker registration may fail with blob URLs; that's OK
       });
     }
   }
@@ -1036,16 +1089,18 @@ const FT = (() => {
       doSearch(q);
     });
 
-    // Keyboard shortcut: Escape to close settings
+    // Keyboard shortcut: Escape to close player or settings
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
-        if (state.settings) toggleSettings();
+        if (state.playing) closePlayer();
+        else if (state.settings) toggleSettings();
       }
     });
 
     // Handle back button / popstate for Android
     window.addEventListener('popstate', () => {
-      if (state.settings) { toggleSettings(); history.pushState(null, ''); }
+      if (state.playing) { closePlayer(); history.pushState(null, ''); }
+      else if (state.settings) { toggleSettings(); history.pushState(null, ''); }
     });
     history.pushState(null, '');
   }
@@ -1072,7 +1127,7 @@ const FT = (() => {
 
   /* ---- Public API ---- */
   return {
-    doSearch, loadMore,
+    doSearch, loadMore, playByIndex, playVideo, closePlayer,
     switchTab, toggleSettings, saveApiKey, toggleCollapse,
   };
 })();
