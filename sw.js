@@ -1,4 +1,4 @@
-const CACHE_NAME = 'focus-dashboard-v4-20260720';
+const CACHE_NAME = 'focus-dashboard-v5-20260821';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -37,7 +37,9 @@ self.addEventListener('fetch', event => {
     url.hostname === 'api.allorigins.win' ||
     url.hostname === 'newsapi.org' ||
     url.hostname === 'api.rss2json.com' ||
-    url.hostname === 'news.google.com'
+    url.hostname === 'translate.googleapis.com' ||
+    url.hostname === 'news.google.com' ||
+    url.pathname.endsWith('feed.xml')
   ) {
     event.respondWith(
       fetch(event.request)

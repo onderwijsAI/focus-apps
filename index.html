@@ -929,7 +929,8 @@ body {
       <div class="btc-change" id="btcChange"></div>
     </div>
     <div class="btc-range-bar">
-      <button class="btc-range-btn active" data-days="7">1W</button>
+      <button class="btc-range-btn active" data-days="1">1D</button>
+      <button class="btc-range-btn" data-days="7">1W</button>
       <button class="btc-range-btn" data-days="30">1M</button>
       <button class="btc-range-btn" data-days="180">6M</button>
       <button class="btc-range-btn" data-days="365">1J</button>
@@ -973,6 +974,19 @@ body {
       <span class="section-count" id="countWetenschap"></span>
     </div>
     <div class="news-list" id="listWetenschap"></div>
+  </section>
+
+  <!-- Mijn podcast (eigen feed: Bitcoin Alpha + radar-selectie) -->
+  <section class="news-section" id="sectionMijnPodcast">
+    <div class="section-header">
+      <h2 class="section-title">Mijn podcast</h2>
+      <span class="section-count" id="countMijnPodcast"></span>
+    </div>
+    <div class="news-list" id="listMijnPodcast"></div>
+    <a class="book-btn" id="mijnPodcastAppleBtn" href="podcast://onderwijsai.github.io/focus-apps/feed.xml" style="margin-top:10px;display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+      Volg in Apple Podcasts
+    </a>
   </section>
 
   <!-- Podcasts -->
@@ -1094,9 +1108,11 @@ const FEEDS = {
 };
 
 const PODCAST_FEEDS = [
+  { name: 'Turing Station', url: 'https://anchor.fm/s/113df2c08/podcast/rss', color: '#6C63FF' },
+  { name: 'AI Report', url: 'https://rss.beehiiv.com/podcasts/019d2587-e790-7b44-bb7a-6eebcaae225c.xml', color: '#10A37F' },
   { name: 'Hard Fork', url: 'https://feeds.simplecast.com/l2i9YnTd', color: '#FBBF24' },
-  { name: 'Google News Podcasts', url: 'https://news.google.com/rss/search?q=%22AI+Report%22+OR+%22Turing+podcast%22+OR+%22Onderwijs+AI%22+podcast+AI&hl=nl&gl=NL', color: '#FBBF24' },
-  { name: 'AI Today', url: 'https://news.google.com/rss/search?q=%22AI+Today+podcast%22+OR+%22artificial+intelligence+podcast%22&hl=en', color: '#FBBF24' }
+  { name: 'AI in Education', url: 'https://rss.libsyn.com/shows/216230/destinations/1569005.xml', color: '#4285F4' },
+  { name: 'ChatEDU', url: 'https://anchor.fm/s/f187ab08/podcast/rss', color: '#EA4335' }
 ];
 
 /* ==============================================================
@@ -1108,7 +1124,7 @@ const BTC_CHART_API = 'https://api.coingecko.com/api/v3/coins/bitcoin/market_cha
 /* ==============================================================
    STATE
    ============================================================== */
-let currentChartDays = 7;
+let currentChartDays = 1;
 let btcChartCache = {};
 let btcPriceCache = null;
 let btcInterval = null;
@@ -1134,6 +1150,7 @@ document.addEventListener('DOMContentLoaded', function() {
   loadBTCPrice();
   loadBTCChart(currentChartDays);
   loadAllNews();
+  loadMyPodcast();
   loadPodcasts();
   loadBook();
   setupEvents();
@@ -1218,6 +1235,14 @@ function renderBTCPrice(price, change) {
   changeEl.className = 'btc-change ' + (change >= 0 ? 'positive' : 'negative');
 }
 
+function updatePeriodChange(priceData) {
+  if (!priceData || priceData.length < 2) return;
+  var startPrice = priceData[0][1];
+  var endPrice = priceData[priceData.length - 1][1];
+  var change = ((endPrice - startPrice) / startPrice) * 100;
+  renderBTCPrice(endPrice, change);
+}
+
 function formatUSD(n) {
   return '$' + Math.round(n).toLocaleString('en-US');
 }
@@ -1239,6 +1264,7 @@ async function loadBTCChart(days) {
   var cached = btcChartCache[cacheKey];
   if (cached && (Date.now() - cached.ts < 120000)) {
     drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+    updatePeriodChange(cached.prices);
     loadingEl.style.display = 'none';
     return;
   }
@@ -1262,10 +1288,12 @@ async function loadBTCChart(days) {
     }
     btcChartCache[cacheKey] = { prices: data.prices, ts: Date.now() };
     drawChart(canvas, data.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+    updatePeriodChange(data.prices);
     loadingEl.style.display = 'none';
   } catch (e) {
     if (cached) {
       drawChart(canvas, cached.prices, yMaxEl, yMinEl, xStartEl, xEndEl);
+      updatePeriodChange(cached.prices);
       loadingEl.style.display = 'none';
     } else {
       loadingEl.textContent = 'Laden mislukt';
@@ -1366,6 +1394,46 @@ async function loadAllNews() {
   await loadNewsSection('wetenschap', FEEDS.wetenschap, 'listWetenschap', 'countWetenschap');
 }
 
+/* Vertaal Engelse titels naar het Nederlands (gratis Google-endpoint, met cache) */
+async function vertaalTitelsNL(articles) {
+  var CACHE_KEY = 'nl_titel_cache_v1';
+  var cache = {};
+  try { cache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}'); } catch (e) {}
+
+  var max = Math.min(articles.length, 25);
+  for (var i = 0; i < max; i++) {
+    var titel = articles[i].title;
+    if (!titel) continue;
+    if (cache[titel]) {
+      articles[i].title = cache[titel];
+      continue;
+    }
+    try {
+      var res = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=nl&dt=t&q=' + encodeURIComponent(titel), { signal: AbortSignal.timeout(6000) });
+      if (!res.ok) continue;
+      var data = await res.json();
+      var brontaal = data[2] || '';
+      var vertaald = (data[0] || []).map(function(p) { return p[0]; }).join('');
+      if (vertaald && brontaal !== 'nl') {
+        cache[titel] = vertaald;
+        articles[i].title = vertaald;
+      } else {
+        cache[titel] = titel; // al Nederlands, niet opnieuw proberen
+      }
+    } catch (e) { /* laat Engelse titel staan */ }
+  }
+
+  try {
+    var keys = Object.keys(cache);
+    if (keys.length > 500) {
+      var klein = {};
+      keys.slice(-300).forEach(function(k) { klein[k] = cache[k]; });
+      cache = klein;
+    }
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+  } catch (e) {}
+}
+
 async function loadNewsSection(key, feeds, listId, countId) {
   var listEl = document.getElementById(listId);
   var countEl = document.getElementById(countId);
@@ -1391,6 +1459,11 @@ async function loadNewsSection(key, feeds, listId, countId) {
     seen.add(k);
     return true;
   });
+
+  // Wetenschap: Engelse bronnen, maar Nederlandse titels op het scherm
+  if (key === 'wetenschap') {
+    try { await vertaalTitelsNL(articles); } catch (e) { /* vertaling optioneel */ }
+  }
 
   // Store all articles
   newsState[key].all = articles;
@@ -1439,8 +1512,11 @@ function renderNewsCard(a) {
         '<span>' + a.timeAgo + '</span>' +
       '</div>' +
     '</a>' +
-    '<button class="save-btn' + savedClass + '" onclick="saveToLinkedIn(\'' + escapeAttr(a.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(a.link) + '\')" title="Opslaan voor LinkedIn">' +
+    '<button class="save-btn' + savedClass + '" onclick="event.stopPropagation();saveToLinkedIn(\'' + escapeAttr(a.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(a.link) + '\')" title="Opslaan voor LinkedIn">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
+    '</button>' +
+    '<button class="save-btn" onclick="event.stopPropagation();copyArticle(\'' + escapeAttr(a.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(a.link) + '\')" title="Kopieer naar klembord">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
     '</button>' +
   '</div>';
 }
@@ -1459,10 +1535,26 @@ async function fetchRSSFeed(feed) {
     var result = await fetchViaAllOrigins(feed);
     if (result && result.length > 0) return result;
   } catch (e) {
-    // Both failed
+    // allorigins failed, try corsproxy
+  }
+
+  // Tweede fallback: corsproxy.io
+  try {
+    var result = await fetchViaCorsProxy(feed);
+    if (result && result.length > 0) return result;
+  } catch (e) {
+    // All failed
   }
 
   return [];
+}
+
+async function fetchViaCorsProxy(feed) {
+  var url = 'https://corsproxy.io/?url=' + encodeURIComponent(feed.url);
+  var res = await fetch(url, { signal: AbortSignal.timeout(12000) });
+  if (!res.ok) throw new Error('corsproxy failed');
+  var txt = await res.text();
+  return parseRSSXML(txt, feed);
 }
 
 async function fetchViaRss2Json(feed) {
@@ -1485,10 +1577,12 @@ async function fetchViaAllOrigins(feed) {
   var data = await res.json();
 
   if (!data.contents) return [];
+  return parseRSSXML(data.contents, feed);
+}
 
-  // Parse XML manually
+function parseRSSXML(xmlText, feed) {
   var parser = new DOMParser();
-  var doc = parser.parseFromString(data.contents, 'text/xml');
+  var doc = parser.parseFromString(xmlText, 'text/xml');
   var items = doc.querySelectorAll('item');
 
   if (!items || items.length === 0) return [];
@@ -1571,6 +1665,18 @@ async function loadPodcasts() {
 
   listEl.innerHTML = skeletonHTML(2);
 
+  // De podcastradar kan de lijst wekelijks bijwerken via podcast-feeds.json
+  try {
+    var fres = await fetch('podcast-feeds.json?t=' + Date.now(), { signal: AbortSignal.timeout(5000) });
+    if (fres.ok) {
+      var flist = await fres.json();
+      if (Array.isArray(flist) && flist.length > 0 && flist[0].url) {
+        PODCAST_FEEDS.length = 0;
+        flist.forEach(function(f) { PODCAST_FEEDS.push(f); });
+      }
+    }
+  } catch (e) { /* val terug op ingebouwde lijst */ }
+
   var episodes = [];
 
   for (var pi = 0; pi < PODCAST_FEEDS.length; pi++) {
@@ -1627,6 +1733,51 @@ function showMorePodcasts() {
   renderPodcastsWithMore();
 }
 
+/* ==============================================================
+   MIJN PODCAST (eigen feed.xml op deze site)
+   ============================================================== */
+async function loadMyPodcast() {
+  var listEl = document.getElementById('listMijnPodcast');
+  var countEl = document.getElementById('countMijnPodcast');
+  var appleBtn = document.getElementById('mijnPodcastAppleBtn');
+  if (!listEl) return;
+  try {
+    var res = await fetch('feed.xml?t=' + Date.now(), { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) throw new Error('geen feed');
+    var txt = await res.text();
+    var doc = new DOMParser().parseFromString(txt, 'application/xml');
+    var items = Array.prototype.slice.call(doc.querySelectorAll('item')).slice(0, 5);
+    if (items.length === 0) {
+      listEl.innerHTML = '<div class="linkedin-queue-empty">Nog geen afleveringen. De eerste Bitcoin Alpha-aflevering verschijnt zodra de nieuwsbrief binnenkomt.</div>';
+      countEl.textContent = '';
+      if (appleBtn) appleBtn.style.display = '';
+      return;
+    }
+    var html = items.map(function(it) {
+      var titel = (it.querySelector('title') && it.querySelector('title').textContent || '').trim();
+      var enc = it.querySelector('enclosure');
+      var audioUrl = enc ? enc.getAttribute('url') : '';
+      var pub = it.querySelector('pubDate') ? new Date(it.querySelector('pubDate').textContent) : null;
+      var datum = pub ? pub.getDate() + ' ' + MAANDEN_KORT[pub.getMonth()] : '';
+      return '<div class="podcast-card" style="flex-wrap:wrap">' +
+        '<div class="podcast-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>' +
+        '<div style="flex:1;min-width:0">' +
+          '<div class="podcast-card-title">' + escapeHTML(titel) + '</div>' +
+          '<div class="podcast-card-meta"><span class="podcast-name">Eigen feed</span><span class="news-dot"></span><span>' + datum + '</span></div>' +
+        '</div>' +
+        (audioUrl ? '<audio controls preload="none" src="' + escapeAttr(audioUrl) + '" style="width:100%;margin-top:8px;height:36px"></audio>' : '') +
+      '</div>';
+    }).join('');
+    listEl.innerHTML = html;
+    countEl.textContent = items.length + ' afleveringen';
+    if (appleBtn) appleBtn.style.display = '';
+  } catch (e) {
+    listEl.innerHTML = '<div class="linkedin-queue-empty">Nog geen afleveringen.</div>';
+    countEl.textContent = '';
+    if (appleBtn) appleBtn.style.display = 'none';
+  }
+}
+
 function renderPodcastCard(ep) {
   var href = ep.link ? ' href="' + escapeAttr(ep.link) + '"' : '';
   var savedClass = isInLinkedInQueue(ep.link) ? ' saved' : '';
@@ -1642,8 +1793,11 @@ function renderPodcastCard(ep) {
         '<span>' + ep.timeAgo + '</span>' +
       '</div>' +
     '</a>' +
-    '<button class="save-btn' + savedClass + '" onclick="saveToLinkedIn(\'' + escapeAttr(ep.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(ep.link) + '\')" title="Opslaan voor LinkedIn">' +
+    '<button class="save-btn' + savedClass + '" onclick="event.stopPropagation();saveToLinkedIn(\'' + escapeAttr(ep.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(ep.link) + '\')" title="Opslaan voor LinkedIn">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
+    '</button>' +
+    '<button class="save-btn" onclick="event.stopPropagation();copyArticle(\'' + escapeAttr(ep.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(ep.link) + '\')" title="Kopieer naar klembord">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
     '</button>' +
   '</div>';
 }
@@ -1670,7 +1824,6 @@ function isInLinkedInQueue(link) {
 
 function saveToLinkedIn(title, link) {
   var queue = getLinkedInQueue();
-  // Don't add duplicates
   if (queue.some(function(item) { return item.link === link; })) {
     showToast('Al opgeslagen voor LinkedIn');
     return;
@@ -1679,10 +1832,9 @@ function saveToLinkedIn(title, link) {
   saveLinkedInQueue(queue);
   showToast('Opgeslagen voor LinkedIn');
 
-  // Update save button state
   document.querySelectorAll('.save-btn').forEach(function(btn) {
     var onclickStr = btn.getAttribute('onclick') || '';
-    if (onclickStr.indexOf(link) !== -1) {
+    if (onclickStr.indexOf('saveToLinkedIn') !== -1 && onclickStr.indexOf(link) !== -1) {
       btn.classList.add('saved');
     }
   });
@@ -1722,21 +1874,10 @@ function copyLinkedInQueue() {
   }
 }
 
-function fallbackCopy(text) {
-  var ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.select();
-  document.execCommand('copy');
-  document.body.removeChild(ta);
-  showToast('Gekopieerd naar klembord');
-}
-
 function renderLinkedInQueue() {
   var container = document.getElementById('linkedinQueueContent');
   var countEl = document.getElementById('linkedinQueueCount');
+  if (!container || !countEl) return;
   var queue = getLinkedInQueue();
 
   if (queue.length === 0) {
@@ -1762,6 +1903,34 @@ function renderLinkedInQueue() {
   '</div>';
 
   container.innerHTML = html;
+}
+
+/* ==============================================================
+   COPY TO CLIPBOARD
+   ============================================================== */
+function copyArticle(title, link) {
+  var text = title + '\n' + link;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() {
+      showToast('Gekopieerd naar klembord');
+    }).catch(function() {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  showToast('Gekopieerd naar klembord');
 }
 
 /* ==============================================================
@@ -1892,6 +2061,7 @@ async function refreshAll() {
   await Promise.all([
     loadBTCPrice(),
     loadBTCChart(currentChartDays),
+    loadMyPodcast(),
     (async function() {
       await loadAllNewsPromise();
       await new Promise(function(r) { setTimeout(r, 1500); });
