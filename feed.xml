@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Davids Focus Feed</title>
+    <link>https://onderwijsai.github.io/focus-apps/dashboard.html</link>
+    <atom:link href="https://onderwijsai.github.io/focus-apps/feed.xml" rel="self" type="application/rss+xml"/>
+    <language>nl</language>
+    <description>Persoonlijke podcastfeed: dagelijkse Bitcoin Alpha-samenvatting en de beste afleveringen over AI en AI in het onderwijs, geselecteerd door de podcastradar.</description>
+    <itunes:author>David Maij</itunes:author>
+    <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
+    <itunes:category text="Technology"/>
+    <itunes:explicit>false</itunes:explicit>
+    <lastBuildDate>Sun, 23 Aug 2026 15:27:11 +1000</lastBuildDate>
+    <item>
+      <title>Radar · AI in Education — When Does AI Help Learning, and When Does It Replace It?</title>
+      <description>Radar-selectie: over de grens tussen AI die het leren versterkt en AI die het overneemt. Sluit direct aan op Davids werk. Engels, 37 min.</description>
+      <pubDate>Fri, 21 Aug 2026 06:58:00 +1000</pubDate>
+      <guid isPermaLink="false">https://traffic.libsyn.com/secure/aiineducationpodcast/S18_E1_Barker_Report.mp3?dest-id=1569005</guid>
+      <enclosure url="https://traffic.libsyn.com/secure/aiineducationpodcast/S18_E1_Barker_Report.mp3?dest-id=1569005" length="35516577" type="audio/mpeg"/>
+      <itunes:duration>37:00</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>Radar · AI Report — De zomer waarin AI zichzelf uit de testomgeving hackte</title>
+      <description>Radar-selectie: Klöpping en Hage over agent-veiligheid, Sam Altman en GrokBot. Nederlands.</description>
+      <pubDate>Thu, 20 Aug 2026 20:49:05 +1000</pubDate>
+      <guid isPermaLink="false">https://podcasts.beehiiv.com/3947764a-828d-4759-b488-b60e362c33fc/019d2587-e790-7b44-bb7a-6eebcaae225c/01a01eb3-a35b-797c-a91a-4c793ed029e5/01a01eb3-a4da-74bb-b373-3b1d743d26f5.mp3</guid>
+      <enclosure url="https://podcasts.beehiiv.com/3947764a-828d-4759-b488-b60e362c33fc/019d2587-e790-7b44-bb7a-6eebcaae225c/01a01eb3-a35b-797c-a91a-4c793ed029e5/01a01eb3-a4da-74bb-b373-3b1d743d26f5.mp3" length="82202580" type="audio/mpeg"/>
+      
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>Radar · Turing Station #9 — Gaan we ooit de echte prijs voor AI betalen?</title>
+      <description>Radar-selectie: Bart Mol, Bert en Peter Slagter over de echte kosten en prijs van AI. Nederlands, 1u34.</description>
+      <pubDate>Wed, 19 Aug 2026 21:10:29 +1000</pubDate>
+      <guid isPermaLink="false">https://anchor.fm/s/113df2c08/podcast/play/124431797/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-19%2F430127292-44100-2-2ed1cc7cff276.mp3</guid>
+      <enclosure url="https://anchor.fm/s/113df2c08/podcast/play/124431797/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-19%2F430127292-44100-2-2ed1cc7cff276.mp3" length="90320978" type="audio/mpeg"/>
+      <itunes:duration>94:05</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+  </channel>
+</rss>
