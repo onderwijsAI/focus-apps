@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "titel": "Radar · Turing Station #9 — Gaan we ooit de echte prijs voor AI betalen?",
+    "beschrijving": "Radar-selectie: Bart Mol, Bert en Peter Slagter over de echte kosten en prijs van AI. Nederlands, 1u34.",
+    "datum": "2026-08-19T21:10:29+10:00",
+    "audio_url": "https://anchor.fm/s/113df2c08/podcast/play/124431797/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-19%2F430127292-44100-2-2ed1cc7cff276.mp3",
+    "grootte": 90320978,
+    "mime": "audio/mpeg",
+    "duur_sec": 5645,
+    "bron": "radar"
+  },
+  {
+    "titel": "Radar · AI in Education — When Does AI Help Learning, and When Does It Replace It?",
+    "beschrijving": "Radar-selectie: over de grens tussen AI die het leren versterkt en AI die het overneemt. Sluit direct aan op Davids werk. Engels, 37 min.",
+    "datum": "2026-08-21T06:58:00+10:00",
+    "audio_url": "https://traffic.libsyn.com/secure/aiineducationpodcast/S18_E1_Barker_Report.mp3?dest-id=1569005",
+    "grootte": 35516577,
+    "mime": "audio/mpeg",
+    "duur_sec": 2220,
+    "bron": "radar"
+  },
+  {
+    "titel": "Radar · AI Report — De zomer waarin AI zichzelf uit de testomgeving hackte",
+    "beschrijving": "Radar-selectie: Klöpping en Hage over agent-veiligheid, Sam Altman en GrokBot. Nederlands.",
+    "datum": "2026-08-20T20:49:05+10:00",
+    "audio_url": "https://podcasts.beehiiv.com/3947764a-828d-4759-b488-b60e362c33fc/019d2587-e790-7b44-bb7a-6eebcaae225c/01a01eb3-a35b-797c-a91a-4c793ed029e5/01a01eb3-a4da-74bb-b373-3b1d743d26f5.mp3",
+    "grootte": 82202580,
+    "mime": "audio/mpeg",
+    "duur_sec": 0,
+    "bron": "radar"
+  }
+]
