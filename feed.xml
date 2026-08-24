@@ -10,7 +10,7 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Mon, 24 Aug 2026 16:17:58 +1000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Aug 2026 18:33:12 +1000</lastBuildDate>
     <item>
       <title>Bitcoin Alpha — Bitcoin in stappen terugkopen</title>
       <description>:
@@ -36,6 +36,15 @@
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
+      <title>Radar · het AI-tussenuurtje — S03E02: Vibe coden in de klas, GrokBot en de Computer History van OpenAI</title>
+      <description>Radar-selectie: Tom en Marcel laten zien wat vibe coden praktisch oplevert in de klas, met een collega die een droge SWOT-analyse ombouwde tot een speelbare game. Verder GrokBot, het doorzoekbare Mac-geheugen van OpenAI en waarom Custom GPT's aan banden gaan. Nederlands, 36 minuten.</description>
+      <pubDate>Mon, 24 Aug 2026 14:00:00 +1000</pubDate>
+      <guid isPermaLink="false">https://anchor.fm/s/fa622dfc/podcast/play/124378323/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-18%2Fba6b6261-07a0-6ec6-f3d0-0e779c34789e.mp3</guid>
+      <enclosure url="https://anchor.fm/s/fa622dfc/podcast/play/124378323/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-18%2Fba6b6261-07a0-6ec6-f3d0-0e779c34789e.mp3" length="37229635" type="audio/mpeg"/>
+      <itunes:duration>35:54</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
       <title>Bitcoin Alpha — Verkoopgolf zorgt voor onzekerheid op cryptomarkt</title>
       <description>:
 
@@ -49,6 +58,15 @@
       <guid isPermaLink="false">episodes/bitcoin-alpha-2026-08-23-757394.m4a</guid>
       <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-08-23-757394.m4a" length="3158915" type="audio/x-m4a"/>
       <itunes:duration>1:38</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>Radar · Hard Fork — OpenAI's Two-Week Pause + Jill Lepore on the Threat of the “Artificial State”</title>
+      <description>Radar-selectie: historicus Jill Lepore (Harvard) over haar boek The Rise and Fall of the Artificial State, oftewel het besturen van mensen door machines die bedrijven maken. Daarnaast wat het stilleggen van OpenAI's modeltraining betekent voor de rest van de sector. Engels, 63 minuten.</description>
+      <pubDate>Fri, 21 Aug 2026 21:00:00 +1000</pubDate>
+      <guid isPermaLink="false">https://dts.podtrac.com/redirect.mp3/pdst.fm/e/pfx.vpixl.com/6qj4J/pscrb.fm/rss/p/nyt.simplecastaudio.com/3e43d072-f8a5-430f-bc8e-4c70aafdf3c7/episodes/c2f4606d-43aa-4cae-aa9b-45e47c523e61/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3e43d072-f8a5-430f-bc8e-4c70aafdf3c7&amp;awEpisodeId=c2f4606d-43aa-4cae-aa9b-45e47c523e61&amp;feed=l2i9YnTd</guid>
+      <enclosure url="https://dts.podtrac.com/redirect.mp3/pdst.fm/e/pfx.vpixl.com/6qj4J/pscrb.fm/rss/p/nyt.simplecastaudio.com/3e43d072-f8a5-430f-bc8e-4c70aafdf3c7/episodes/c2f4606d-43aa-4cae-aa9b-45e47c523e61/audio/128/default.mp3?aid=rss_feed&amp;awCollectionId=3e43d072-f8a5-430f-bc8e-4c70aafdf3c7&amp;awEpisodeId=c2f4606d-43aa-4cae-aa9b-45e47c523e61&amp;feed=l2i9YnTd" length="62912991" type="audio/mpeg"/>
+      <itunes:duration>63:07</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>

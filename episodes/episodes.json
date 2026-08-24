@@ -44,5 +44,25 @@
     "bestand": "episodes/bitcoin-alpha-2026-08-24-63a603.m4a",
     "duur_sec": 96,
     "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Radar · het AI-tussenuurtje — S03E02: Vibe coden in de klas, GrokBot en de Computer History van OpenAI",
+    "beschrijving": "Radar-selectie: Tom en Marcel laten zien wat vibe coden praktisch oplevert in de klas, met een collega die een droge SWOT-analyse ombouwde tot een speelbare game. Verder GrokBot, het doorzoekbare Mac-geheugen van OpenAI en waarom Custom GPT's aan banden gaan. Nederlands, 36 minuten.",
+    "datum": "2026-08-24T14:00:00+10:00",
+    "audio_url": "https://anchor.fm/s/fa622dfc/podcast/play/124378323/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-18%2Fba6b6261-07a0-6ec6-f3d0-0e779c34789e.mp3",
+    "grootte": 37229635,
+    "mime": "audio/mpeg",
+    "duur_sec": 2154,
+    "bron": "radar"
+  },
+  {
+    "titel": "Radar · Hard Fork — OpenAI's Two-Week Pause + Jill Lepore on the Threat of the “Artificial State”",
+    "beschrijving": "Radar-selectie: historicus Jill Lepore (Harvard) over haar boek The Rise and Fall of the Artificial State, oftewel het besturen van mensen door machines die bedrijven maken. Daarnaast wat het stilleggen van OpenAI's modeltraining betekent voor de rest van de sector. Engels, 63 minuten.",
+    "datum": "2026-08-21T21:00:00+10:00",
+    "audio_url": "https://dts.podtrac.com/redirect.mp3/pdst.fm/e/pfx.vpixl.com/6qj4J/pscrb.fm/rss/p/nyt.simplecastaudio.com/3e43d072-f8a5-430f-bc8e-4c70aafdf3c7/episodes/c2f4606d-43aa-4cae-aa9b-45e47c523e61/audio/128/default.mp3?aid=rss_feed&awCollectionId=3e43d072-f8a5-430f-bc8e-4c70aafdf3c7&awEpisodeId=c2f4606d-43aa-4cae-aa9b-45e47c523e61&feed=l2i9YnTd",
+    "grootte": 62912991,
+    "mime": "audio/mpeg",
+    "duur_sec": 3787,
+    "bron": "radar"
   }
 ]
