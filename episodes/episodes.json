@@ -30,22 +30,6 @@
     "bron": "radar"
   },
   {
-    "titel": "Bitcoin Alpha — Verkoopgolf zorgt voor onzekerheid op cryptomarkt",
-    "beschrijving": ":\r\n\r\n> Van: \"Bitcoin Alpha: News\" <alpha@mg.bitcoinalpha.nl>\r\n> Onderwerp: Verkoopgolf zorgt voor onzekerheid op cryptomarkt\r\n> Datum: 1 juli 2024 om 9:02:23 PM GMT+10\r\n> Aan: jasper@twelvestories.nl\r\n> Antwoord aan: help@mg.bitcoinalpha.nl\r\n>",
-    "datum": "2026-08-23T15:38:49+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-08-23-757394.m4a",
-    "duur_sec": 98,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Bitcoin in stappen terugkopen",
-    "beschrijving": ":\r\n> \r\n> Van: \"Bitcoin Alpha: Markets\" <alpha@mg.bitcoinalpha.nl>\r\n> Onderwerp: Bitcoin in stappen terugkopen\r\n> Datum: 21 augustus 2026 om 6:00:35 PM GMT+10\r\n> Aan: jasper@twelvestories.nl\r\n> Antwoord aan: help@mg.bitcoinalpha.nl\r\n> \r\n>  \t\r\n>  <\r\n> BITCOIN ALPHA <\r\n> Alpha Markets <\r\n> Bitcoin in stappen terugkopen\r\n>  <\r\n> Door Bert Slagter • 21 aug 2026 \r\n>",
-    "datum": "2026-08-24T15:56:30+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-08-24-63a603.m4a",
-    "duur_sec": 96,
-    "bron": "bitcoin-alpha"
-  },
-  {
     "titel": "Radar · het AI-tussenuurtje — S03E02: Vibe coden in de klas, GrokBot en de Computer History van OpenAI",
     "beschrijving": "Radar-selectie: Tom en Marcel laten zien wat vibe coden praktisch oplevert in de klas, met een collega die een droge SWOT-analyse ombouwde tot een speelbare game. Verder GrokBot, het doorzoekbare Mac-geheugen van OpenAI en waarom Custom GPT's aan banden gaan. Nederlands, 36 minuten.",
     "datum": "2026-08-24T14:00:00+10:00",
@@ -64,5 +48,21 @@
     "mime": "audio/mpeg",
     "duur_sec": 3787,
     "bron": "radar"
+  },
+  {
+    "titel": "Bitcoin Alpha — Verkoopgolf zorgt voor onzekerheid op cryptomarkt",
+    "beschrijving": ":\r\n\r\n> Van: \"Bitcoin Alpha: News\" <alpha@mg.bitcoinalpha.nl>\r\n> Onderwerp: Verkoopgolf zorgt voor onzekerheid op cryptomarkt\r\n> Datum: 1 juli 2024 om 9:02:23 PM GMT+10\r\n> Aan: jasper@twelvestories.nl\r\n> Antwoord aan: help@mg.bitcoinalpha.nl\r\n>",
+    "datum": "2026-08-23T15:38:49+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-08-23-757394.mp3",
+    "duur_sec": 34,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — Bitcoin in stappen terugkopen",
+    "beschrijving": ":\r\n> \r\n> Van: \"Bitcoin Alpha: Markets\" <alpha@mg.bitcoinalpha.nl>\r\n> Onderwerp: Bitcoin in stappen terugkopen\r\n> Datum: 21 augustus 2026 om 6:00:35 PM GMT+10\r\n> Aan: jasper@twelvestories.nl\r\n> Antwoord aan: help@mg.bitcoinalpha.nl\r\n> \r\n>  \t\r\n>  <\r\n> BITCOIN ALPHA <\r\n> Alpha Markets <\r\n> Bitcoin in stappen terugkopen\r\n>  <\r\n> Door Bert Slagter • 21 aug 2026 \r\n>",
+    "datum": "2026-08-24T15:56:30+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-08-24-63a603.mp3",
+    "duur_sec": 45,
+    "bron": "bitcoin-alpha"
   }
 ]
