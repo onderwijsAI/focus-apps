@@ -1097,13 +1097,16 @@ const FEEDS = {
   onderwijs: [
     { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijs+Nederland+OR+onderwijsraad+OR+%22inspectie+van+het+onderwijs%22+OR+%22vo-raad%22+OR+%22po-raad%22&hl=nl&gl=NL', color: '#4285F4' },
     { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22voortgezet+onderwijs%22+OR+%22primair+onderwijs%22+OR+%22mbo%22+OR+leraar+OR+docent+school+beleid&hl=nl&gl=NL', color: '#34A853' },
-    { name: 'Kennisnet', url: 'https://www.kennisnet.nl/rss/', color: '#0A9E28' },
-    { name: 'ScienceGuide', url: 'https://www.scienceguide.nl/feed/', color: '#E85D26' }
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=site:didactiefonline.nl+OR+site:scienceguide.nl&hl=nl&gl=NL', color: '#E85D26' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22AI+in+het+onderwijs%22+OR+%22AI-geletterdheid%22+OR+(%22kunstmatige+intelligentie%22+school+OR+docenten+OR+leerlingen)&hl=nl&gl=NL', color: '#10A37F' },
+    { name: 'Kennisnet', url: 'https://www.kennisnet.nl/rss/', color: '#0A9E28' }
   ],
   wetenschap: [
-    { name: 'Google News', url: 'https://news.google.com/rss/search?q=onderwijsonderzoek+OR+leerwetenschap+OR+%22formatief+handelen%22+OR+%22evidence+informed%22+OR+%22professionele+cultuur%22+onderwijs&hl=nl&gl=NL', color: '#4285F4' },
-    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22educational+research%22+OR+%22learning+science%22+OR+%22Visible+Learning%22+OR+%22formative+assessment%22+OR+%22teacher+professional+development%22&hl=en', color: '#34A853' },
-    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22AI+in+education%22+OR+%22machine+learning+education%22+OR+%22artificial+intelligence+school%22+research+study&hl=en', color: '#EA4335' }
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22formatief+handelen%22+OR+%22formatief+evalueren%22+OR+%22professionele+leergemeenschap%22+OR+schoolcultuur+OR+%22motivatie+van+leerlingen%22+OR+%22welzijn+van+leraren%22+OR+(werkdruk+onderwijs)+OR+schoolleiders+onderzoek&hl=nl&gl=NL', color: '#4285F4' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22formative+assessment%22+OR+%22retrieval+practice%22+OR+%22teacher+wellbeing%22+OR+%22student+motivation%22+OR+%22professional+learning+community%22+OR+%22school+leadership%22+study+OR+research&hl=en', color: '#34A853' },
+    { name: 'Google News', url: 'https://news.google.com/rss/search?q=%22AI+literacy%22+OR+%22intelligent+tutoring%22+OR+%22AI+in+education%22+OR+%22generative+AI%22+students+study+OR+research&hl=en', color: '#EA4335' },
+    { name: 'ScienceDaily', url: 'https://www.sciencedaily.com/rss/education_learning.xml', color: '#FBBF24' },
+    { name: 'BOLD', url: 'https://bold.expert/feed/', color: '#6C63FF' }
   ]
 };
 
@@ -1128,6 +1131,10 @@ let currentChartDays = 1;
 let btcChartCache = {};
 let btcPriceCache = null;
 let btcInterval = null;
+let newsInterval = null;
+let lastNewsRefresh = 0;
+const NEWS_REFRESH_MS = 30 * 60 * 1000;   // nieuws en podcasts elke 30 min verversen
+const STALE_MS = 10 * 60 * 1000;          // bij terugkeren naar de app: ouder dan 10 min = verversen
 
 // News state: all articles per category, how many shown
 const newsState = {
@@ -1155,7 +1162,27 @@ document.addEventListener('DOMContentLoaded', function() {
   loadBook();
   setupEvents();
   btcInterval = setInterval(loadBTCPrice, 60000);
+  lastNewsRefresh = Date.now();
+  newsInterval = setInterval(function() { refreshContent(); }, NEWS_REFRESH_MS);
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible' && Date.now() - lastNewsRefresh > STALE_MS) {
+      refreshAll();
+    }
+  });
 });
+
+/* Ververst alleen de inhoud (nieuws, podcasts, eigen feed), zonder de knop-animatie */
+async function refreshContent() {
+  lastNewsRefresh = Date.now();
+  await Promise.all([
+    loadMyPodcast(),
+    (async function() {
+      await loadAllNewsPromise();
+      await new Promise(function(r) { setTimeout(r, 1500); });
+      await loadPodcasts();
+    })()
+  ]);
+}
 
 /* ==============================================================
    SERVICE WORKER
@@ -1163,7 +1190,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function registerSW() {
   if ('serviceWorker' in navigator) {
     // Cache-busting: version with timestamp to force updates
-    var swVersion = 'v4-20260720';
+    var swVersion = 'v6-20260827';
     navigator.serviceWorker.register('sw.js?v=' + swVersion, { updateViaCache: 'none' }).then(function(reg) {
       // Force update check on every load
       reg.update();
@@ -1853,15 +1880,23 @@ function clearLinkedInQueue() {
   showToast('Wachtrij gewist');
 }
 
+/* Zet items om in een kant-en-klare opdracht voor Claude (Dispatch).
+   Dispatch voegt de items toe aan linkedin-inbox.json in deze repo;
+   het LinkedIn-contentsysteem op de Mac leest dat bestand als radarbron. */
+function dispatchTekst(items) {
+  var kop = 'Opdracht voor Claude: voeg deze items uit mijn Focus-dashboard toe aan het bestand linkedin-inbox.json in de repo onderwijsai/focus-apps (toevoegen aan de bestaande lijst, niet overschrijven; per item de velden "titel", "link" en "datum" in ISO-formaat). Het LinkedIn-contentsysteem leest dat bestand als radarbron en neemt de items mee als eigen aandracht in de ochtendbriefing.\n\n';
+  return kop + items.map(function(item, i) {
+    return (i + 1) + '. ' + item.title + '\n   ' + item.link;
+  }).join('\n\n');
+}
+
 function copyLinkedInQueue() {
   var queue = getLinkedInQueue();
   if (queue.length === 0) {
     showToast('Wachtrij is leeg');
     return;
   }
-  var text = queue.map(function(item, i) {
-    return (i + 1) + '. ' + item.title + '\n   ' + item.link;
-  }).join('\n\n');
+  var text = dispatchTekst(queue);
 
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(function() {
@@ -1898,7 +1933,7 @@ function renderLinkedInQueue() {
   html += '</div>';
 
   html += '<div class="linkedin-queue-actions">' +
-    '<button class="linkedin-queue-btn primary" onclick="copyLinkedInQueue()">Kopieer alles</button>' +
+    '<button class="linkedin-queue-btn primary" onclick="copyLinkedInQueue()">Kopieer voor Dispatch</button>' +
     '<button class="linkedin-queue-btn" onclick="clearLinkedInQueue()">Wis alles</button>' +
   '</div>';
 
@@ -1909,7 +1944,7 @@ function renderLinkedInQueue() {
    COPY TO CLIPBOARD
    ============================================================== */
 function copyArticle(title, link) {
-  var text = title + '\n' + link;
+  var text = dispatchTekst([{ title: title, link: link }]);
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(function() {
       showToast('Gekopieerd naar klembord');
@@ -2055,6 +2090,7 @@ async function refreshAll() {
   btn.classList.add('spinning');
   btn.disabled = true;
 
+  lastNewsRefresh = Date.now();
   btcChartCache = {};
 
   // Load BTC in parallel, but stagger news and podcasts to avoid rate limiting

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'focus-dashboard-v5-20260821';
+const CACHE_NAME = 'focus-dashboard-v6-20260827';
 const STATIC_ASSETS = [
   './',
   './index.html',
