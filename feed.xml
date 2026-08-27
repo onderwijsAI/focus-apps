@@ -10,7 +10,16 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Tue, 25 Aug 2026 08:10:42 +1000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 18:35:44 +1000</lastBuildDate>
+    <item>
+      <title>Radar · Turing Station #10 — Open source AI, China's Robot Olympics en de singularity</title>
+      <description>Radar-selectie: Peter pelt de term open source AI af en laat zien dat DeepSeek, Qwen en Llama vooral open weights zijn, terwijl OLMo 3 en Nemotron wel aan de OSI-definitie voldoen. Bruikbaar onderscheid als je scholen adviseert over modelkeuze. Verder China dat van 13.000 naar 100.000 humanoid robots per jaar wil, de claim van Stripe dat de singularity op 1 januari begon, en of een Mac Studio met 512 GB lokale AI volwassen maakt. Nederlands, 95 minuten.</description>
+      <pubDate>Wed, 26 Aug 2026 11:05:40 +0000</pubDate>
+      <guid isPermaLink="false">https://anchor.fm/s/113df2c08/podcast/play/124756316/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-26%2F430570781-44100-2-35f1d98cfe477.mp3</guid>
+      <enclosure url="https://anchor.fm/s/113df2c08/podcast/play/124756316/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-26%2F430570781-44100-2-35f1d98cfe477.mp3" length="90868923" type="audio/mpeg"/>
+      <itunes:duration>94:39</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Bitcoin Alpha — Bitcoin in stappen terugkopen</title>
       <description>BITCOIN ALPHA 
@@ -35,6 +44,15 @@ Vorige week beschreven we welke signalen we willen zien om meer overtuigd te rak
       <guid isPermaLink="false">https://anchor.fm/s/fa622dfc/podcast/play/124378323/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-18%2Fba6b6261-07a0-6ec6-f3d0-0e779c34789e.mp3</guid>
       <enclosure url="https://anchor.fm/s/fa622dfc/podcast/play/124378323/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-18%2Fba6b6261-07a0-6ec6-f3d0-0e779c34789e.mp3" length="37229635" type="audio/mpeg"/>
       <itunes:duration>35:54</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>Radar · Edtech Insiders — Why Edtech Needs Less Hype and More Honesty (Tony Wan &amp; Betsy Corcoran)</title>
+      <description>Radar-selectie: de twee oprichters van EdSurge kijken terug op vijftien jaar edtech en zijn ongewoon eerlijk over wat niet werkte. Ze pleiten voor beginnen bij de waarom-vraag in plaats van de tool, geven de tech-backlash deels gelijk, en benoemen waar AI in het onderwijs wel echte waarde toevoegt. Bruikbaar tegengif tegen leverancierspraat, met veel voorbeelden uit scholen. Engels, 51 minuten.</description>
+      <pubDate>Mon, 24 Aug 2026 08:00:00 -0400</pubDate>
+      <guid isPermaLink="false">https://www.buzzsprout.com/1877869/episodes/19602372-why-edtech-needs-less-hype-and-more-honesty-with-tony-wan-betsy-corcoran.mp3</guid>
+      <enclosure url="https://www.buzzsprout.com/1877869/episodes/19602372-why-edtech-needs-less-hype-and-more-honesty-with-tony-wan-betsy-corcoran.mp3" length="36687600" type="audio/mpeg"/>
+      <itunes:duration>50:53</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>

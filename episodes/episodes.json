@@ -56,5 +56,25 @@
     "bestand": "episodes/bitcoin-alpha-2026-08-24-63a603.mp3",
     "duur_sec": 733,
     "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Radar · Turing Station #10 — Open source AI, China's Robot Olympics en de singularity",
+    "beschrijving": "Radar-selectie: Peter pelt de term open source AI af en laat zien dat DeepSeek, Qwen en Llama vooral open weights zijn, terwijl OLMo 3 en Nemotron wel aan de OSI-definitie voldoen. Bruikbaar onderscheid als je scholen adviseert over modelkeuze. Verder China dat van 13.000 naar 100.000 humanoid robots per jaar wil, de claim van Stripe dat de singularity op 1 januari begon, en of een Mac Studio met 512 GB lokale AI volwassen maakt. Nederlands, 95 minuten.",
+    "datum": "2026-08-26T11:05:40+00:00",
+    "audio_url": "https://anchor.fm/s/113df2c08/podcast/play/124756316/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-26%2F430570781-44100-2-35f1d98cfe477.mp3",
+    "grootte": 90868923,
+    "mime": "audio/mpeg",
+    "duur_sec": 5679,
+    "bron": "radar"
+  },
+  {
+    "titel": "Radar · Edtech Insiders — Why Edtech Needs Less Hype and More Honesty (Tony Wan & Betsy Corcoran)",
+    "beschrijving": "Radar-selectie: de twee oprichters van EdSurge kijken terug op vijftien jaar edtech en zijn ongewoon eerlijk over wat niet werkte. Ze pleiten voor beginnen bij de waarom-vraag in plaats van de tool, geven de tech-backlash deels gelijk, en benoemen waar AI in het onderwijs wel echte waarde toevoegt. Bruikbaar tegengif tegen leverancierspraat, met veel voorbeelden uit scholen. Engels, 51 minuten.",
+    "datum": "2026-08-24T08:00:00-04:00",
+    "audio_url": "https://www.buzzsprout.com/1877869/episodes/19602372-why-edtech-needs-less-hype-and-more-honesty-with-tony-wan-betsy-corcoran.mp3",
+    "grootte": 36687600,
+    "mime": "audio/mpeg",
+    "duur_sec": 3053,
+    "bron": "radar"
   }
 ]

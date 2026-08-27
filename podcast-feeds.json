@@ -20,13 +20,13 @@
     "color": "#4285F4"
   },
   {
-    "name": "ChatEDU",
-    "url": "https://anchor.fm/s/f187ab08/podcast/rss",
-    "color": "#EA4335"
-  },
-  {
     "name": "het AI-tussenuurtje",
     "url": "https://anchor.fm/s/fa622dfc/podcast/rss",
     "color": "#F97316"
+  },
+  {
+    "name": "Edtech Insiders",
+    "url": "https://rss.buzzsprout.com/1877869.rss",
+    "color": "#EA4335"
   }
 ]
