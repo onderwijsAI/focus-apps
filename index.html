@@ -1191,7 +1191,7 @@ async function refreshContent() {
 function registerSW() {
   if ('serviceWorker' in navigator) {
     // Cache-busting: version with timestamp to force updates
-    var swVersion = 'v7-20260828';
+    var swVersion = 'v8-20260831';
     navigator.serviceWorker.register('sw.js?v=' + swVersion, { updateViaCache: 'none' }).then(function(reg) {
       // Force update check on every load
       reg.update();
@@ -1750,21 +1750,60 @@ async function loadPodcasts() {
 function renderPodcastsWithMore() {
   var listEl = document.getElementById('listPodcasts');
   var state = newsState.podcasts;
-  var toShow = state.all.slice(0, state.shown);
+  var lijst = state.all.filter(function(ep) { return !isBeluisterd(ep.audioUrl); });
+  var toShow = lijst.slice(0, state.shown);
 
   listEl.innerHTML = toShow.map(function(ep) {
     return renderPodcastCard(ep);
   }).join('');
 
-  if (state.shown < state.all.length) {
-    var remaining = state.all.length - state.shown;
+  if (state.shown < lijst.length) {
+    var remaining = lijst.length - state.shown;
     listEl.innerHTML += '<button class="see-more-btn" onclick="showMorePodcasts()">Meer afleveringen (' + remaining + ')</button>';
   }
+  bewaakSpelers(listEl);
 }
 
 function showMorePodcasts() {
   newsState.podcasts.shown += 10;
   renderPodcastsWithMore();
+}
+
+/* ==============================================================
+   BELUISTERD (afleveringen die (bijna) uitgeluisterd zijn verdwijnen)
+   ============================================================== */
+function getBeluisterd() {
+  try { return JSON.parse(localStorage.getItem('beluisterd_v1') || '{}'); } catch (e) { return {}; }
+}
+
+function isBeluisterd(audioUrl) {
+  return !!(audioUrl && getBeluisterd()[audioUrl]);
+}
+
+function markeerBeluisterd(audioUrl) {
+  if (!audioUrl) return;
+  try {
+    var b = getBeluisterd();
+    if (b[audioUrl]) return;
+    b[audioUrl] = Date.now();
+    var keys = Object.keys(b);
+    if (keys.length > 300) {
+      keys.sort(function(x, y) { return b[x] - b[y]; });
+      keys.slice(0, keys.length - 200).forEach(function(k) { delete b[k]; });
+    }
+    localStorage.setItem('beluisterd_v1', JSON.stringify(b));
+  } catch (e) {}
+}
+
+/* Koppel aan alle spelers binnen een lijst: vanaf 90% geluisterd telt als klaar,
+   bij de volgende verversing verdwijnt de aflevering uit de lijst */
+function bewaakSpelers(listEl) {
+  listEl.querySelectorAll('audio').forEach(function(a) {
+    a.addEventListener('timeupdate', function() {
+      if (a.duration > 0 && a.currentTime >= 0.9 * a.duration) markeerBeluisterd(a.getAttribute('src'));
+    });
+    a.addEventListener('ended', function() { markeerBeluisterd(a.getAttribute('src')); });
+  });
 }
 
 /* ==============================================================
@@ -1783,7 +1822,10 @@ async function loadMyPodcast() {
     var items = Array.prototype.slice.call(doc.querySelectorAll('item')).filter(function(it) {
       // Alleen eigen afleveringen; radar-selecties staan al in de sectie Podcasts
       var t = (it.querySelector('title') && it.querySelector('title').textContent) || '';
-      return t.indexOf('Radar ·') !== 0;
+      if (t.indexOf('Radar ·') === 0) return false;
+      // Uitgeluisterde afleveringen verdwijnen
+      var e = it.querySelector('enclosure');
+      return !isBeluisterd(e ? e.getAttribute('url') : '');
     }).slice(0, 5);
     if (items.length === 0) {
       listEl.innerHTML = '<div class="linkedin-queue-empty">Nog geen afleveringen. De eerste Bitcoin Alpha-aflevering verschijnt zodra de nieuwsbrief binnenkomt.</div>';
@@ -1810,6 +1852,7 @@ async function loadMyPodcast() {
       '</div>';
     }).join('');
     listEl.innerHTML = html;
+    bewaakSpelers(listEl);
     countEl.textContent = items.length + ' afleveringen';
     if (appleBtn) appleBtn.style.display = '';
   } catch (e) {
