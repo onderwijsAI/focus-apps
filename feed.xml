@@ -10,7 +10,16 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Mon, 31 Aug 2026 16:35:12 +1000</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 16:47:34 +1000</lastBuildDate>
+    <item>
+      <title>Bitcoin Alpha — Bitcoin boekt grootste weekwinst ooit — bespreking</title>
+      <description>AI-gesprek over de editie 'Bitcoin boekt grootste weekwinst ooit'.</description>
+      <pubDate>Mon, 31 Aug 2026 16:47:34 +1000</pubDate>
+      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-08-31-dc5438-bespreking.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-08-31-dc5438-bespreking.m4a" length="39467638" type="audio/x-m4a"/>
+      <itunes:duration>20:26</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Focus Radio — 31 augustus</title>
       <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 31 augustus, gemaakt met NotebookLM.</description>
