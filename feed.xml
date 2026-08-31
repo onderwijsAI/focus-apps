@@ -10,7 +10,31 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Mon, 31 Aug 2026 16:47:34 +1000</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 21:10:03 +1000</lastBuildDate>
+    <item>
+      <title>Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie?</title>
+      <description>________________________________
+From: Bitcoin Alpha: News &lt;alpha@mg.bitcoinalpha.nl&gt;
+Sent: Monday, August 31, 2026 12:30:38 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
+To: jasper@twelvestories.nl &lt;jasper@twelvestories.nl&gt;
+Subject: Wordt bitcoin interessanter in een door AI ontwrichte economie?
+
+AI maakt de toekomst van bedrijven en overheden onzekerder. Volgens analist J</description>
+      <pubDate>Mon, 31 Aug 2026 20:30:48 +1000</pubDate>
+      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-08-31-1d511f.mp3</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-08-31-1d511f.mp3" length="7581024" type="audio/mpeg"/>
+      <itunes:duration>21:03</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie? — bespreking</title>
+      <description>AI-gesprek over de editie 'Wordt bitcoin interessanter in een door AI ontwrichte economie?'.</description>
+      <pubDate>Mon, 31 Aug 2026 20:30:48 +1000</pubDate>
+      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-08-31-1d511f-bespreking.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-08-31-1d511f-bespreking.m4a" length="40489935" type="audio/x-m4a"/>
+      <itunes:duration>20:58</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Bitcoin Alpha — Bitcoin boekt grootste weekwinst ooit — bespreking</title>
       <description>AI-gesprek over de editie 'Bitcoin boekt grootste weekwinst ooit'.</description>
