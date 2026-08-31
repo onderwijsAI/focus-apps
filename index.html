@@ -1174,6 +1174,7 @@ document.addEventListener('DOMContentLoaded', function() {
 /* Ververst alleen de inhoud (nieuws, podcasts, eigen feed), zonder de knop-animatie */
 async function refreshContent() {
   lastNewsRefresh = Date.now();
+  loadBook();
   await Promise.all([
     loadMyPodcast(),
     (async function() {
@@ -1190,7 +1191,7 @@ async function refreshContent() {
 function registerSW() {
   if ('serviceWorker' in navigator) {
     // Cache-busting: version with timestamp to force updates
-    var swVersion = 'v6-20260827';
+    var swVersion = 'v7-20260828';
     navigator.serviceWorker.register('sw.js?v=' + swVersion, { updateViaCache: 'none' }).then(function(reg) {
       // Force update check on every load
       reg.update();
@@ -1626,6 +1627,8 @@ function parseRSSXML(xmlText, feed) {
     var pubDate = getXMLText(item, 'pubDate');
     var date = pubDate ? new Date(pubDate) : new Date();
     var author = getXMLText(item, 'dc:creator') || getXMLText(item, 'author') || '';
+    var encl = item.getElementsByTagName('enclosure')[0];
+    var audioUrl = encl ? (encl.getAttribute('url') || '') : '';
 
     var sourceName = feed.name;
     if ((feed.name === 'Google News' || feed.name === 'Google News EN') && author) {
@@ -1637,6 +1640,7 @@ function parseRSSXML(xmlText, feed) {
       source: sourceName,
       sourceColor: feed.color,
       link: link || '',
+      audioUrl: audioUrl,
       date: date,
       timeAgo: getTimeAgo(date)
     });
@@ -1671,11 +1675,14 @@ function parseRSSItems(items, feed) {
       sourceName = item.author;
     }
 
+    var audioUrl = (item.enclosure && (item.enclosure.link || item.enclosure.url)) || '';
+
     result.push({
       title: decodeEntities(title),
       source: sourceName,
       sourceColor: feed.color,
       link: link,
+      audioUrl: audioUrl,
       date: date,
       timeAgo: getTimeAgo(date)
     });
@@ -1773,7 +1780,11 @@ async function loadMyPodcast() {
     if (!res.ok) throw new Error('geen feed');
     var txt = await res.text();
     var doc = new DOMParser().parseFromString(txt, 'application/xml');
-    var items = Array.prototype.slice.call(doc.querySelectorAll('item')).slice(0, 5);
+    var items = Array.prototype.slice.call(doc.querySelectorAll('item')).filter(function(it) {
+      // Alleen eigen afleveringen; radar-selecties staan al in de sectie Podcasts
+      var t = (it.querySelector('title') && it.querySelector('title').textContent) || '';
+      return t.indexOf('Radar ·') !== 0;
+    }).slice(0, 5);
     if (items.length === 0) {
       listEl.innerHTML = '<div class="linkedin-queue-empty">Nog geen afleveringen. De eerste Bitcoin Alpha-aflevering verschijnt zodra de nieuwsbrief binnenkomt.</div>';
       countEl.textContent = '';
@@ -1792,6 +1803,9 @@ async function loadMyPodcast() {
           '<div class="podcast-card-title">' + escapeHTML(titel) + '</div>' +
           '<div class="podcast-card-meta"><span class="podcast-name">Eigen feed</span><span class="news-dot"></span><span>' + datum + '</span></div>' +
         '</div>' +
+        '<button class="save-btn" onclick="event.stopPropagation();copyArticle(\'' + escapeAttr(titel.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(audioUrl) + '\')" title="Kopieer naar klembord">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+        '</button>' +
         (audioUrl ? '<audio controls preload="none" src="' + escapeAttr(audioUrl) + '" style="width:100%;margin-top:8px;height:36px"></audio>' : '') +
       '</div>';
     }).join('');
@@ -1808,7 +1822,7 @@ async function loadMyPodcast() {
 function renderPodcastCard(ep) {
   var href = ep.link ? ' href="' + escapeAttr(ep.link) + '"' : '';
   var savedClass = isInLinkedInQueue(ep.link) ? ' saved' : '';
-  return '<div class="podcast-card">' +
+  return '<div class="podcast-card" style="flex-wrap:wrap">' +
     '<div class="podcast-icon">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>' +
     '</div>' +
@@ -1826,6 +1840,7 @@ function renderPodcastCard(ep) {
     '<button class="save-btn" onclick="event.stopPropagation();copyArticle(\'' + escapeAttr(ep.title.replace(/'/g, "\\'")) + '\', \'' + escapeAttr(ep.link) + '\')" title="Kopieer naar klembord">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
     '</button>' +
+    (ep.audioUrl ? '<audio controls preload="none" src="' + escapeAttr(ep.audioUrl) + '" style="width:100%;margin-top:8px;height:36px"></audio>' : '') +
   '</div>';
 }
 
@@ -1992,7 +2007,11 @@ function loadBook() {
         '<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>' +
       '</svg>' +
       'Beluister op Audible' +
-    '</a>';
+    '</a>' +
+    '<button class="book-btn" style="margin-left:8px" onclick="copyArticle(\'' + escapeAttr((book.title + ' - ' + book.author).replace(/'/g, "\\'")) + '\', \'' + escapeAttr(audibleUrl) + '\')">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+      'Kopieer' +
+    '</button>';
 }
 
 /* ==============================================================
@@ -2092,6 +2111,7 @@ async function refreshAll() {
 
   lastNewsRefresh = Date.now();
   btcChartCache = {};
+  loadBook();
 
   // Load BTC in parallel, but stagger news and podcasts to avoid rate limiting
   await Promise.all([

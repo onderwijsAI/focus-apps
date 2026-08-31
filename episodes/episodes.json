@@ -1,80 +1,10 @@
 [
   {
-    "titel": "Radar · Turing Station #9 — Gaan we ooit de echte prijs voor AI betalen?",
-    "beschrijving": "Radar-selectie: Bart Mol, Bert en Peter Slagter over de echte kosten en prijs van AI. Nederlands, 1u34.",
-    "datum": "2026-08-19T21:10:29+10:00",
-    "audio_url": "https://anchor.fm/s/113df2c08/podcast/play/124431797/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-19%2F430127292-44100-2-2ed1cc7cff276.mp3",
-    "grootte": 90320978,
-    "mime": "audio/mpeg",
-    "duur_sec": 5645,
-    "bron": "radar"
-  },
-  {
-    "titel": "Radar · AI in Education — When Does AI Help Learning, and When Does It Replace It?",
-    "beschrijving": "Radar-selectie: over de grens tussen AI die het leren versterkt en AI die het overneemt. Sluit direct aan op Davids werk. Engels, 37 min.",
-    "datum": "2026-08-21T06:58:00+10:00",
-    "audio_url": "https://traffic.libsyn.com/secure/aiineducationpodcast/S18_E1_Barker_Report.mp3?dest-id=1569005",
-    "grootte": 35516577,
-    "mime": "audio/mpeg",
-    "duur_sec": 2220,
-    "bron": "radar"
-  },
-  {
-    "titel": "Radar · AI Report — De zomer waarin AI zichzelf uit de testomgeving hackte",
-    "beschrijving": "Radar-selectie: Klöpping en Hage over agent-veiligheid, Sam Altman en GrokBot. Nederlands.",
-    "datum": "2026-08-20T20:49:05+10:00",
-    "audio_url": "https://podcasts.beehiiv.com/3947764a-828d-4759-b488-b60e362c33fc/019d2587-e790-7b44-bb7a-6eebcaae225c/01a01eb3-a35b-797c-a91a-4c793ed029e5/01a01eb3-a4da-74bb-b373-3b1d743d26f5.mp3",
-    "grootte": 82202580,
-    "mime": "audio/mpeg",
-    "duur_sec": 0,
-    "bron": "radar"
-  },
-  {
-    "titel": "Radar · het AI-tussenuurtje — S03E02: Vibe coden in de klas, GrokBot en de Computer History van OpenAI",
-    "beschrijving": "Radar-selectie: Tom en Marcel laten zien wat vibe coden praktisch oplevert in de klas, met een collega die een droge SWOT-analyse ombouwde tot een speelbare game. Verder GrokBot, het doorzoekbare Mac-geheugen van OpenAI en waarom Custom GPT's aan banden gaan. Nederlands, 36 minuten.",
-    "datum": "2026-08-24T14:00:00+10:00",
-    "audio_url": "https://anchor.fm/s/fa622dfc/podcast/play/124378323/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-18%2Fba6b6261-07a0-6ec6-f3d0-0e779c34789e.mp3",
-    "grootte": 37229635,
-    "mime": "audio/mpeg",
-    "duur_sec": 2154,
-    "bron": "radar"
-  },
-  {
-    "titel": "Radar · Hard Fork — OpenAI's Two-Week Pause + Jill Lepore on the Threat of the “Artificial State”",
-    "beschrijving": "Radar-selectie: historicus Jill Lepore (Harvard) over haar boek The Rise and Fall of the Artificial State, oftewel het besturen van mensen door machines die bedrijven maken. Daarnaast wat het stilleggen van OpenAI's modeltraining betekent voor de rest van de sector. Engels, 63 minuten.",
-    "datum": "2026-08-21T21:00:00+10:00",
-    "audio_url": "https://dts.podtrac.com/redirect.mp3/pdst.fm/e/pfx.vpixl.com/6qj4J/pscrb.fm/rss/p/nyt.simplecastaudio.com/3e43d072-f8a5-430f-bc8e-4c70aafdf3c7/episodes/c2f4606d-43aa-4cae-aa9b-45e47c523e61/audio/128/default.mp3?aid=rss_feed&awCollectionId=3e43d072-f8a5-430f-bc8e-4c70aafdf3c7&awEpisodeId=c2f4606d-43aa-4cae-aa9b-45e47c523e61&feed=l2i9YnTd",
-    "grootte": 62912991,
-    "mime": "audio/mpeg",
-    "duur_sec": 3787,
-    "bron": "radar"
-  },
-  {
     "titel": "Bitcoin Alpha — Bitcoin in stappen terugkopen",
     "beschrijving": "BITCOIN ALPHA \r\nAlpha Markets \r\nBitcoin in stappen terugkopen\r\n \r\nDoor Bert Slagter • 21 aug 2026 \r\n\n▶ Beluister dit artikel online \r\n Bijdrage van Sam\r\nVorige week beschreven we welke signalen we willen zien om meer overtuigd te raken van de bodem. De logische vervolgvraag is hoe daar praktisch mee om te gaan. Want stel dat die signalen stuk voor stuk afgaan, is het dan verstandig om op het gehee",
     "datum": "2026-08-24T15:56:30+10:00",
     "bestand": "episodes/bitcoin-alpha-2026-08-24-63a603.mp3",
     "duur_sec": 733,
     "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Radar · Turing Station #10 — Open source AI, China's Robot Olympics en de singularity",
-    "beschrijving": "Radar-selectie: Peter pelt de term open source AI af en laat zien dat DeepSeek, Qwen en Llama vooral open weights zijn, terwijl OLMo 3 en Nemotron wel aan de OSI-definitie voldoen. Bruikbaar onderscheid als je scholen adviseert over modelkeuze. Verder China dat van 13.000 naar 100.000 humanoid robots per jaar wil, de claim van Stripe dat de singularity op 1 januari begon, en of een Mac Studio met 512 GB lokale AI volwassen maakt. Nederlands, 95 minuten.",
-    "datum": "2026-08-26T11:05:40+00:00",
-    "audio_url": "https://anchor.fm/s/113df2c08/podcast/play/124756316/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-26%2F430570781-44100-2-35f1d98cfe477.mp3",
-    "grootte": 90868923,
-    "mime": "audio/mpeg",
-    "duur_sec": 5679,
-    "bron": "radar"
-  },
-  {
-    "titel": "Radar · Edtech Insiders — Why Edtech Needs Less Hype and More Honesty (Tony Wan & Betsy Corcoran)",
-    "beschrijving": "Radar-selectie: de twee oprichters van EdSurge kijken terug op vijftien jaar edtech en zijn ongewoon eerlijk over wat niet werkte. Ze pleiten voor beginnen bij de waarom-vraag in plaats van de tool, geven de tech-backlash deels gelijk, en benoemen waar AI in het onderwijs wel echte waarde toevoegt. Bruikbaar tegengif tegen leverancierspraat, met veel voorbeelden uit scholen. Engels, 51 minuten.",
-    "datum": "2026-08-24T08:00:00-04:00",
-    "audio_url": "https://www.buzzsprout.com/1877869/episodes/19602372-why-edtech-needs-less-hype-and-more-honesty-with-tony-wan-betsy-corcoran.mp3",
-    "grootte": 36687600,
-    "mime": "audio/mpeg",
-    "duur_sec": 3053,
-    "bron": "radar"
   }
 ]
