@@ -10,7 +10,16 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Mon, 31 Aug 2026 21:10:03 +1000</lastBuildDate>
+    <lastBuildDate>Tue, 01 Sep 2026 14:57:44 +1000</lastBuildDate>
+    <item>
+      <title>Focus Radio — 1 september</title>
+      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 1 september, gemaakt met NotebookLM.</description>
+      <pubDate>Tue, 01 Sep 2026 14:45:05 +1000</pubDate>
+      <guid isPermaLink="false">episodes/focus-radio-2026-09-01.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-01.m4a" length="32347303" type="audio/x-m4a"/>
+      <itunes:duration>16:45</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie?</title>
       <description>________________________________

@@ -1,5 +1,37 @@
 [
   {
+    "titel": "Focus Radio — 1 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 1 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-01T14:45:05+10:00",
+    "bestand": "episodes/focus-radio-2026-09-01.m4a",
+    "duur_sec": 1005,
+    "bron": "focus-radio"
+  },
+  {
+    "titel": "Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie?",
+    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: News <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, August 31, 2026 12:30:38 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Wordt bitcoin interessanter in een door AI ontwrichte economie?\r\n\r\nAI maakt de toekomst van bedrijven en overheden onzekerder. Volgens analist J",
+    "datum": "2026-08-31T20:30:48+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-08-31-1d511f.mp3",
+    "duur_sec": 1263,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie? — bespreking",
+    "beschrijving": "AI-gesprek over de editie 'Wordt bitcoin interessanter in een door AI ontwrichte economie?'.",
+    "datum": "2026-08-31T20:30:48+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-08-31-1d511f-bespreking.m4a",
+    "duur_sec": 1258,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — Bitcoin boekt grootste weekwinst ooit — bespreking",
+    "beschrijving": "AI-gesprek over de editie 'Bitcoin boekt grootste weekwinst ooit'.",
+    "datum": "2026-08-31T16:47:34+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-08-31-dc5438-bespreking.m4a",
+    "duur_sec": 1226,
+    "bron": "bitcoin-alpha"
+  },
+  {
     "titel": "Focus Radio — 31 augustus",
     "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 31 augustus, gemaakt met NotebookLM.",
     "datum": "2026-08-31T16:23:08+10:00",
@@ -21,30 +53,6 @@
     "datum": "2026-08-24T15:56:30+10:00",
     "bestand": "episodes/bitcoin-alpha-2026-08-24-63a603.mp3",
     "duur_sec": 733,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Bitcoin boekt grootste weekwinst ooit — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'Bitcoin boekt grootste weekwinst ooit'.",
-    "datum": "2026-08-31T16:47:34+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-08-31-dc5438-bespreking.m4a",
-    "duur_sec": 1226,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie?",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: News <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, August 31, 2026 12:30:38 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Wordt bitcoin interessanter in een door AI ontwrichte economie?\r\n\r\nAI maakt de toekomst van bedrijven en overheden onzekerder. Volgens analist J",
-    "datum": "2026-08-31T20:30:48+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-08-31-1d511f.mp3",
-    "duur_sec": 1263,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie? — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'Wordt bitcoin interessanter in een door AI ontwrichte economie?'.",
-    "datum": "2026-08-31T20:30:48+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-08-31-1d511f-bespreking.m4a",
-    "duur_sec": 1258,
     "bron": "bitcoin-alpha"
   }
 ]
