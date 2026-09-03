@@ -10,7 +10,16 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Wed, 02 Sep 2026 14:56:23 +1000</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2026 14:57:19 +1000</lastBuildDate>
+    <item>
+      <title>Focus Radio — 3 september</title>
+      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 3 september, gemaakt met NotebookLM.</description>
+      <pubDate>Thu, 03 Sep 2026 14:45:02 +1000</pubDate>
+      <guid isPermaLink="false">episodes/focus-radio-2026-09-03.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-03.m4a" length="42498040" type="audio/x-m4a"/>
+      <itunes:duration>22:00</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Focus Radio — 2 september</title>
       <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 2 september, gemaakt met NotebookLM.</description>

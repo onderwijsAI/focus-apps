@@ -1,5 +1,13 @@
 [
   {
+    "titel": "Focus Radio — 3 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 3 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-03T14:45:02+10:00",
+    "bestand": "episodes/focus-radio-2026-09-03.m4a",
+    "duur_sec": 1320,
+    "bron": "focus-radio"
+  },
+  {
     "titel": "Focus Radio — 2 september",
     "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 2 september, gemaakt met NotebookLM.",
     "datum": "2026-09-02T14:45:05+10:00",
