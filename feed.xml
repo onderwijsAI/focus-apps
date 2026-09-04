@@ -10,7 +10,25 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Thu, 03 Sep 2026 14:57:19 +1000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2026 19:38:56 +1000</lastBuildDate>
+    <item>
+      <title>Literatuur · AI in het onderwijs, een scoping paper (Van Damme, 2026)</title>
+      <description>Een verkennend literatuuroverzicht van negen hoofdstukken over AI in het onderwijs, dat vijf recente syntheses naast elkaar legt met effecten die uiteenlopen van g = 0,40 tot d = 0,80 en bij alle vijf grote spreiding meldt. De auteur waarschuwt dat die cijfers vooral uit kortdurende interventies komen en noemt de prestatieparadox, waarbij een leerling met AI een beter product aflevert zonder de onderliggende competentie in dezelfde mate te verwerven (Van Damme, D. (2026). Artificiële intelligentie in het onderwijs: Een scoping paper. DVD Educonsult. https://dirkvandammeedu.net/wp-content/uploads/2026/08/AI-in-het-onderwijs-scoping-paper-v260826.pdf).</description>
+      <pubDate>Fri, 04 Sep 2026 19:30:13 +1000</pubDate>
+      <guid isPermaLink="false">episodes/literatuur-2026-09-04-ai-onderwijs-scoping-paper.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/literatuur-2026-09-04-ai-onderwijs-scoping-paper.m4a" length="18249694" type="audio/x-m4a"/>
+      <itunes:duration>37:53</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>Literatuur · Ondersteunende schoolcultuur voor startende leraren (Khezri, 2026)</title>
+      <description>Een mixed-methods studie met interviews onder 27 experts en beginnende leraren en een vragenlijst onder 340 leraren, die een raamwerk voor een ondersteunende schoolcultuur ontwikkelt en toetst met structural equation modeling. Gefaseerde begeleiding, psychosociale zorg, structurele steun, groeigerichte feedback en samen leren hangen samen met minder burn-out en meer werkbetrokkenheid, terwijl gebrek aan institutionele steun en de kloof tussen opleiding en school als oorzaken naar voren komen (Khezri, S., Keyhan, J., &amp; Sameri, M. (2026). Developing and validating a supportive school culture framework for novice teachers. The Journal of Theory and Practice in Teachers Education. https://itt.cfu.ac.ir/article_5149_06304792c1ce27d07fc04a7c87affa16.pdf).</description>
+      <pubDate>Fri, 04 Sep 2026 19:30:13 +1000</pubDate>
+      <guid isPermaLink="false">episodes/literatuur-2026-09-04-schoolcultuur-startende-leraren.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/literatuur-2026-09-04-schoolcultuur-startende-leraren.m4a" length="27768953" type="audio/x-m4a"/>
+      <itunes:duration>57:35</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Focus Radio — 3 september</title>
       <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 3 september, gemaakt met NotebookLM.</description>
