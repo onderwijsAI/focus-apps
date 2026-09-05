@@ -10,7 +10,16 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Fri, 04 Sep 2026 21:27:32 +1000</lastBuildDate>
+    <lastBuildDate>Sat, 05 Sep 2026 14:57:02 +1000</lastBuildDate>
+    <item>
+      <title>Focus Radio — 5 september</title>
+      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 5 september, gemaakt met NotebookLM.</description>
+      <pubDate>Sat, 05 Sep 2026 14:45:01 +1000</pubDate>
+      <guid isPermaLink="false">episodes/focus-radio-2026-09-05.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-05.m4a" length="38820471" type="audio/x-m4a"/>
+      <itunes:duration>20:06</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Bitcoin Alpha — De scheidslijn tussen bear en bull</title>
       <description>________________________________

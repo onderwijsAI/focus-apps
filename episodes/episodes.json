@@ -1,5 +1,29 @@
 [
   {
+    "titel": "Focus Radio — 5 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 5 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-05T14:45:01+10:00",
+    "bestand": "episodes/focus-radio-2026-09-05.m4a",
+    "duur_sec": 1206,
+    "bron": "focus-radio"
+  },
+  {
+    "titel": "Bitcoin Alpha — De scheidslijn tussen bear en bull",
+    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Friday, September 4, 2026 1:00:46 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: De scheidslijn tussen bear en bull\r\n\r\nDe koers steeg deze week naar het hoogste punt sinds begin mei. Nét onder de 83.000 dollar die nodig i",
+    "datum": "2026-09-04T21:01:02+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-04-0ef62e.mp3",
+    "duur_sec": 1017,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — De scheidslijn tussen bear en bull — bespreking",
+    "beschrijving": "AI-gesprek over de editie 'De scheidslijn tussen bear en bull'.",
+    "datum": "2026-09-04T21:01:02+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-04-0ef62e-bespreking.m4a",
+    "duur_sec": 1209,
+    "bron": "bitcoin-alpha"
+  },
+  {
     "titel": "Literatuur · AI in het onderwijs, een scoping paper (Van Damme, 2026)",
     "beschrijving": "Een verkennend literatuuroverzicht van negen hoofdstukken over AI in het onderwijs, dat vijf recente syntheses naast elkaar legt met effecten die uiteenlopen van g = 0,40 tot d = 0,80 en bij alle vijf grote spreiding meldt. De auteur waarschuwt dat die cijfers vooral uit kortdurende interventies komen en noemt de prestatieparadox, waarbij een leerling met AI een beter product aflevert zonder de onderliggende competentie in dezelfde mate te verwerven (Van Damme, D. (2026). Artificiële intelligentie in het onderwijs: Een scoping paper. DVD Educonsult. https://dirkvandammeedu.net/wp-content/uploads/2026/08/AI-in-het-onderwijs-scoping-paper-v260826.pdf).",
     "datum": "2026-09-04T19:30:13+10:00",
@@ -85,22 +109,6 @@
     "datum": "2026-08-24T15:56:30+10:00",
     "bestand": "episodes/bitcoin-alpha-2026-08-24-63a603.mp3",
     "duur_sec": 733,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — De scheidslijn tussen bear en bull",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Friday, September 4, 2026 1:00:46 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: De scheidslijn tussen bear en bull\r\n\r\nDe koers steeg deze week naar het hoogste punt sinds begin mei. Nét onder de 83.000 dollar die nodig i",
-    "datum": "2026-09-04T21:01:02+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-04-0ef62e.mp3",
-    "duur_sec": 1017,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — De scheidslijn tussen bear en bull — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'De scheidslijn tussen bear en bull'.",
-    "datum": "2026-09-04T21:01:02+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-04-0ef62e-bespreking.m4a",
-    "duur_sec": 1209,
     "bron": "bitcoin-alpha"
   }
 ]
