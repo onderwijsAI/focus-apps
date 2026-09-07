@@ -10,7 +10,22 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Sun, 06 Sep 2026 14:57:51 +1000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2026 19:33:08 +1000</lastBuildDate>
+    <item>
+      <title>Bitcoin Alpha — DNB schreef per ongeluk een advertentie voor bitcoin</title>
+      <description>________________________________
+From: Bitcoin Alpha: News &lt;alpha@mg.bitcoinalpha.nl&gt;
+Sent: Monday, September 7, 2026 11:00:44 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
+To: jasper@twelvestories.nl &lt;jasper@twelvestories.nl&gt;
+Subject: DNB schreef per ongeluk een advertentie voor bitcoin
+
+DNB verplaatst goud van Amerika naar Londen. Wat zegt die operatie over geopolitiek, c</description>
+      <pubDate>Mon, 07 Sep 2026 19:00:54 +1000</pubDate>
+      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-09-07-8a578d.mp3</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-09-07-8a578d.mp3" length="6721200" type="audio/mpeg"/>
+      <itunes:duration>18:40</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Focus Radio — 6 september</title>
       <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 6 september, gemaakt met NotebookLM.</description>
