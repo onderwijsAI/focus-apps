@@ -10,11 +10,6 @@
     "color": "#10A37F"
   },
   {
-    "name": "Hard Fork",
-    "url": "https://feeds.simplecast.com/l2i9YnTd",
-    "color": "#FBBF24"
-  },
-  {
     "name": "AI in Education",
     "url": "https://rss.libsyn.com/shows/216230/destinations/1569005.xml",
     "color": "#4285F4"
@@ -28,5 +23,10 @@
     "name": "Edtech Insiders",
     "url": "https://rss.buzzsprout.com/1877869.rss",
     "color": "#EA4335"
+  },
+  {
+    "name": "Unfixed",
+    "url": "https://www.meltsintoair.org/unfixedpodcast?format=rss",
+    "color": "#DB2777"
   }
 ]
