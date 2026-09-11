@@ -10,7 +10,31 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Fri, 11 Sep 2026 13:42:34 +1000</lastBuildDate>
+    <lastBuildDate>Fri, 11 Sep 2026 20:10:44 +1000</lastBuildDate>
+    <item>
+      <title>Bitcoin Alpha — Obligatiestress heeft markt in z’n greep</title>
+      <description>________________________________
+From: Bitcoin Alpha: Markets &lt;alpha@mg.bitcoinalpha.nl&gt;
+Sent: Friday, September 11, 2026 11:30:21 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
+To: jasper@twelvestories.nl &lt;jasper@twelvestories.nl&gt;
+Subject: Obligatiestress heeft markt in z’n greep
+
+Geen vuurwerk op de bitcoinmarkt deze week. Alle aandacht ging uit naar olie, inflatie, rente </description>
+      <pubDate>Fri, 11 Sep 2026 19:30:36 +1000</pubDate>
+      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-09-11-4076e7.mp3</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-09-11-4076e7.mp3" length="6049728" type="audio/mpeg"/>
+      <itunes:duration>16:48</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>Bitcoin Alpha — Obligatiestress heeft markt in z’n greep — bespreking</title>
+      <description>AI-gesprek over de editie 'Obligatiestress heeft markt in z’n greep'.</description>
+      <pubDate>Fri, 11 Sep 2026 19:30:36 +1000</pubDate>
+      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-09-11-4076e7-bespreking.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-09-11-4076e7-bespreking.m4a" length="45134520" type="audio/x-m4a"/>
+      <itunes:duration>23:22</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Focus Radio — 11 september</title>
       <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 11 september, gemaakt met NotebookLM.</description>
