@@ -1,5 +1,21 @@
 [
   {
+    "titel": "Focus Radio — 11 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 11 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-11T13:32:49+10:00",
+    "bestand": "episodes/focus-radio-2026-09-11.m4a",
+    "duur_sec": 719,
+    "bron": "focus-radio"
+  },
+  {
+    "titel": "Bitcoin Alpha — DNB schreef per ongeluk een advertentie voor bitcoin",
+    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: News <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, September 7, 2026 11:00:44 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: DNB schreef per ongeluk een advertentie voor bitcoin\r\n\r\nDNB verplaatst goud van Amerika naar Londen. Wat zegt die operatie over geopolitiek, c",
+    "datum": "2026-09-07T19:00:54+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-07-8a578d.mp3",
+    "duur_sec": 1120,
+    "bron": "bitcoin-alpha"
+  },
+  {
     "titel": "Focus Radio — 6 september",
     "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 6 september, gemaakt met NotebookLM.",
     "datum": "2026-09-06T14:45:05+10:00",
@@ -93,30 +109,6 @@
     "datum": "2026-08-31T16:47:34+10:00",
     "bestand": "episodes/bitcoin-alpha-2026-08-31-dc5438-bespreking.m4a",
     "duur_sec": 1226,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Focus Radio — 31 augustus",
-    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 31 augustus, gemaakt met NotebookLM.",
-    "datum": "2026-08-31T16:23:08+10:00",
-    "bestand": "episodes/focus-radio-2026-08-31.m4a",
-    "duur_sec": 1570,
-    "bron": "focus-radio"
-  },
-  {
-    "titel": "Bitcoin Alpha — Bitcoin boekt grootste weekwinst ooit",
-    "beschrijving": "BITCOIN ALPHA \r\nAlpha Markets \r\nBitcoin boekt grootste weekwinst ooit\r\n \r\nDoor Bert Slagter • 28 aug 2026 \r\n\n▶ Beluister dit artikel online \r\nVorige week steeg bitcoin met 24% van 62.800 dollar naar 77.700 dollar. In procenten is dat de grootste stijging sinds maart 2023, toen bitcoin na de val van Silicon Valley Bank in één week van 22k naar 28k sprong. In dollars is de weekstijging van bijna 15.",
-    "datum": "2026-08-31T16:02:04+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-08-31-dc5438.mp3",
-    "duur_sec": 1064,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — DNB schreef per ongeluk een advertentie voor bitcoin",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: News <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, September 7, 2026 11:00:44 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: DNB schreef per ongeluk een advertentie voor bitcoin\r\n\r\nDNB verplaatst goud van Amerika naar Londen. Wat zegt die operatie over geopolitiek, c",
-    "datum": "2026-09-07T19:00:54+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-07-8a578d.mp3",
-    "duur_sec": 1120,
     "bron": "bitcoin-alpha"
   }
 ]
