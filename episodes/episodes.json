@@ -1,5 +1,29 @@
 [
   {
+    "titel": "Focus Radio — 13 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 13 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-13T06:45:03+10:00",
+    "bestand": "episodes/focus-radio-2026-09-13.m4a",
+    "duur_sec": 1054,
+    "bron": "focus-radio"
+  },
+  {
+    "titel": "Bitcoin Alpha — Obligatiestress heeft markt in z’n greep",
+    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Friday, September 11, 2026 11:30:21 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Obligatiestress heeft markt in z’n greep\r\n\r\nGeen vuurwerk op de bitcoinmarkt deze week. Alle aandacht ging uit naar olie, inflatie, rente ",
+    "datum": "2026-09-11T19:30:36+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-11-4076e7.mp3",
+    "duur_sec": 1008,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — Obligatiestress heeft markt in z’n greep — bespreking",
+    "beschrijving": "AI-gesprek over de editie 'Obligatiestress heeft markt in z’n greep'.",
+    "datum": "2026-09-11T19:30:36+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-11-4076e7-bespreking.m4a",
+    "duur_sec": 1402,
+    "bron": "bitcoin-alpha"
+  },
+  {
     "titel": "Focus Radio — 11 september",
     "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 11 september, gemaakt met NotebookLM.",
     "datum": "2026-09-11T13:32:49+10:00",
@@ -86,45 +110,5 @@
     "bestand": "episodes/focus-radio-2026-09-01.m4a",
     "duur_sec": 1005,
     "bron": "focus-radio"
-  },
-  {
-    "titel": "Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie?",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: News <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, August 31, 2026 12:30:38 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Wordt bitcoin interessanter in een door AI ontwrichte economie?\r\n\r\nAI maakt de toekomst van bedrijven en overheden onzekerder. Volgens analist J",
-    "datum": "2026-08-31T20:30:48+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-08-31-1d511f.mp3",
-    "duur_sec": 1263,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie? — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'Wordt bitcoin interessanter in een door AI ontwrichte economie?'.",
-    "datum": "2026-08-31T20:30:48+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-08-31-1d511f-bespreking.m4a",
-    "duur_sec": 1258,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Bitcoin boekt grootste weekwinst ooit — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'Bitcoin boekt grootste weekwinst ooit'.",
-    "datum": "2026-08-31T16:47:34+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-08-31-dc5438-bespreking.m4a",
-    "duur_sec": 1226,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Obligatiestress heeft markt in z’n greep",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Friday, September 11, 2026 11:30:21 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Obligatiestress heeft markt in z’n greep\r\n\r\nGeen vuurwerk op de bitcoinmarkt deze week. Alle aandacht ging uit naar olie, inflatie, rente ",
-    "datum": "2026-09-11T19:30:36+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-11-4076e7.mp3",
-    "duur_sec": 1008,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Obligatiestress heeft markt in z’n greep — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'Obligatiestress heeft markt in z’n greep'.",
-    "datum": "2026-09-11T19:30:36+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-11-4076e7-bespreking.m4a",
-    "duur_sec": 1402,
-    "bron": "bitcoin-alpha"
   }
 ]

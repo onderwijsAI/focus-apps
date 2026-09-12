@@ -10,7 +10,16 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Fri, 11 Sep 2026 20:10:44 +1000</lastBuildDate>
+    <lastBuildDate>Sun, 13 Sep 2026 06:56:14 +1000</lastBuildDate>
+    <item>
+      <title>Focus Radio — 13 september</title>
+      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 13 september, gemaakt met NotebookLM.</description>
+      <pubDate>Sun, 13 Sep 2026 06:45:03 +1000</pubDate>
+      <guid isPermaLink="false">episodes/focus-radio-2026-09-13.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-13.m4a" length="33948040" type="audio/x-m4a"/>
+      <itunes:duration>17:34</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Bitcoin Alpha — Obligatiestress heeft markt in z’n greep</title>
       <description>________________________________
@@ -144,39 +153,6 @@ De koers steeg deze week naar het hoogste punt sinds begin mei. Nét onder de 83
       <guid isPermaLink="false">episodes/focus-radio-2026-09-01.m4a</guid>
       <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-01.m4a" length="32347303" type="audio/x-m4a"/>
       <itunes:duration>16:45</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie?</title>
-      <description>________________________________
-From: Bitcoin Alpha: News &lt;alpha@mg.bitcoinalpha.nl&gt;
-Sent: Monday, August 31, 2026 12:30:38 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
-To: jasper@twelvestories.nl &lt;jasper@twelvestories.nl&gt;
-Subject: Wordt bitcoin interessanter in een door AI ontwrichte economie?
-
-AI maakt de toekomst van bedrijven en overheden onzekerder. Volgens analist J</description>
-      <pubDate>Mon, 31 Aug 2026 20:30:48 +1000</pubDate>
-      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-08-31-1d511f.mp3</guid>
-      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-08-31-1d511f.mp3" length="7581024" type="audio/mpeg"/>
-      <itunes:duration>21:03</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>Bitcoin Alpha — Wordt bitcoin interessanter in een door AI ontwrichte economie? — bespreking</title>
-      <description>AI-gesprek over de editie 'Wordt bitcoin interessanter in een door AI ontwrichte economie?'.</description>
-      <pubDate>Mon, 31 Aug 2026 20:30:48 +1000</pubDate>
-      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-08-31-1d511f-bespreking.m4a</guid>
-      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-08-31-1d511f-bespreking.m4a" length="40489935" type="audio/x-m4a"/>
-      <itunes:duration>20:58</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>Bitcoin Alpha — Bitcoin boekt grootste weekwinst ooit — bespreking</title>
-      <description>AI-gesprek over de editie 'Bitcoin boekt grootste weekwinst ooit'.</description>
-      <pubDate>Mon, 31 Aug 2026 16:47:34 +1000</pubDate>
-      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-08-31-dc5438-bespreking.m4a</guid>
-      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-08-31-dc5438-bespreking.m4a" length="39467638" type="audio/x-m4a"/>
-      <itunes:duration>20:26</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
   </channel>
