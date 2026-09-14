@@ -10,7 +10,22 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Mon, 14 Sep 2026 06:57:58 +1000</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2026 20:25:20 +1000</lastBuildDate>
+    <item>
+      <title>Bitcoin Alpha — Het huis kan verliezen</title>
+      <description>________________________________
+From: Bitcoin Alpha: News &lt;alpha@mg.bitcoinalpha.nl&gt;
+Sent: Monday, September 14, 2026 12:00:44 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
+To: jasper@twelvestories.nl &lt;jasper@twelvestories.nl&gt;
+Subject: Het huis kan verliezen
+
+▶ Beluister dit artikel online Bijdrage van Peter In een casino mag je best winnen. Een mooie avond, wat geluk aan </description>
+      <pubDate>Mon, 14 Sep 2026 20:01:05 +1000</pubDate>
+      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-09-14-a5243f.mp3</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-09-14-a5243f.mp3" length="8380224" type="audio/mpeg"/>
+      <itunes:duration>23:16</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Focus Radio — 14 september</title>
       <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 14 september, gemaakt met NotebookLM.</description>
