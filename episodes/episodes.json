@@ -1,5 +1,13 @@
 [
   {
+    "titel": "Focus Radio — 16 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 16 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-16T06:45:04+10:00",
+    "bestand": "episodes/focus-radio-2026-09-16.m4a",
+    "duur_sec": 769,
+    "bron": "focus-radio"
+  },
+  {
     "titel": "Focus Radio — 15 september",
     "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 15 september, gemaakt met NotebookLM.",
     "datum": "2026-09-15T06:45:04+10:00",
@@ -101,14 +109,6 @@
     "datum": "2026-09-04T19:30:13+10:00",
     "bestand": "episodes/literatuur-2026-09-04-ai-onderwijs-scoping-paper.m4a",
     "duur_sec": 2273,
-    "bron": "literatuur"
-  },
-  {
-    "titel": "Literatuur · Ondersteunende schoolcultuur voor startende leraren (Khezri, 2026)",
-    "beschrijving": "Een mixed-methods studie met interviews onder 27 experts en beginnende leraren en een vragenlijst onder 340 leraren, die een raamwerk voor een ondersteunende schoolcultuur ontwikkelt en toetst met structural equation modeling. Gefaseerde begeleiding, psychosociale zorg, structurele steun, groeigerichte feedback en samen leren hangen samen met minder burn-out en meer werkbetrokkenheid, terwijl gebrek aan institutionele steun en de kloof tussen opleiding en school als oorzaken naar voren komen (Khezri, S., Keyhan, J., & Sameri, M. (2026). Developing and validating a supportive school culture framework for novice teachers. The Journal of Theory and Practice in Teachers Education. https://itt.cfu.ac.ir/article_5149_06304792c1ce27d07fc04a7c87affa16.pdf).",
-    "datum": "2026-09-04T19:30:13+10:00",
-    "bestand": "episodes/literatuur-2026-09-04-schoolcultuur-startende-leraren.m4a",
-    "duur_sec": 3455,
     "bron": "literatuur"
   }
 ]
