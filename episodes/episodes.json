@@ -1,5 +1,13 @@
 [
   {
+    "titel": "Focus Radio — 17 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 17 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-17T06:45:01+10:00",
+    "bestand": "episodes/focus-radio-2026-09-17.m4a",
+    "duur_sec": 1461,
+    "bron": "focus-radio"
+  },
+  {
     "titel": "Focus Radio — 16 september",
     "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 16 september, gemaakt met NotebookLM.",
     "datum": "2026-09-16T06:45:04+10:00",
@@ -102,13 +110,5 @@
     "bestand": "episodes/bitcoin-alpha-2026-09-04-0ef62e-bespreking.m4a",
     "duur_sec": 1209,
     "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Literatuur · AI in het onderwijs, een scoping paper (Van Damme, 2026)",
-    "beschrijving": "Een verkennend literatuuroverzicht van negen hoofdstukken over AI in het onderwijs, dat vijf recente syntheses naast elkaar legt met effecten die uiteenlopen van g = 0,40 tot d = 0,80 en bij alle vijf grote spreiding meldt. De auteur waarschuwt dat die cijfers vooral uit kortdurende interventies komen en noemt de prestatieparadox, waarbij een leerling met AI een beter product aflevert zonder de onderliggende competentie in dezelfde mate te verwerven (Van Damme, D. (2026). Artificiële intelligentie in het onderwijs: Een scoping paper. DVD Educonsult. https://dirkvandammeedu.net/wp-content/uploads/2026/08/AI-in-het-onderwijs-scoping-paper-v260826.pdf).",
-    "datum": "2026-09-04T19:30:13+10:00",
-    "bestand": "episodes/literatuur-2026-09-04-ai-onderwijs-scoping-paper.m4a",
-    "duur_sec": 2273,
-    "bron": "literatuur"
   }
 ]
