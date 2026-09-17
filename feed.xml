@@ -10,7 +10,16 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Thu, 17 Sep 2026 06:57:33 +1000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 07:00:00 +1000</lastBuildDate>
+    <item>
+      <title>Focus Radio — 18 september</title>
+      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 18 september, gemaakt met NotebookLM.</description>
+      <pubDate>Fri, 18 Sep 2026 06:45:00 +1000</pubDate>
+      <guid isPermaLink="false">episodes/focus-radio-2026-09-18.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-18.m4a" length="59745090" type="audio/x-m4a"/>
+      <itunes:duration>30:56</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Focus Radio — 17 september</title>
       <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 17 september, gemaakt met NotebookLM.</description>
@@ -150,15 +159,6 @@ De koers steeg deze week naar het hoogste punt sinds begin mei. Nét onder de 83
       <guid isPermaLink="false">episodes/bitcoin-alpha-2026-09-04-0ef62e.mp3</guid>
       <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-09-04-0ef62e.mp3" length="6105312" type="audio/mpeg"/>
       <itunes:duration>16:57</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>Bitcoin Alpha — De scheidslijn tussen bear en bull — bespreking</title>
-      <description>AI-gesprek over de editie 'De scheidslijn tussen bear en bull'.</description>
-      <pubDate>Fri, 04 Sep 2026 21:01:02 +1000</pubDate>
-      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-09-04-0ef62e-bespreking.m4a</guid>
-      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-09-04-0ef62e-bespreking.m4a" length="38929655" type="audio/x-m4a"/>
-      <itunes:duration>20:09</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
   </channel>

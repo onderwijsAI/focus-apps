@@ -1,5 +1,13 @@
 [
   {
+    "titel": "Focus Radio — 18 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 18 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-18T06:45:00+10:00",
+    "bestand": "episodes/focus-radio-2026-09-18.m4a",
+    "duur_sec": 1856,
+    "bron": "focus-radio"
+  },
+  {
     "titel": "Focus Radio — 17 september",
     "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 17 september, gemaakt met NotebookLM.",
     "datum": "2026-09-17T06:45:01+10:00",
@@ -101,14 +109,6 @@
     "datum": "2026-09-04T21:01:02+10:00",
     "bestand": "episodes/bitcoin-alpha-2026-09-04-0ef62e.mp3",
     "duur_sec": 1017,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — De scheidslijn tussen bear en bull — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'De scheidslijn tussen bear en bull'.",
-    "datum": "2026-09-04T21:01:02+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-04-0ef62e-bespreking.m4a",
-    "duur_sec": 1209,
     "bron": "bitcoin-alpha"
   }
 ]
