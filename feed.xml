@@ -10,7 +10,25 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Fri, 18 Sep 2026 07:00:00 +1000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 11:14:35 +1000</lastBuildDate>
+    <item>
+      <title>Literatuur · Leereffect van generatieve AI (Contractor, 2026)</title>
+      <description>In een gerandomiseerd experiment schreven studenten onder toezicht een analytisch essay over een onbekend onderwerp, met of zonder toegang tot generatieve AI, en maakten daarna zonder hulp toetsen, meteen en een week later. Toegang tot AI verhoogde de toetsscore met 0,27 standaarddeviatie en die winst stond er een week later nog, terwijl de kwaliteit van de essays tijdens het gebruik nauwelijks veranderde (Contractor, Z., &amp; Reyes, G. (2026). Experimental evidence on the learning impact of generative AI. arXiv. https://arxiv.org/abs/2607.08849).</description>
+      <pubDate>Fri, 18 Sep 2026 11:14:32 +1000</pubDate>
+      <guid isPermaLink="false">episodes/literatuur-2026-09-18-leereffect-generatieve-ai.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/literatuur-2026-09-18-leereffect-generatieve-ai.m4a" length="36041307" type="audio/x-m4a"/>
+      <itunes:duration>18:40</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>Literatuur · Informeel formatief handelen in Nieuw-Zeeland (Pearce, 2026)</title>
+      <description>Een etnografische casestudie bij drie ervaren leerkrachten op basisscholen in Auckland laat zien dat zij informeel formatief handelen breed inzetten, voor het bijsturen van hun instructie en voor het welzijn van leerlingen. De druk om leren te meten en te kwantificeren knijpt die praktijk af, en dat levert spanning op zodra externe eisen botsen met wat de leerkrachten zelf goed onderwijs vinden (Pearce, T. C. (2026). A productive struggle: The enactment of informal formative assessment in New Zealand primary school classrooms [Proefschrift, University of Auckland]. https://researchspace.auckland.ac.nz/server/api/core/bitstreams/ba0b99f3-14f0-4650-894f-31cc04420f27/content).</description>
+      <pubDate>Fri, 18 Sep 2026 11:14:31 +1000</pubDate>
+      <guid isPermaLink="false">episodes/literatuur-2026-09-18-formatief-handelen-nieuw-zeeland.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/literatuur-2026-09-18-formatief-handelen-nieuw-zeeland.m4a" length="34653476" type="audio/x-m4a"/>
+      <itunes:duration>17:57</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Focus Radio — 18 september</title>
       <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 18 september, gemaakt met NotebookLM.</description>
