@@ -10,7 +10,16 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Fri, 18 Sep 2026 23:07:42 +1000</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2026 08:48:00 +1000</lastBuildDate>
+    <item>
+      <title>Focus Radio — 20 september</title>
+      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 20 september, gemaakt met NotebookLM.</description>
+      <pubDate>Sun, 20 Sep 2026 06:45:27 +1000</pubDate>
+      <guid isPermaLink="false">episodes/focus-radio-2026-09-20.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-20.m4a" length="52947592" type="audio/x-m4a"/>
+      <itunes:duration>27:25</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Bitcoin Alpha — Waarom $60.000 een logische bodemzone is</title>
       <description>________________________________
@@ -144,63 +153,6 @@ Geen vuurwerk op de bitcoinmarkt deze week. Alle aandacht ging uit naar olie, in
       <guid isPermaLink="false">episodes/bitcoin-alpha-2026-09-11-4076e7-bespreking.m4a</guid>
       <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-09-11-4076e7-bespreking.m4a" length="45134520" type="audio/x-m4a"/>
       <itunes:duration>23:22</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>Focus Radio — 11 september</title>
-      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 11 september, gemaakt met NotebookLM.</description>
-      <pubDate>Fri, 11 Sep 2026 13:32:49 +1000</pubDate>
-      <guid isPermaLink="false">episodes/focus-radio-2026-09-11.m4a</guid>
-      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-11.m4a" length="23165939" type="audio/x-m4a"/>
-      <itunes:duration>11:59</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>Bitcoin Alpha — DNB schreef per ongeluk een advertentie voor bitcoin</title>
-      <description>________________________________
-From: Bitcoin Alpha: News &lt;alpha@mg.bitcoinalpha.nl&gt;
-Sent: Monday, September 7, 2026 11:00:44 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
-To: jasper@twelvestories.nl &lt;jasper@twelvestories.nl&gt;
-Subject: DNB schreef per ongeluk een advertentie voor bitcoin
-
-DNB verplaatst goud van Amerika naar Londen. Wat zegt die operatie over geopolitiek, c</description>
-      <pubDate>Mon, 07 Sep 2026 19:00:54 +1000</pubDate>
-      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-09-07-8a578d.mp3</guid>
-      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-09-07-8a578d.mp3" length="6721200" type="audio/mpeg"/>
-      <itunes:duration>18:40</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>Focus Radio — 6 september</title>
-      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 6 september, gemaakt met NotebookLM.</description>
-      <pubDate>Sun, 06 Sep 2026 14:45:05 +1000</pubDate>
-      <guid isPermaLink="false">episodes/focus-radio-2026-09-06.m4a</guid>
-      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-06.m4a" length="46735256" type="audio/x-m4a"/>
-      <itunes:duration>24:12</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>Focus Radio — 5 september</title>
-      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 5 september, gemaakt met NotebookLM.</description>
-      <pubDate>Sat, 05 Sep 2026 14:45:01 +1000</pubDate>
-      <guid isPermaLink="false">episodes/focus-radio-2026-09-05.m4a</guid>
-      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-05.m4a" length="38820471" type="audio/x-m4a"/>
-      <itunes:duration>20:06</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>Bitcoin Alpha — De scheidslijn tussen bear en bull</title>
-      <description>________________________________
-From: Bitcoin Alpha: Markets &lt;alpha@mg.bitcoinalpha.nl&gt;
-Sent: Friday, September 4, 2026 1:00:46 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
-To: jasper@twelvestories.nl &lt;jasper@twelvestories.nl&gt;
-Subject: De scheidslijn tussen bear en bull
-
-De koers steeg deze week naar het hoogste punt sinds begin mei. Nét onder de 83.000 dollar die nodig i</description>
-      <pubDate>Fri, 04 Sep 2026 21:01:02 +1000</pubDate>
-      <guid isPermaLink="false">episodes/bitcoin-alpha-2026-09-04-0ef62e.mp3</guid>
-      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/bitcoin-alpha-2026-09-04-0ef62e.mp3" length="6105312" type="audio/mpeg"/>
-      <itunes:duration>16:57</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
   </channel>

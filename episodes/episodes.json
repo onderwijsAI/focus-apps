@@ -1,5 +1,45 @@
 [
   {
+    "titel": "Focus Radio — 20 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 20 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-20T06:45:27+10:00",
+    "bestand": "episodes/focus-radio-2026-09-20.m4a",
+    "duur_sec": 1645,
+    "bron": "focus-radio"
+  },
+  {
+    "titel": "Bitcoin Alpha — Waarom $60.000 een logische bodemzone is",
+    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Friday, September 18, 2026 2:32:26 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Waarom $60.000 een logische bodemzone is\r\n\r\nDeze week verdwenen twee onzekerheden. De beslissing over de Clarity-wet en de rente lijken op ",
+    "datum": "2026-09-18T22:32:37+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-18-5b6905.mp3",
+    "duur_sec": 1278,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — Waarom $60.000 een logische bodemzone is — bespreking",
+    "beschrijving": "AI-gesprek over de editie 'Waarom $60.000 een logische bodemzone is'.",
+    "datum": "2026-09-18T22:32:37+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-18-5b6905-bespreking.m4a",
+    "duur_sec": 1320,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Literatuur · Leereffect van generatieve AI (Contractor, 2026)",
+    "beschrijving": "In een gerandomiseerd experiment schreven studenten onder toezicht een analytisch essay over een onbekend onderwerp, met of zonder toegang tot generatieve AI, en maakten daarna zonder hulp toetsen, meteen en een week later. Toegang tot AI verhoogde de toetsscore met 0,27 standaarddeviatie en die winst stond er een week later nog, terwijl de kwaliteit van de essays tijdens het gebruik nauwelijks veranderde (Contractor, Z., & Reyes, G. (2026). Experimental evidence on the learning impact of generative AI. arXiv. https://arxiv.org/abs/2607.08849).",
+    "datum": "2026-09-18T11:14:32+10:00",
+    "bestand": "episodes/literatuur-2026-09-18-leereffect-generatieve-ai.m4a",
+    "duur_sec": 1120,
+    "bron": "literatuur"
+  },
+  {
+    "titel": "Literatuur · Informeel formatief handelen in Nieuw-Zeeland (Pearce, 2026)",
+    "beschrijving": "Een etnografische casestudie bij drie ervaren leerkrachten op basisscholen in Auckland laat zien dat zij informeel formatief handelen breed inzetten, voor het bijsturen van hun instructie en voor het welzijn van leerlingen. De druk om leren te meten en te kwantificeren knijpt die praktijk af, en dat levert spanning op zodra externe eisen botsen met wat de leerkrachten zelf goed onderwijs vinden (Pearce, T. C. (2026). A productive struggle: The enactment of informal formative assessment in New Zealand primary school classrooms [Proefschrift, University of Auckland]. https://researchspace.auckland.ac.nz/server/api/core/bitstreams/ba0b99f3-14f0-4650-894f-31cc04420f27/content).",
+    "datum": "2026-09-18T11:14:31+10:00",
+    "bestand": "episodes/literatuur-2026-09-18-formatief-handelen-nieuw-zeeland.m4a",
+    "duur_sec": 1077,
+    "bron": "literatuur"
+  },
+  {
     "titel": "Focus Radio — 18 september",
     "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 18 september, gemaakt met NotebookLM.",
     "datum": "2026-09-18T06:45:00+10:00",
@@ -69,78 +109,6 @@
     "datum": "2026-09-11T19:30:36+10:00",
     "bestand": "episodes/bitcoin-alpha-2026-09-11-4076e7-bespreking.m4a",
     "duur_sec": 1402,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Focus Radio — 11 september",
-    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 11 september, gemaakt met NotebookLM.",
-    "datum": "2026-09-11T13:32:49+10:00",
-    "bestand": "episodes/focus-radio-2026-09-11.m4a",
-    "duur_sec": 719,
-    "bron": "focus-radio"
-  },
-  {
-    "titel": "Bitcoin Alpha — DNB schreef per ongeluk een advertentie voor bitcoin",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: News <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, September 7, 2026 11:00:44 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: DNB schreef per ongeluk een advertentie voor bitcoin\r\n\r\nDNB verplaatst goud van Amerika naar Londen. Wat zegt die operatie over geopolitiek, c",
-    "datum": "2026-09-07T19:00:54+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-07-8a578d.mp3",
-    "duur_sec": 1120,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Focus Radio — 6 september",
-    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 6 september, gemaakt met NotebookLM.",
-    "datum": "2026-09-06T14:45:05+10:00",
-    "bestand": "episodes/focus-radio-2026-09-06.m4a",
-    "duur_sec": 1452,
-    "bron": "focus-radio"
-  },
-  {
-    "titel": "Focus Radio — 5 september",
-    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 5 september, gemaakt met NotebookLM.",
-    "datum": "2026-09-05T14:45:01+10:00",
-    "bestand": "episodes/focus-radio-2026-09-05.m4a",
-    "duur_sec": 1206,
-    "bron": "focus-radio"
-  },
-  {
-    "titel": "Bitcoin Alpha — De scheidslijn tussen bear en bull",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Friday, September 4, 2026 1:00:46 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: De scheidslijn tussen bear en bull\r\n\r\nDe koers steeg deze week naar het hoogste punt sinds begin mei. Nét onder de 83.000 dollar die nodig i",
-    "datum": "2026-09-04T21:01:02+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-04-0ef62e.mp3",
-    "duur_sec": 1017,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Literatuur · Informeel formatief handelen in Nieuw-Zeeland (Pearce, 2026)",
-    "beschrijving": "Een etnografische casestudie bij drie ervaren leerkrachten op basisscholen in Auckland laat zien dat zij informeel formatief handelen breed inzetten, voor het bijsturen van hun instructie en voor het welzijn van leerlingen. De druk om leren te meten en te kwantificeren knijpt die praktijk af, en dat levert spanning op zodra externe eisen botsen met wat de leerkrachten zelf goed onderwijs vinden (Pearce, T. C. (2026). A productive struggle: The enactment of informal formative assessment in New Zealand primary school classrooms [Proefschrift, University of Auckland]. https://researchspace.auckland.ac.nz/server/api/core/bitstreams/ba0b99f3-14f0-4650-894f-31cc04420f27/content).",
-    "datum": "2026-09-18T11:14:31+10:00",
-    "bestand": "episodes/literatuur-2026-09-18-formatief-handelen-nieuw-zeeland.m4a",
-    "duur_sec": 1077,
-    "bron": "literatuur"
-  },
-  {
-    "titel": "Literatuur · Leereffect van generatieve AI (Contractor, 2026)",
-    "beschrijving": "In een gerandomiseerd experiment schreven studenten onder toezicht een analytisch essay over een onbekend onderwerp, met of zonder toegang tot generatieve AI, en maakten daarna zonder hulp toetsen, meteen en een week later. Toegang tot AI verhoogde de toetsscore met 0,27 standaarddeviatie en die winst stond er een week later nog, terwijl de kwaliteit van de essays tijdens het gebruik nauwelijks veranderde (Contractor, Z., & Reyes, G. (2026). Experimental evidence on the learning impact of generative AI. arXiv. https://arxiv.org/abs/2607.08849).",
-    "datum": "2026-09-18T11:14:32+10:00",
-    "bestand": "episodes/literatuur-2026-09-18-leereffect-generatieve-ai.m4a",
-    "duur_sec": 1120,
-    "bron": "literatuur"
-  },
-  {
-    "titel": "Bitcoin Alpha — Waarom $60.000 een logische bodemzone is",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Friday, September 18, 2026 2:32:26 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Waarom $60.000 een logische bodemzone is\r\n\r\nDeze week verdwenen twee onzekerheden. De beslissing over de Clarity-wet en de rente lijken op ",
-    "datum": "2026-09-18T22:32:37+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-18-5b6905.mp3",
-    "duur_sec": 1278,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Waarom $60.000 een logische bodemzone is — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'Waarom $60.000 een logische bodemzone is'.",
-    "datum": "2026-09-18T22:32:37+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-18-5b6905-bespreking.m4a",
-    "duur_sec": 1320,
     "bron": "bitcoin-alpha"
   }
 ]
