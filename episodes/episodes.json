@@ -1,5 +1,13 @@
 [
   {
+    "titel": "Focus Radio — 21 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 21 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-21T06:45:04+10:00",
+    "bestand": "episodes/focus-radio-2026-09-21.m4a",
+    "duur_sec": 644,
+    "bron": "focus-radio"
+  },
+  {
     "titel": "Focus Radio — 20 september",
     "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 20 september, gemaakt met NotebookLM.",
     "datum": "2026-09-20T06:45:27+10:00",
@@ -101,14 +109,6 @@
     "datum": "2026-09-11T19:30:36+10:00",
     "bestand": "episodes/bitcoin-alpha-2026-09-11-4076e7.mp3",
     "duur_sec": 1008,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Obligatiestress heeft markt in z’n greep — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'Obligatiestress heeft markt in z’n greep'.",
-    "datum": "2026-09-11T19:30:36+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-11-4076e7-bespreking.m4a",
-    "duur_sec": 1402,
     "bron": "bitcoin-alpha"
   }
 ]
