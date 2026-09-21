@@ -1,5 +1,45 @@
 [
   {
+    "titel": "Focus Radio — 22 september",
+    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 22 september, gemaakt met NotebookLM.",
+    "datum": "2026-09-22T06:45:05+10:00",
+    "bestand": "episodes/focus-radio-2026-09-22.m4a",
+    "duur_sec": 1310,
+    "bron": "focus-radio"
+  },
+  {
+    "titel": "Bitcoin Alpha — Box 3 gaat terug naar de tekentafel",
+    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: News <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, September 21, 2026 12:30:24 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Box 3 gaat terug naar de tekentafel\r\n\r\n▶ Beluister dit artikel online Bijdrage van Erik Op Prinsjesdag liet het kabinet weten dat er geen keu",
+    "datum": "2026-09-21T20:30:34+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-21-c44c53.mp3",
+    "duur_sec": 1175,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — Box 3 gaat terug naar de tekentafel — bespreking",
+    "beschrijving": "AI-gesprek over de editie 'Box 3 gaat terug naar de tekentafel'.",
+    "datum": "2026-09-21T20:30:34+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-21-c44c53-bespreking.m4a",
+    "duur_sec": 1435,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — De handrem mag eraf",
+    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, September 21, 2026 9:51:21 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: De handrem mag eraf\r\n\r\nVannacht had bitcoin voor het eerst sinds november 2025 een weekslot boven het 50-weekse gemiddelde. Wat betekent di",
+    "datum": "2026-09-21T17:51:28+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-21-a0fc91.mp3",
+    "duur_sec": 352,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — De handrem mag eraf — bespreking",
+    "beschrijving": "AI-gesprek over de editie 'De handrem mag eraf'.",
+    "datum": "2026-09-21T17:51:28+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-21-a0fc91-bespreking.m4a",
+    "duur_sec": 1245,
+    "bron": "bitcoin-alpha"
+  },
+  {
     "titel": "Focus Radio — 21 september",
     "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 21 september, gemaakt met NotebookLM.",
     "datum": "2026-09-21T06:45:04+10:00",
@@ -70,77 +110,5 @@
     "bestand": "episodes/focus-radio-2026-09-16.m4a",
     "duur_sec": 769,
     "bron": "focus-radio"
-  },
-  {
-    "titel": "Focus Radio — 15 september",
-    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 15 september, gemaakt met NotebookLM.",
-    "datum": "2026-09-15T06:45:04+10:00",
-    "bestand": "episodes/focus-radio-2026-09-15.m4a",
-    "duur_sec": 1123,
-    "bron": "focus-radio"
-  },
-  {
-    "titel": "Bitcoin Alpha — Het huis kan verliezen",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: News <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, September 14, 2026 12:00:44 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Het huis kan verliezen\r\n\r\n▶ Beluister dit artikel online Bijdrage van Peter In een casino mag je best winnen. Een mooie avond, wat geluk aan ",
-    "datum": "2026-09-14T20:01:05+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-14-a5243f.mp3",
-    "duur_sec": 1396,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Focus Radio — 14 september",
-    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 14 september, gemaakt met NotebookLM.",
-    "datum": "2026-09-14T06:45:05+10:00",
-    "bestand": "episodes/focus-radio-2026-09-14.m4a",
-    "duur_sec": 1281,
-    "bron": "focus-radio"
-  },
-  {
-    "titel": "Focus Radio — 13 september",
-    "beschrijving": "Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 13 september, gemaakt met NotebookLM.",
-    "datum": "2026-09-13T06:45:03+10:00",
-    "bestand": "episodes/focus-radio-2026-09-13.m4a",
-    "duur_sec": 1054,
-    "bron": "focus-radio"
-  },
-  {
-    "titel": "Bitcoin Alpha — Obligatiestress heeft markt in z’n greep",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Friday, September 11, 2026 11:30:21 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Obligatiestress heeft markt in z’n greep\r\n\r\nGeen vuurwerk op de bitcoinmarkt deze week. Alle aandacht ging uit naar olie, inflatie, rente ",
-    "datum": "2026-09-11T19:30:36+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-11-4076e7.mp3",
-    "duur_sec": 1008,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — De handrem mag eraf",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, September 21, 2026 9:51:21 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: De handrem mag eraf\r\n\r\nVannacht had bitcoin voor het eerst sinds november 2025 een weekslot boven het 50-weekse gemiddelde. Wat betekent di",
-    "datum": "2026-09-21T17:51:28+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-21-a0fc91.mp3",
-    "duur_sec": 352,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — De handrem mag eraf — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'De handrem mag eraf'.",
-    "datum": "2026-09-21T17:51:28+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-21-a0fc91-bespreking.m4a",
-    "duur_sec": 1245,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Box 3 gaat terug naar de tekentafel",
-    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: News <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, September 21, 2026 12:30:24 PM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: Box 3 gaat terug naar de tekentafel\r\n\r\n▶ Beluister dit artikel online Bijdrage van Erik Op Prinsjesdag liet het kabinet weten dat er geen keu",
-    "datum": "2026-09-21T20:30:34+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-21-c44c53.mp3",
-    "duur_sec": 1175,
-    "bron": "bitcoin-alpha"
-  },
-  {
-    "titel": "Bitcoin Alpha — Box 3 gaat terug naar de tekentafel — bespreking",
-    "beschrijving": "AI-gesprek over de editie 'Box 3 gaat terug naar de tekentafel'.",
-    "datum": "2026-09-21T20:30:34+10:00",
-    "bestand": "episodes/bitcoin-alpha-2026-09-21-c44c53-bespreking.m4a",
-    "duur_sec": 1435,
-    "bron": "bitcoin-alpha"
   }
 ]
