@@ -110,5 +110,21 @@
     "bestand": "episodes/bitcoin-alpha-2026-09-11-4076e7.mp3",
     "duur_sec": 1008,
     "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — De handrem mag eraf",
+    "beschrijving": "________________________________\r\nFrom: Bitcoin Alpha: Markets <alpha@mg.bitcoinalpha.nl>\r\nSent: Monday, September 21, 2026 9:51:21 AM (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna\r\nTo: jasper@twelvestories.nl <jasper@twelvestories.nl>\r\nSubject: De handrem mag eraf\r\n\r\nVannacht had bitcoin voor het eerst sinds november 2025 een weekslot boven het 50-weekse gemiddelde. Wat betekent di",
+    "datum": "2026-09-21T17:51:28+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-21-a0fc91.mp3",
+    "duur_sec": 352,
+    "bron": "bitcoin-alpha"
+  },
+  {
+    "titel": "Bitcoin Alpha — De handrem mag eraf — bespreking",
+    "beschrijving": "AI-gesprek over de editie 'De handrem mag eraf'.",
+    "datum": "2026-09-21T17:51:28+10:00",
+    "bestand": "episodes/bitcoin-alpha-2026-09-21-a0fc91-bespreking.m4a",
+    "duur_sec": 1245,
+    "bron": "bitcoin-alpha"
   }
 ]
