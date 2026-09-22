@@ -10,7 +10,16 @@
     <itunes:image href="https://onderwijsai.github.io/focus-apps/cover.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <lastBuildDate>Tue, 22 Sep 2026 06:56:40 +1000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 07:26:13 +1000</lastBuildDate>
+    <item>
+      <title>Focus Radio — 23 september</title>
+      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 23 september, gemaakt met NotebookLM.</description>
+      <pubDate>Wed, 23 Sep 2026 06:45:06 +1000</pubDate>
+      <guid isPermaLink="false">episodes/focus-radio-2026-09-23.m4a</guid>
+      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-23.m4a" length="39395176" type="audio/x-m4a"/>
+      <itunes:duration>20:23</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>Focus Radio — 22 september</title>
       <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 22 september, gemaakt met NotebookLM.</description>
@@ -144,15 +153,6 @@ Deze week verdwenen twee onzekerheden. De beslissing over de Clarity-wet en de r
       <guid isPermaLink="false">episodes/focus-radio-2026-09-17.m4a</guid>
       <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-17.m4a" length="47032694" type="audio/x-m4a"/>
       <itunes:duration>24:21</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>Focus Radio — 16 september</title>
-      <description>Dagelijks nieuwsoverzicht (AI, onderwijs, wetenschap) van 16 september, gemaakt met NotebookLM.</description>
-      <pubDate>Wed, 16 Sep 2026 06:45:04 +1000</pubDate>
-      <guid isPermaLink="false">episodes/focus-radio-2026-09-16.m4a</guid>
-      <enclosure url="https://onderwijsai.github.io/focus-apps/episodes/focus-radio-2026-09-16.m4a" length="24779376" type="audio/x-m4a"/>
-      <itunes:duration>12:49</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
     </item>
   </channel>
